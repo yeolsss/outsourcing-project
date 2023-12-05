@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import sampleImg from '../../assets/sampleImg.jpeg';
 
 function TogetherList() {
   const initialState = [
@@ -7,7 +8,7 @@ function TogetherList() {
       title: '제목1',
       content: '내용1',
       createdAt: '생성시간??',
-      imgPath: './이미지?',
+      imgPath: sampleImg,
       cost: 2,
       togetherNum: 2,
     },
@@ -16,7 +17,7 @@ function TogetherList() {
       title: '제목2',
       content: '내용2',
       createdAt: '생성시간??',
-      imgPath: './이미지?',
+      imgPath: sampleImg,
       cost: 2,
       togetherNum: 2,
     },
@@ -25,7 +26,7 @@ function TogetherList() {
       title: '제목3',
       content: '내용3',
       createdAt: '생성시간??',
-      imgPath: './이미지?',
+      imgPath: sampleImg,
       cost: 2,
       togetherNum: 2,
     },
@@ -39,7 +40,7 @@ function TogetherList() {
           return (
             <li>
               <div>
-                <img src="" alt="" />
+                <img src={element.imgPath} alt={element.title} />
               </div>
               <div>
                 <h3>{element.title}</h3>
