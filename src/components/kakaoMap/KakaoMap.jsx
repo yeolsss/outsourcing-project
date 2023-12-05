@@ -8,14 +8,14 @@ function KakaoMap() {
     <>
       <Map
         center={{ lat: 37.5566803113882, lng: 126.904501286522 }} // 지도의 중심 좌표
-        style={{ width: '100%', height: '50rem' }} // 지도 크기
+        style={{ width: '50%', height: '100%' }} // 지도 크기
         level={level} // 지도 확대 레벨
       >
         <MapMarker
           position={{ lat: 37.5566803113882, lng: 126.904501286522 }}
         />
-        <button onClick={() => setLevel(level + 1)}>-</button>
-        <button onClick={() => setLevel(level - 1)}>+</button>
+        {/*<button onClick={() => setLevel(level + 1)}>-</button>
+        <button onClick={() => setLevel(level - 1)}>+</button>*/}
       </Map>
     </>
   );
