@@ -1,7 +1,12 @@
 import React from 'react';
+import KakaoMap from '../components/kakaoMap/KakaoMap';
 
 function Home() {
-  return <div>Home</div>;
+  return (
+    <>
+      <KakaoMap />
+    </>
+  );
 }
 
 export default Home;
