@@ -13,9 +13,7 @@ function Home() {
         <AddBtn onClick={() => setIsAdding(!isAdding)}>새 게더 등록</AddBtn>
         {isAdding ? <AddForm /> : <TogetherList />}
       </StLeftContainer>
-      <div>
-        <KakaoMap />
-      </div>
+      <KakaoMap />
     </StMainContainer>
   );
 }
@@ -25,6 +23,7 @@ const AddBtn = styled.button`
   border: 1px solid black;
 `;
 const StMainContainer = styled.div`
+  height: 100%;
   background-color: pink;
   display: flex;
   max-height: calc(100% - 8rem);

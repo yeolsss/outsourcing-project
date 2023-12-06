@@ -1,8 +1,10 @@
-
 import { configureStore } from '@reduxjs/toolkit';
+import position from './module/position.slice';
 
 const store = configureStore({
-    reducer:{}
+  reducer: {
+    position,
+  },
 });
 
 export default store;
