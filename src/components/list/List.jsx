@@ -31,7 +31,7 @@ export default List;
 
 const StLi = styled.li`
   position: relative;
-  width: 20%;
+  width: 33.33%;
 `;
 
 const StImg = styled.img`

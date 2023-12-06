@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
-import logoImage from '../../assets/logo.png';
-import CustomMapMarker from './customMapMarker/CustomMapMarker';
 import { useDispatch, useSelector } from 'react-redux';
+import locationPin from '../../assets/location-pin.png';
 import {
   __setAddress,
   selectPosition,
 } from '../../redux/module/position.slice';
+import CustomMapMarker from './customMapMarker/CustomMapMarker';
 
 function KakaoMap() {
   const payload = useSelector(selectPosition);
@@ -41,10 +41,10 @@ function KakaoMap() {
             position={marker} // 마커를 표시할 위치
             onClick={() => setIsOpen(!isOpen)}
             image={{
-              src: logoImage, // 마커이미지의 주소입니다
+              src: locationPin, // 마커이미지의 주소입니다
               size: {
-                width: 60,
-                height: 60,
+                width: 36,
+                height: 40,
               },
             }}
           >
