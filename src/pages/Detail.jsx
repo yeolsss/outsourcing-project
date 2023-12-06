@@ -23,4 +23,5 @@ const DetailContainer = styled.div`
   width: 96rem;
   height: 130.5rem;
   padding: 5.3rem;
+  margin: auto;
 `;

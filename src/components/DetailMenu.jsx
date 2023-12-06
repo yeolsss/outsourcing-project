@@ -20,6 +20,10 @@ const StDetailMenuContainer = styled.div`
   width: 20.4rem;
   height: 72rem;
   background-color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 2.6rem;
 `;
 
 const StDetailShare = styled.button`
