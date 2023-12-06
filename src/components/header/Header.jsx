@@ -8,7 +8,7 @@ function Header() {
     <StContainer>
       <StLogoContainer>
         <StLogoImg src={LogoImg} alt="투게더로고" />
-        <h1>Together</h1>
+        <StH1>Together</StH1>
       </StLogoContainer>
       <div>
         <Link to={'/'}>Home</Link>
@@ -31,7 +31,14 @@ const StLogoContainer = styled.div`
 `;
 
 const StLogoImg = styled.img`
-  width: 6rem;
+  width: 2.5rem;
+`;
+
+const StH1 = styled.h1`
+  font-size: 2.5rem;
+  padding-left: 0.4rem;
+  font-style: italic;
+  color: #353535;
 `;
 
 export default Header;
