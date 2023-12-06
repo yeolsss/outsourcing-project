@@ -37,5 +37,6 @@ const StMainContainer = styled.div`
 const StLeftContainer = styled.div`
   background-color: lightskyblue;
   width: 50%;
+  /* height: 100%; */
   overflow-y: scroll;
 `;
