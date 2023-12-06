@@ -30,6 +30,8 @@ const StMainContainer = styled.div`
   background-color: pink;
   display: flex;
   flex-direction: row;
+  width: 100%;
+  height: 100%;
 `;
 
 const StLeftContainer = styled.div`

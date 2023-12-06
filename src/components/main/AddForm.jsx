@@ -1,7 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { styled } from 'styled-components';
 
 function AddForm() {
+  const [isImgSelected, setIsImgSelected] = useState(false);
+  const [imgInputValue, setImgInputValue] = useState(null);
+
+  const addImgHandler = (e) => {
+    setImgInputValue(e.target.files[0]);
+    setIsImgSelected(!isImgSelected);
+  };
   return (
     <StOuterFrame>
       <StAddFormContainer>
@@ -21,10 +28,20 @@ function AddForm() {
             비밀번호 <input type="password" />
           </StPassword>
           <StImage>
-            {/* <input type='file'/> */}
             사진등록
-            <label htmlFor="profileImg">+</label>
-            <input type="file" accept="image/*" id="profileImg" />
+            <label htmlFor="profileImg">
+              {isImgSelected ? (
+                <StImgSlelctedText>사진 1개 선택 완료</StImgSlelctedText>
+              ) : (
+                <span>+</span>
+              )}
+            </label>
+            <input
+              type="file"
+              accept="image/*"
+              id="profileImg"
+              onChange={addImgHandler}
+            />
           </StImage>
           <StTitle>
             제목
@@ -159,7 +176,7 @@ const StImage = styled.p`
   }
   label {
     color: #0095f6;
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-weight: 800;
     cursor: pointer;
   }
@@ -178,4 +195,9 @@ const StContent = styled.textarea`
   outline: none;
   padding: 20px;
   resize: none;
+`;
+
+const StImgSlelctedText = styled.span`
+  font-size: 1.5rem;
+  font-weight: normal;
 `;
