@@ -60,22 +60,27 @@ export const GlobalStyle = createGlobalStyle`
   div, section, header, footer, aside, article, nav, main, ul, li, a, p, h1, h2, h3, h4, h5, h6, span, input, button, form, label, img, textarea, select, option, table, tbody, thead, tr, td, th, dl, dt, dd, strong, em, i, b, textarea, select, option, textarea, select, option, textarea, select, option {
     box-sizing: border-box;
   }
+
   button {
     cursor: pointer;
     background-color: unset;
     border: none;
   }
+
   /* */
   html {
     font-size: 62.5%;
   }
 
   body {
-  }
-  #root {
     height: 100vh;
     width: 100vw;
     display: flex;
+  }
+
+  #root {
+    height: inherit;
+    width: inherit;
   }
 
 
