@@ -14,8 +14,6 @@ function KakaoMap() {
         <MapMarker
           position={{ lat: 37.5566803113882, lng: 126.904501286522 }}
         />
-        {/*<button onClick={() => setLevel(level + 1)}>-</button>
-        <button onClick={() => setLevel(level - 1)}>+</button>*/}
       </Map>
     </>
   );
