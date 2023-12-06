@@ -9,10 +9,9 @@ import {
 } from '../../redux/module/position.slice';
 
 function KakaoMap() {
-  const payload = useSelector(selectPosition);
+  const position = useSelector(selectPosition);
   const [isOpen, setIsOpen] = useState(false);
-  const [isVisible, setIsVisible] = useState(true);
-  const [marker, setMarker] = useState(payload);
+  const [marker, setMarker] = useState(position);
 
   const dispatch = useDispatch();
 
@@ -33,21 +32,19 @@ function KakaoMap() {
         level={5} // 지도 확대 레벨
         onClick={(e, mouseEvent) => handleOnClickPosition(e, mouseEvent)}
       >
-        {isVisible && (
-          <MapMarker
-            position={marker} // 마커를 표시할 위치
-            onClick={() => setIsOpen(!isOpen)}
-            image={{
-              src: logoImage, // 마커이미지의 주소입니다
-              size: {
-                width: 60,
-                height: 60,
-              },
-            }}
-          >
-            {isOpen && <CustomMapMarker />}
-          </MapMarker>
-        )}
+        <MapMarker
+          position={marker} // 마커를 표시할 위치
+          onClick={() => setIsOpen(!isOpen)}
+          image={{
+            src: logoImage, // 마커이미지의 주소입니다
+            size: {
+              width: 60,
+              height: 60,
+            },
+          }}
+        >
+          {isOpen && <CustomMapMarker />}
+        </MapMarker>
       </Map>
     </>
   );
