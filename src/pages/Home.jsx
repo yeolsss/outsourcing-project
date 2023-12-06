@@ -24,13 +24,12 @@ const AddBtn = styled.button`
 `;
 const StMainContainer = styled.div`
   height: 100%;
-  background-color: pink;
+
   display: flex;
   max-height: calc(100% - 8rem);
 `;
 
 const StLeftContainer = styled.div`
-  background-color: lightskyblue;
   width: 50%;
   height: calc(100vh - 8rem);
   overflow-y: scroll;
