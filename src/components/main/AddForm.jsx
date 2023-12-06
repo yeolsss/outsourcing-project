@@ -7,7 +7,7 @@ function AddForm() {
 
   const addImgHandler = (e) => {
     setImgInputValue(e.target.files[0]);
-    setIsImgSelected(!isImgSelected);
+    setIsImgSelected(true);
   };
   return (
     <StOuterFrame>
