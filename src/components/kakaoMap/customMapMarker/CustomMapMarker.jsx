@@ -10,6 +10,7 @@ const CustomMapMarker = () => {
       <div>위도: {lat}</div>
       <div>경도: {lng}</div>
       <div>주소: {address}</div>
+      <button></button>
     </Container>
   );
 };
