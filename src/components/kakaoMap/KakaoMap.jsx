@@ -9,13 +9,9 @@ import {
 import CustomMapMarker from './customMapMarker/CustomMapMarker';
 
 function KakaoMap() {
-  const payload = useSelector(selectPosition);
+  const position = useSelector(selectPosition);
   const [isOpen, setIsOpen] = useState(false);
-  const [isVisible, setIsVisible] = useState(true);
-  const [marker, setMarker] = useState({
-    lat: 37.5023262,
-    lng: 127.0444546,
-  });
+  const [marker, setMarker] = useState(position);
 
   const dispatch = useDispatch();
 
