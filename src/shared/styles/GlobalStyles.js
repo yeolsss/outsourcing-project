@@ -72,6 +72,11 @@ export const GlobalStyle = createGlobalStyle`
 
   body {
   }
+  #root {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+  }
 
 
 `;
