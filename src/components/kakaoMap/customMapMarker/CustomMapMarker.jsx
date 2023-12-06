@@ -4,12 +4,12 @@ import { useSelector } from 'react-redux';
 import { selectPosition } from '../../../redux/module/position.slice';
 
 const CustomMapMarker = () => {
-  const { payload } = useSelector(selectPosition);
+  const { lat, lng, address } = useSelector(selectPosition);
   return (
     <Container>
-      <div>위도: {payload.lat}</div>
-      <div>경도: {payload.lng}</div>
-      <div>주소: {payload.address}</div>
+      <div>위도: {lat}</div>
+      <div>경도: {lng}</div>
+      <div>주소: {address}</div>
     </Container>
   );
 };
