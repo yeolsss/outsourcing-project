@@ -1,32 +1,29 @@
 import React, { useState } from 'react';
 import { styled } from 'styled-components';
+import KakaoMap from '../components/kakaoMap/KakaoMap';
 import AddForm from '../components/main/AddForm';
 
 function Home() {
   const [isAdding, setIsAdding] = useState(false);
 
   return (
-  <StMainContainer>
-    <AddBtn onClick={()=> setIsAdding(!isAdding)}>새 게더 등록</AddBtn>
-    <StLeftContainer>
-      {isAdding? (
-        <AddForm />
-      ) : (
-        <div>리스트영역</div>
-      )}
-
-    </StLeftContainer>
-    <div>
-      지도영역
-    </div>
-  </StMainContainer>)
+    <StMainContainer>
+      <AddBtn onClick={() => setIsAdding(!isAdding)}>새 게더 등록</AddBtn>
+      <StLeftContainer>
+        {isAdding ? <AddForm /> : <div>리스트영역</div>}
+      </StLeftContainer>
+      <div>
+        <KakaoMap />
+      </div>
+    </StMainContainer>
+  );
 }
 
 export default Home;
 
 const AddBtn = styled.button`
-background-color: yellow;
-border: 1px solid black;
+  background-color: yellow;
+  border: 1px solid black;
 `;
 
 const StMainContainer = styled.div`

@@ -9,19 +9,28 @@ function AddForm() {
         <StAddForm>
           <p>주소 </p>
           <StCost>
-            월세 <input type='number'/> 만원
+            월세 <input type="number" /> 만원
           </StCost>
-          <StGetherNum>게더 수 <input type='number'/> 게더</StGetherNum>
-          <StEmail>이메일 <input type='text'/></StEmail>
-          <StPassword>비밀번호 <input type='password'/></StPassword>
+          <StGetherNum>
+            게더 수 <input type="number" /> 게더
+          </StGetherNum>
+          <StEmail>
+            이메일 <input type="text" />
+          </StEmail>
+          <StPassword>
+            비밀번호 <input type="password" />
+          </StPassword>
           <StImage>
             {/* <input type='file'/> */}
             사진등록
             <label htmlFor="profileImg">+</label>
-            <input type="file" accept="image/*" id="profileImg"/>
+            <input type="file" accept="image/*" id="profileImg" />
           </StImage>
-          <StTitle>제목<input /></StTitle>
-          <StContent placeholder='상세내용'/>
+          <StTitle>
+            제목
+            <input />
+          </StTitle>
+          <StContent placeholder="상세내용" />
           <StButtonContainer>
             <StCancelBtn>취소</StCancelBtn>
             <StAddBtn>등록</StAddBtn>
@@ -29,10 +38,10 @@ function AddForm() {
         </StAddForm>
       </StAddFormContainer>
     </StOuterFrame>
-  )
+  );
 }
 
-export default AddForm
+export default AddForm;
 
 const StOuterFrame = styled.div`
   display: flex;
@@ -52,44 +61,42 @@ const StAddFormContainer = styled.div`
   max-width: 600px;
   /* min-width: 550px; */
   width: 100%;
-    h1 {
-      text-align: center;
-      margin: 20px;
-      font-size: 2rem;
-    }
+  h1 {
+    text-align: center;
+    margin: 20px;
+    font-size: 2rem;
+  }
 `;
-
-
 
 const StAddForm = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 20px;
-    p {
-      background-color: white;
-      height: 4.5rem;
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 20px 10px 20px;
+  p {
+    background-color: white;
+    height: 4.5rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px 10px 20px;
+  }
+  p > input {
+    background-color: transparent;
+    border: none;
+    /* border-bottom: 1px solid gray; */
+    outline: none;
+    /* Chrome, Safari, Edge, Opera */
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
     }
-    p > input {
-      background-color: transparent;
-      border: none;
-      /* border-bottom: 1px solid gray; */
-      outline: none;
-      /* Chrome, Safari, Edge, Opera */
-      &::-webkit-outer-spin-button,
-      &::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-      }
-    }
-    textarea {
-      border: none;
-    }
+  }
+  textarea {
+    border: none;
+  }
 `;
 
 const StButtonContainer = styled.div`
@@ -151,10 +158,10 @@ const StImage = styled.p`
     display: none;
   }
   label {
-  color: #0095f6;
-  font-size: 2.5rem;
-  font-weight: 800;
-  cursor: pointer;
+    color: #0095f6;
+    font-size: 2.5rem;
+    font-weight: 800;
+    cursor: pointer;
   }
 `;
 
