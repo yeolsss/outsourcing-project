@@ -2,38 +2,37 @@ import React, { useState } from 'react';
 import { styled } from 'styled-components';
 import KakaoMap from '../components/kakaoMap/KakaoMap';
 import AddForm from '../components/main/AddForm';
+import TogetherList from '../components/togetherList/TogetherList';
 
 function Home() {
   const [isAdding, setIsAdding] = useState(false);
 
   return (
     <StMainContainer>
-      <AddBtn onClick={() => setIsAdding(!isAdding)}>새 게더 등록</AddBtn>
       <StLeftContainer>
-        {isAdding ? <AddForm /> : <div>리스트영역</div>}
+        <AddBtn onClick={() => setIsAdding(!isAdding)}>새 게더 등록</AddBtn>
+        {isAdding ? <AddForm /> : <TogetherList />}
       </StLeftContainer>
-      <div>
-        <KakaoMap />
-      </div>
+      <KakaoMap />
     </StMainContainer>
   );
 }
-
-export default Home;
 
 const AddBtn = styled.button`
   background-color: yellow;
   border: 1px solid black;
 `;
-
 const StMainContainer = styled.div`
+  height: 100%;
   background-color: pink;
   display: flex;
-  flex-direction: row;
+  max-height: calc(100% - 8rem);
 `;
 
 const StLeftContainer = styled.div`
   background-color: lightskyblue;
   width: 50%;
+  height: calc(100vh - 8rem);
   overflow-y: scroll;
 `;
+export default Home;
