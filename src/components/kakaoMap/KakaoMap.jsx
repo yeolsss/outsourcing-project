@@ -32,21 +32,19 @@ function KakaoMap() {
         level={5} // 지도 확대 레벨
         onClick={(e, mouseEvent) => handleOnClickPosition(e, mouseEvent)}
       >
-        {isVisible && (
-          <MapMarker
-            position={marker} // 마커를 표시할 위치
-            onClick={() => setIsOpen(!isOpen)}
-            image={{
-              src: locationPin, // 마커이미지의 주소입니다
-              size: {
-                width: 36,
-                height: 40,
-              },
-            }}
-          >
-            {isOpen && <CustomMapMarker />}
-          </MapMarker>
-        )}
+        <MapMarker
+          position={marker} // 마커를 표시할 위치
+          onClick={() => setIsOpen(!isOpen)}
+          image={{
+            src: locationPin, // 마커이미지의 주소입니다
+            size: {
+              width: 36,
+              height: 40,
+            },
+          }}
+        >
+          {isOpen && <CustomMapMarker />}
+        </MapMarker>
       </Map>
     </>
   );
