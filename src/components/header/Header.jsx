@@ -32,7 +32,7 @@ const StLogoContainer = styled.div`
 `;
 
 const StLogoImg = styled.img`
-  width: 2.5rem;
+  width: 6rem;
 `;
 
 const StH1 = styled.h1`

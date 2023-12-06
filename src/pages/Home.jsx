@@ -5,12 +5,6 @@ import AddForm from '../components/main/AddForm';
 import TogetherList from '../components/togetherList/TogetherList';
 
 function Home() {
-  const [marker, setMarker] = useState({
-    position: {
-      lat: 33.450701,
-      lng: 126.570667,
-    },
-  });
   const [isAdding, setIsAdding] = useState(false);
 
   return (
@@ -19,7 +13,7 @@ function Home() {
         <AddBtn onClick={() => setIsAdding(!isAdding)}>새 게더 등록</AddBtn>
         {isAdding ? <AddForm /> : <TogetherList />}
       </StLeftContainer>
-      <KakaoMap marker={{ marker, setMarker }} />
+      <KakaoMap />
     </StMainContainer>
   );
 }
