@@ -78,6 +78,10 @@ export const GlobalStyle = createGlobalStyle`
     display: flex;
   }
 
+  a{
+    text-decoration: none;
+  }
+
   #root {
     height: inherit;
     width: inherit;

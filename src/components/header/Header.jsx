@@ -6,14 +6,21 @@ import LogoImg from '../../assets/logo.png';
 function Header() {
   return (
     <StContainer>
-      <StLogoContainer>
+      <Link to={'/'}>
         <StLogoImg src={LogoImg} alt="투게더로고" />
-        <StH1>Together</StH1>
-      </StLogoContainer>
-      <div>
-        <Link to={'/'}>Home</Link>
-        <Link to={'/detail'}>Detail</Link>
-      </div>
+      </Link>
+      <StPages>
+        <StPageFont>
+          <Link to={'/'}>
+            <StPageFont>Home</StPageFont>
+          </Link>
+        </StPageFont>
+        <StPageFont>
+          <Link to={'/detail'}>
+            <StPageFont>Detail</StPageFont>
+          </Link>
+        </StPageFont>
+      </StPages>
     </StContainer>
   );
 }
@@ -26,20 +33,21 @@ const StContainer = styled.div`
   height: 8rem;
 `;
 
-const StLogoContainer = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
 const StLogoImg = styled.img`
   width: 6rem;
 `;
 
-const StH1 = styled.h1`
-  font-size: 2.5rem;
-  padding-left: 0.4rem;
-  font-style: italic;
-  color: #353535;
+const StPages = styled.div`
+  display: flex;
+`;
+
+const StPageFont = styled.div`
+  font-size: 2rem;
+  color: #0f3f37;
+  padding: 0.4rem;
+  &:hover {
+    color: #23917f;
+  }
 `;
 
 export default Header;
