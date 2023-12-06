@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
 import sampleImg from '../../assets/sampleImg.jpeg';
+import List from '../list/List';
 
 function TogetherList() {
   const initialState = [
@@ -30,32 +32,59 @@ function TogetherList() {
       cost: 2,
       togetherNum: 2,
     },
+    {
+      id: '4',
+      title: '제목4',
+      content: '내용4',
+      createdAt: '생성시간??',
+      imgPath: sampleImg,
+      cost: 2,
+      togetherNum: 2,
+    },
+    {
+      id: '5',
+      title: '제목5',
+      content: '내용5',
+      createdAt: '생성시간??',
+      imgPath: sampleImg,
+      cost: 2,
+      togetherNum: 2,
+    },
+    {
+      id: '6',
+      title: '제목6',
+      content: '내용6',
+      createdAt: '생성시간??',
+      imgPath: sampleImg,
+      cost: 2,
+      togetherNum: 2,
+    },
+    {
+      id: '7',
+      title: '제목7',
+      content: '내용7',
+      createdAt: '생성시간??',
+      imgPath: sampleImg,
+      cost: 2,
+      togetherNum: 2,
+    },
   ];
   const [list, setList] = useState(initialState);
   return (
     <div>
       <input type="text" placeholder="검색.." />
-      <ul>
-        {list.map((element) => {
-          return (
-            <li>
-              <div>
-                <img src={element.imgPath} alt={element.title} />
-              </div>
-              <div>
-                <h3>{element.title}</h3>
-                <p>{element.content}</p>
-                <p>{element.createdAt}</p>
-                <p>
-                  <span>{element.togetherNum}</span>게더..?
-                </p>
-              </div>
-            </li>
-          );
-        })}
-      </ul>
+      <StUl>
+        <List list={list} />
+      </StUl>
     </div>
   );
 }
 
 export default TogetherList;
+
+const StUl = styled.ul`
+  display: table;
+  width: 100%;
+  min-height: 30rem;
+  gap: 20%;
+`;

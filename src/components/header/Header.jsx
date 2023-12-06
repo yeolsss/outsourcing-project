@@ -23,6 +23,7 @@ const StContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
+  height: 8rem;
 `;
 
 const StLogoContainer = styled.div`
