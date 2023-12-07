@@ -6,8 +6,9 @@ import TogetherList from '../components/togetherList/TogetherList';
 
 function Home() {
   const [isAdding, setIsAdding] = useState(false);
-
   const [open, setOpen] = useState(false);
+
+  const openClose = 
 
   return (
     <StMainContainer>
@@ -25,6 +26,7 @@ const AddBtn = styled.button`
   background-color: yellow;
   border: 1px solid black;
 `;
+
 const StMainContainer = styled.div`
   height: 100%;
   display: flex;
@@ -52,4 +54,5 @@ const StLeftContainer = styled.div`
     background: #e6e6e6;
   }
 `;
+
 export default Home;
