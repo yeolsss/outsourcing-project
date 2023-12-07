@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 // import { useMutation, useQueryClient } from 'react-query';
 import { useSelector } from 'react-redux';
 import { styled } from 'styled-components';
@@ -7,7 +7,7 @@ import checkValidation from '../../hooks/checkValidation';
 import useInput from '../../hooks/useInput';
 import { selectPosition } from '../../redux/module/position.slice';
 // firebase 데이터 추가 아래부터
-import { addDoc, collection, onSnapshot } from 'firebase/firestore';
+import { addDoc, collection } from 'firebase/firestore';
 import db from '../../common/firebaseHamin';
 
 function AddForm() {
@@ -31,18 +31,6 @@ function AddForm() {
   //     console.log('성공함');
   //   },
   // });
-
-  useEffect(() => {
-    onSnapshot(collection(db, 'togethers'), (snapshot) => {
-      console.log(
-        snapshot.docs.map((doc) => {
-          doc.data();
-        }),
-      );
-      console.log('snapshopt.docs', snapshot.docs);
-      console.log('snapshopt.docs...', snapshot.docs);
-    });
-  }, []);
 
   const addImgHandler = (e) => {
     // setImgPath(e.target.files[0]);
@@ -80,10 +68,30 @@ function AddForm() {
       content,
     };
 
-    const collectionRef = collection(db, 'togethers');
-    const payload = newTogether;
-    const docRef = await addDoc(collectionRef, payload);
-    console.log('새 투게더 아이디 : ', docRef.id);
+    const resetInputValues = () => {
+      onChangeTitleHandler({ target: { value: '' } });
+      onChangeContentHandler({ target: { value: '' } });
+      onChangeCost({ target: { value: '' } });
+      onChangeTogetherNum({ target: { value: '' } });
+      onChangeEmail({ target: { value: '' } });
+      onChangePassword({ target: { value: '' } });
+      setIsImgSelected(false);
+    };
+
+    const addTogetherToFireBase = async () => {
+      const collectionRef = collection(db, 'togethers');
+      const payload = newTogether;
+      const docRef = await addDoc(collectionRef, payload);
+      console.log('새 투게더 아이디 : ', docRef.id);
+    };
+
+    if (!window.confirm('새 게더를 등록하시겠습니까?')) {
+      return;
+    }
+
+    addTogetherToFireBase();
+    alert('새 게더가 등록되었습니다!');
+    resetInputValues();
 
     // try {
     //   const docRef = await addDoc(collection(db, 'users'), {
