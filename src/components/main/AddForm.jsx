@@ -66,19 +66,24 @@ function AddForm() {
 
     const newTogether = {
       id: '1',
-      title,
-      content,
-      createdAt: '새생성시간??',
-      imgPath,
+      address: position.address,
+      coordinates: { lat: position.lat, lng: position.lng },
       cost,
       togetherNum,
+      createdAt: '새생성시간??',
       email,
+      gender: 'M or F',
+      imgPath,
+      isDone: false,
       password,
+      title,
+      content,
     };
 
     const collectionRef = collection(db, 'togethers');
     const payload = newTogether;
-    await addDoc(collectionRef, payload);
+    const docRef = await addDoc(collectionRef, payload);
+    console.log('새 투게더 아이디 : ', docRef.id);
 
     // try {
     //   const docRef = await addDoc(collection(db, 'users'), {
