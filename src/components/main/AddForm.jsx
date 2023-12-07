@@ -8,7 +8,6 @@ import useInput from '../../hooks/useInput';
 import { selectPosition } from '../../redux/module/position.slice';
 // firebase 데이터 추가 아래부터
 import { addDoc, collection } from 'firebase/firestore';
-import { useNavigate } from 'react-router-dom';
 import db from '../../common/firebaseHamin';
 
 function AddForm({ setIsAdding }) {
@@ -32,7 +31,6 @@ function AddForm({ setIsAdding }) {
   //     console.log('성공함');
   //   },
   // });
-  const navigate = useNavigate();
 
   const addImgHandler = (e) => {
     // setImgPath(e.target.files[0]);
@@ -81,10 +79,14 @@ function AddForm({ setIsAdding }) {
     };
 
     const addTogetherToFireBase = async () => {
-      const collectionRef = collection(db, 'togethers');
-      const payload = newTogether;
-      const docRef = await addDoc(collectionRef, payload);
-      console.log('새 투게더 아이디 : ', docRef.id);
+      try {
+        const collectionRef = collection(db, 'togethers');
+        const payload = newTogether;
+        const docRef = await addDoc(collectionRef, payload);
+        console.log('새 투게더 아이디 : ', docRef.id);
+      } catch (error) {
+        console.error(error);
+      }
     };
 
     if (!window.confirm('새 게더를 등록하시겠습니까?')) {
@@ -133,7 +135,7 @@ function AddForm({ setIsAdding }) {
     // }
     // const imageRef = ref(storage, 'folder/file');
     // uploadBytes(imageRef, imgPath);
-    alert(1);
+
     // Mutation.mutate(newTogether);
   };
 
