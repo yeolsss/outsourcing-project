@@ -70,11 +70,25 @@ function TogetherList() {
     },
   ];
   const [list, setList] = useState(initialState);
+  const [searchInput, setSearchInput] = useState('');
+
+  const handleSearch = (e) => {
+    setSearchInput(e.target.value);
+  };
+
+  const filterList = list.filter((item) => {
+    return item.title.includes(searchInput);
+  });
+
   return (
     <div>
-      <input type="text" placeholder="검색.." />
+      <StSearchBar
+        type="text"
+        placeholder="검색.."
+        onChange={(e) => handleSearch(e)}
+      />
       <StUl>
-        <List list={list} />
+        <List list={filterList} />
       </StUl>
     </div>
   );
@@ -82,9 +96,18 @@ function TogetherList() {
 
 export default TogetherList;
 
+const StSearchBar = styled.input`
+  width: 100%;
+  margin: 2rem;
+  border: 1px solid #e6e6e6;
+  border-radius: 5rem;
+  padding: 1rem;
+`;
+
 const StUl = styled.ul`
   display: table;
   width: 100%;
-  min-height: 30rem;
-  gap: 20%;
+
+  gap: 33.33%;
+  margin: 2rem;
 `;
