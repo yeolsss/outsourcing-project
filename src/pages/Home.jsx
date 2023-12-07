@@ -35,7 +35,7 @@ const StLeftContainer = styled.div`
   width: 50%;
   height: calc(100vh - 8rem);
   overflow-y: scroll;
-  position: absolute;
+  /* position: absolute; */
   top: 8rem;
   left: 0;
   z-index: 99999;

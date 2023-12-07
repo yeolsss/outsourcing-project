@@ -1,76 +1,28 @@
-import React, { useState } from 'react';
+import { collection, getDocs } from 'firebase/firestore';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import sampleImg from '../../assets/sampleImg.jpeg';
+import { db } from '../../common/firebase';
 import List from '../list/List';
 
 function TogetherList() {
-  const initialState = [
-    {
-      id: '1',
-      title: '제목1',
-      content: '내용1',
-      createdAt: '생성시간??',
-      imgPath: sampleImg,
-      cost: 2,
-      togetherNum: 2,
-    },
-    {
-      id: '2',
-      title: '제목2',
-      content: '내용2',
-      createdAt: '생성시간??',
-      imgPath: sampleImg,
-      cost: 2,
-      togetherNum: 2,
-    },
-    {
-      id: '3',
-      title: '제목3',
-      content: '내용3',
-      createdAt: '생성시간??',
-      imgPath: sampleImg,
-      cost: 2,
-      togetherNum: 2,
-    },
-    {
-      id: '4',
-      title: '제목4',
-      content: '내용4',
-      createdAt: '생성시간??',
-      imgPath: sampleImg,
-      cost: 2,
-      togetherNum: 2,
-    },
-    {
-      id: '5',
-      title: '제목5',
-      content: '내용5',
-      createdAt: '생성시간??',
-      imgPath: sampleImg,
-      cost: 2,
-      togetherNum: 2,
-    },
-    {
-      id: '6',
-      title: '제목6',
-      content: '내용6',
-      createdAt: '생성시간??',
-      imgPath: sampleImg,
-      cost: 2,
-      togetherNum: 2,
-    },
-    {
-      id: '7',
-      title: '제목7',
-      content: '내용7',
-      createdAt: '생성시간??',
-      imgPath: sampleImg,
-      cost: 2,
-      togetherNum: 2,
-    },
-  ];
-  const [list, setList] = useState(initialState);
+  const [list, setList] = useState([]);
   const [searchInput, setSearchInput] = useState('');
+
+  // query를 사용해서 해봐라.. 제천튜터님꺼보고
+  // getDocs는 axios.get()이당
+  useEffect(() => {
+    const fechData = async () => {
+      const querySnapshot = await getDocs(collection(db, 'lists'));
+      const newArr = [];
+      querySnapshot.forEach((doc) => {
+        // console.log(`${doc.id} => ${doc.data()}`);
+        newArr.push(doc.data());
+      });
+
+      setList(newArr);
+    };
+    fechData();
+  }, []);
 
   const handleSearch = (e) => {
     setSearchInput(e.target.value);
