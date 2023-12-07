@@ -91,18 +91,6 @@ function AddForm({ setIsAdding }) {
       }
     }
 
-    // if (
-    //   checkValidation('월세', cost, 6) ||
-    //   checkValidation('게더 수', togetherNum, 3) ||
-    //   checkValidation('이메일', email, 20) ||
-    //   checkValidation('비밀번호', password, 5) ||
-    //   checkValidation('제목', title, 30) ||
-    //   checkValidation('내용', content, 500)
-    // ) {
-    //   // 유효성 검사에서 오류가 발생하면 함수 종료
-    //   return;
-    // }
-
     const newTogether = {
       id: '1',
       address: position.address,
