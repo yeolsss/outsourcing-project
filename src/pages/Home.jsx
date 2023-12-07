@@ -11,7 +11,7 @@ function Home() {
     <StMainContainer>
       <StLeftContainer>
         <AddBtn onClick={() => setIsAdding(!isAdding)}>새 게더 등록</AddBtn>
-        {isAdding ? <AddForm /> : <TogetherList />}
+        {isAdding ? <AddForm setIsAdding={setIsAdding} /> : <TogetherList />}
       </StLeftContainer>
       <KakaoMap />
     </StMainContainer>

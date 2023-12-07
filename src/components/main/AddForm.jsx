@@ -8,9 +8,10 @@ import useInput from '../../hooks/useInput';
 import { selectPosition } from '../../redux/module/position.slice';
 // firebase 데이터 추가 아래부터
 import { addDoc, collection } from 'firebase/firestore';
+import { useNavigate } from 'react-router-dom';
 import db from '../../common/firebaseHamin';
 
-function AddForm() {
+function AddForm({ setIsAdding }) {
   const [isImgSelected, setIsImgSelected] = useState(false);
   const [imgPath, setImgPath] = useState('');
   const [title, onChangeTitleHandler] = useInput();
@@ -31,6 +32,7 @@ function AddForm() {
   //     console.log('성공함');
   //   },
   // });
+  const navigate = useNavigate();
 
   const addImgHandler = (e) => {
     // setImgPath(e.target.files[0]);
@@ -193,7 +195,9 @@ function AddForm() {
             placeholder="상세내용"
           />
           <StButtonContainer>
-            <StCancelBtn type="button">취소</StCancelBtn>
+            <StCancelBtn onClick={() => setIsAdding(false)} type="button">
+              취소
+            </StCancelBtn>
             <StAddBtn type="submit">등록</StAddBtn>
           </StButtonContainer>
         </StAddForm>
