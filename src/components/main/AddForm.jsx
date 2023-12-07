@@ -14,6 +14,8 @@ function AddForm() {
   const [content, onChangeContentHandler] = useInput();
   const [cost, onChangeCost] = useInput();
   const [togetherNum, onChangeTogetherNum] = useInput();
+  const [email, onChangeEmail] = useInput();
+  const [password, onChangePassword] = useInput();
   const position = useSelector(selectPosition);
   console.log('현재 활성화되어 있는 투게더의 position', position);
 
@@ -37,14 +39,14 @@ function AddForm() {
 
     const newTogether = {
       id: '1',
-      title: '새제목',
-      content: '새내용',
+      title,
+      content,
       createdAt: '새생성시간??',
       imgPath: sampleImg,
-      cost: 2,
-      togetherNum: 2,
-      email: '새이메일',
-      password: '1234',
+      cost,
+      togetherNum,
+      email,
+      password,
     };
 
     alert(1);
@@ -68,10 +70,10 @@ function AddForm() {
             <input onChange={onChangeTogetherNum} type="number" /> 게더
           </StGetherNum>
           <StEmail>
-            이메일 <input type="text" />
+            이메일 <input onChange={onChangeEmail} type="text" />
           </StEmail>
           <StPassword>
-            비밀번호 <input type="password" />
+            비밀번호 <input onChange={onChangePassword} type="password" />
           </StPassword>
           <StImage>
             사진등록
