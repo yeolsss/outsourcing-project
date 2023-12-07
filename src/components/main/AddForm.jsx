@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { styled } from 'styled-components';
+import { selectPosition } from '../../redux/module/position.slice';
 
 function AddForm() {
   const [isImgSelected, setIsImgSelected] = useState(false);
   const [imgInputValue, setImgInputValue] = useState(null);
-
+  const position = useSelector(selectPosition);
+  console.log('현재 활성화되어 있는 투게더의 position', position);
   const addImgHandler = (e) => {
     setImgInputValue(e.target.files[0]);
     setIsImgSelected(true);
@@ -14,7 +17,9 @@ function AddForm() {
       <StAddFormContainer>
         <h1>🏠 투게더 등록</h1>
         <StAddForm>
-          <p>주소 </p>
+          <p>
+            주소 <span>{position.address}</span>
+          </p>
           <StCost>
             월세 <input type="number" /> 만원
           </StCost>
@@ -101,6 +106,7 @@ const StAddForm = styled.form`
     justify-content: space-between;
     align-items: center;
     padding: 10px 20px 10px 20px;
+    color: gray;
   }
   p > input {
     background-color: transparent;
