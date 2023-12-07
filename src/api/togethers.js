@@ -23,10 +23,6 @@ const addTogether = (newTogether) => {
 //export 하기
 export { addTogether };
 
-// 2안.
-// export const useAddTogetherMutation = () => {
-//   return useMutation(addTogetherToFireBase);
-// };
 //----------------------------------
 //조회
 // const getTogethers = async () => {
@@ -53,30 +49,4 @@ export { addTogether };
 //     console.log('snapshopt.docs', snapshot.docs);
 //     console.log('snapshopt.docs…', snapshot.docs);
 //   });
-// };
-
-//추가
-// export const addTogetherToFireBase = async () => {
-//   try {
-//     const collectionRef = collection(db, 'togethers');
-//     const payload = newTogether;
-//     const docRef = await addDoc(collectionRef, payload);
-//     console.log('새 투게더 아이디 : ', docRef.id);
-//   } catch (error) {
-//     console.error(error);
-//   }
-// };
-
-// const addTogether = async (newTogether) => {
-//   return useMutation(addTogetherToFireBase);
-//   // await axios.post(
-//   //   `AIzaSyDQ4qtHzxj7AgmAXhH3yA7oz-X15YesmrQ/togethers`,
-//   //   newTogether,
-//   // );
-// };
-
-// export { addTogether };
-
-// export const useAddTogetherMutation = () => {
-//   return useMutation(addTogetherToFireBase);
 // };
