@@ -81,7 +81,7 @@ function TogetherList() {
   });
 
   return (
-    <div>
+    <>
       <StSearchBar
         type="text"
         placeholder="검색.."
@@ -90,14 +90,14 @@ function TogetherList() {
       <StUl>
         <List list={filterList} />
       </StUl>
-    </div>
+    </>
   );
 }
 
 export default TogetherList;
 
 const StSearchBar = styled.input`
-  width: 100%;
+  width: -webkit-fill-available;
   margin: 2rem;
   border: 1px solid #e6e6e6;
   border-radius: 5rem;
@@ -105,9 +105,7 @@ const StSearchBar = styled.input`
 `;
 
 const StUl = styled.ul`
-  display: table;
-  width: 100%;
-
-  gap: 33.33%;
-  margin: 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin: 0 0.6rem;
 `;

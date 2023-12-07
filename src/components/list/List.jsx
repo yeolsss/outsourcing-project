@@ -8,9 +8,9 @@ function List({ list }) {
         return (
           <StLi key={index}>
             <a>
-              <div>
+              <StContentImg>
                 <StImg src={element.imgPath} alt={element.title} />
-              </div>
+              </StContentImg>
               <StContentWrap>
                 <h3>{element.title}</h3>
                 <p>{element.content}</p>
@@ -30,8 +30,15 @@ function List({ list }) {
 export default List;
 
 const StLi = styled.li`
+  margin: 0.8rem;
+`;
+
+const StContentImg = styled.div`
   position: relative;
-  width: 33.33%;
+  border-radius: 0.6rem;
+  height: 60%;
+  overflow: hidden;
+  box-sizing: border-box;
 `;
 
 const StImg = styled.img`
