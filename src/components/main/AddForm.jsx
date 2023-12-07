@@ -3,13 +3,15 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { styled } from 'styled-components';
 // import { addTogether } from '../../api/togethers';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { storage } from '../../common/firebaseHamin';
 import checkValidation from '../../hooks/checkValidation';
 import useInput from '../../hooks/useInput';
 import { selectPosition } from '../../redux/module/position.slice';
 
 function AddForm() {
   const [isImgSelected, setIsImgSelected] = useState(false);
-  const [imgInputValue, setImgInputValue] = useState(null);
+  const [imgPath, setImgPath] = useState('');
   const [title, onChangeTitleHandler] = useInput();
   const [content, onChangeContentHandler] = useInput();
   const [cost, onChangeCost] = useInput();
@@ -30,11 +32,12 @@ function AddForm() {
   // });
 
   const addImgHandler = (e) => {
-    setImgInputValue(e.target.files[0]);
+    // setImgPath(e.target.files[0]);
+    setImgPath(e.target.files[0].name);
     setIsImgSelected(true);
   };
 
-  const submitNewTogetherHandler = (e) => {
+  const submitNewTogetherHandler = async (e) => {
     e.preventDefault();
 
     // 유효성 검사
@@ -53,14 +56,42 @@ function AddForm() {
       title,
       content,
       createdAt: '새생성시간??',
-      // imgPath,
+      imgPath,
       cost,
       togetherNum,
       email,
       password,
     };
 
-    alert(1);
+    try {
+      console.log('storage', storage); //undefined
+      const storageRef = ref(storage);
+      const imagesRef = ref(storage, 'images');
+      const fileRef = ref(storageRef, imgPath.name);
+
+      await uploadBytes(fileRef, imgPath);
+
+      const downloadURL = await getDownloadURL(fileRef);
+      setImgPath(downloadURL);
+
+      // uploadBytes(imgPath, file).then((snapshot) => {
+      //   console.log('uploaded a blog or file!');
+      // });
+      // uploadBytes();
+      // const imageRef = storage.ref();
+      // const fileRef = imageRef.child(imgPath);
+      // await fileRef.put(imgPath);
+
+      // const downloadURL = await fileRef.getDownloadURL();
+      setImgPath(downloadURL);
+      alert('파일 업로드가 완료되었습니다.');
+    } catch (error) {
+      console.error('파일 업로드 에러', error);
+      alert('파일 업로드 중 에러발생');
+    }
+    // const imageRef = ref(storage, 'folder/file');
+    // uploadBytes(imageRef, imgPath);
+    // alert(1);
     // Mutation.mutate(newTogether);
   };
 
