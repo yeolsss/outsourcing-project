@@ -59,4 +59,4 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 //앱을 초기화한 후에 내보내기 기능 실행
-export default getFirestore();
+export default getFirestore(app);

@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 // import { useMutation, useQueryClient } from 'react-query';
 import { useSelector } from 'react-redux';
 import { styled } from 'styled-components';
-// import { addTogether } from '../../api/togethers';
+// import { addTogether, getTogethers } from '../../api/togethers';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { addTogether, addTogetherToFireBase } from '../../api/togethers';
 import checkValidation from '../../hooks/checkValidation';
 import useInput from '../../hooks/useInput';
 import { selectPosition } from '../../redux/module/position.slice';
 // firebase 데이터 추가 아래부터
-import { addDoc, collection } from 'firebase/firestore';
-import db from '../../common/firebaseHamin';
+// import { useQuery } from '@tanstack/react-query';
 
 function AddForm({ setIsAdding }) {
   const [isImgSelected, setIsImgSelected] = useState(false);
@@ -22,7 +23,7 @@ function AddForm({ setIsAdding }) {
   const position = useSelector(selectPosition);
   console.log('현재 활성화되어 있는 투게더의 position', position);
 
-  // const queryClient = useQueryClient();
+  const queryClient = useQueryClient();
   // const { isLoading, isError, data } = useQuery('togethers', getTogethers);
 
   // const Mutation = useMutation(addTogether, {
@@ -32,6 +33,29 @@ function AddForm({ setIsAdding }) {
   //   },
   // });
 
+  const resetInputValues = () => {
+    onChangeTitleHandler({ target: { value: '' } });
+    onChangeContentHandler({ target: { value: '' } });
+    onChangeCost({ target: { value: '' } });
+    onChangeTogetherNum({ target: { value: '' } });
+    onChangeEmail({ target: { value: '' } });
+    onChangePassword({ target: { value: '' } });
+    setIsImgSelected(false);
+  };
+
+  const Mutation = useMutation(addTogether, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(['togethers']);
+      alert('새 게더가 등록되었습니다!');
+      resetInputValues();
+    },
+    isError: (error) => {
+      console.error('데이터 추가 에러:', error);
+      alert('새 게더 추가 중 오류가 발생했습니다.');
+    },
+  });
+
+  // 추가 버튼 로직
   const addImgHandler = (e) => {
     // setImgPath(e.target.files[0]);
     setImgPath(e.target.files[0].name);
@@ -68,26 +92,26 @@ function AddForm({ setIsAdding }) {
       content,
     };
 
-    const resetInputValues = () => {
-      onChangeTitleHandler({ target: { value: '' } });
-      onChangeContentHandler({ target: { value: '' } });
-      onChangeCost({ target: { value: '' } });
-      onChangeTogetherNum({ target: { value: '' } });
-      onChangeEmail({ target: { value: '' } });
-      onChangePassword({ target: { value: '' } });
-      setIsImgSelected(false);
-    };
+    // const resetInputValues = () => {
+    //   onChangeTitleHandler({ target: { value: '' } });
+    //   onChangeContentHandler({ target: { value: '' } });
+    //   onChangeCost({ target: { value: '' } });
+    //   onChangeTogetherNum({ target: { value: '' } });
+    //   onChangeEmail({ target: { value: '' } });
+    //   onChangePassword({ target: { value: '' } });
+    //   setIsImgSelected(false);
+    // };
 
-    const addTogetherToFireBase = async () => {
-      try {
-        const collectionRef = collection(db, 'togethers');
-        const payload = newTogether;
-        const docRef = await addDoc(collectionRef, payload);
-        console.log('새 투게더 아이디 : ', docRef.id);
-      } catch (error) {
-        console.error(error);
-      }
-    };
+    // const addTogetherToFireBase = async () => {
+    //   try {
+    //     const collectionRef = collection(db, 'togethers');
+    //     const payload = newTogether;
+    //     const docRef = await addDoc(collectionRef, payload);
+    //     console.log('새 투게더 아이디 : ', docRef.id);
+    //   } catch (error) {
+    //     console.error(error);
+    //   }
+    // };
 
     if (!window.confirm('새 게더를 등록하시겠습니까?')) {
       return;
@@ -97,16 +121,6 @@ function AddForm({ setIsAdding }) {
     alert('새 게더가 등록되었습니다!');
     resetInputValues();
 
-    // try {
-    //   const docRef = await addDoc(collection(db, 'users'), {
-    //     first: 'Ada',
-    //     last: 'Lovelace',
-    //     born: 1815,
-    //   });
-    //   console.log('Document written with ID: ', docRef.id);
-    // } catch (e) {
-    //   console.error('Error adding document: ', e);
-    // }
     // try {
     //   console.log('storage', storage); //undefined
     //   const storageRef = ref(storage);
@@ -136,7 +150,7 @@ function AddForm({ setIsAdding }) {
     // const imageRef = ref(storage, 'folder/file');
     // uploadBytes(imageRef, imgPath);
 
-    // Mutation.mutate(newTogether);
+    Mutation.mutate(newTogether);
   };
 
   return (
