@@ -24,6 +24,10 @@ function AddForm({ setIsAdding }) {
   console.log('현재 활성화되어 있는 투게더의 position', position);
 
   const queryClient = useQueryClient();
+  // 2안---------
+  // const addDataMutation = useAddTogetherMutation();
+  //------------
+
   // const { isLoading, isError, data } = useQuery('togethers', getTogethers);
 
   // const Mutation = useMutation(addTogether, {
@@ -43,17 +47,21 @@ function AddForm({ setIsAdding }) {
     setIsImgSelected(false);
   };
 
-  const Mutation = useMutation(addTogether, {
+  // 1안 --------------
+  const Mutation = useMutation({
+    mutationFn: addTogether,
     onSuccess: () => {
       queryClient.invalidateQueries(['togethers']);
       alert('새 게더가 등록되었습니다!');
       resetInputValues();
+      console.log('성공');
     },
-    isError: (error) => {
+    onError: (error) => {
       console.error('데이터 추가 에러:', error);
       alert('새 게더 추가 중 오류가 발생했습니다.');
     },
   });
+  // ---------------------
 
   // 추가 버튼 로직
   const addImgHandler = (e) => {
@@ -117,9 +125,32 @@ function AddForm({ setIsAdding }) {
       return;
     }
 
+    // 1안 ------------------
     addTogetherToFireBase();
     alert('새 게더가 등록되었습니다!');
     resetInputValues();
+    Mutation.mutate(newTogether);
+    // -------------------------
+
+    // 2안---------
+    //   try {
+    //     await addDataMutation.mutate(newTogether, {
+    //       onSuccess: () => {
+    //         queryClient.invalidateQueries(['togethers']);
+    //         alert('새 게더가 등록되었습니다!');
+    //         resetInputValues();
+    //       },
+    //       onError: (error) => {
+    //         console.error('데이터 추가 에러:', error);
+    //         alert('새 게더 추가 중 오류가 발생했습니다.');
+    //       },
+    //     });
+    //   } catch (error) {
+    //     console.error('데이터 추가 에러:', error);
+    //     alert('새 게더 추가 중 오류가 발생했습니다.');
+    //   }
+    // };
+    //------------
 
     // try {
     //   console.log('storage', storage); //undefined
@@ -149,10 +180,7 @@ function AddForm({ setIsAdding }) {
     // }
     // const imageRef = ref(storage, 'folder/file');
     // uploadBytes(imageRef, imgPath);
-
-    Mutation.mutate(newTogether);
   };
-
   return (
     <StOuterFrame>
       <StAddFormContainer>

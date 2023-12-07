@@ -15,6 +15,7 @@ export const addTogetherToFireBase = async (newTogether) => {
   }
 };
 
+// 1 안. 하지만 오류 뜸. React Hook "useMutation" is called in function "addTogether" that is neither a React function component nor a custom React Hook function. React component names must start with an uppercase letter. React Hook names must start with the word "use"  react-hooks/rules-of-hooks Search for the keywords to learn more about each error.
 const addTogether = (newTogether) => {
   return useMutation(addTogetherToFireBase);
 };
@@ -22,6 +23,11 @@ const addTogether = (newTogether) => {
 //export 하기
 export { addTogether };
 
+// 2안.
+// export const useAddTogetherMutation = () => {
+//   return useMutation(addTogetherToFireBase);
+// };
+//----------------------------------
 //조회
 // const getTogethers = async () => {
 //   const response = await axios.get(`${process.env.REACT_APP_APIKEY}/togethers`);
