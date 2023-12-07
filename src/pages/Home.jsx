@@ -24,9 +24,10 @@ const AddBtn = styled.button`
 `;
 const StMainContainer = styled.div`
   height: 100%;
-
   display: flex;
   max-height: calc(100% - 8rem);
+  position: relative;
+  overflow: hidden;
 `;
 
 const StLeftContainer = styled.div`

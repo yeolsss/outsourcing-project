@@ -6,6 +6,7 @@ const initialState = {
     lat: 37.5023262,
     lng: 127.0444546,
     address: '서울 강남구 역삼동 706-19',
+    title: '',
   },
 };
 
@@ -20,11 +21,7 @@ export const __setAddress = createAsyncThunk(
 const positionSlice = createSlice({
   name: 'position',
   initialState,
-  reducers: {
-    setPosition: (state, action) => {
-      state.position = action.payload;
-    },
-  },
+  reducers: {},
   extraReducers: {
     [__setAddress.fulfilled]: (state, { payload }) => {
       state.position = payload;
