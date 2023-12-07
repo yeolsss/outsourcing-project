@@ -48,8 +48,10 @@ function KakaoMap() {
     <>
       <Map
         center={{ lat: marker.lat, lng: marker.lng }} // 지도의 중심 좌표
+
         style={{ width: '50%', height: '100%' }} // 지도 크기
         level={13} // 지도 확대 레벨
+
         onClick={(e, mouseEvent) => handleOnClickPosition(e, mouseEvent)}
         onIdle={handleOnIdleMap}
         ref={mapRef}
