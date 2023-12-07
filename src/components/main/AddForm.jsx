@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
+// import { useMutation, useQueryClient } from 'react-query';
 import { useSelector } from 'react-redux';
 import { styled } from 'styled-components';
+// import { addTogether } from '../../api/togethers';
+import sampleImg from '../../assets/sampleImg.jpeg';
 import { selectPosition } from '../../redux/module/position.slice';
 
 function AddForm() {
@@ -8,15 +11,44 @@ function AddForm() {
   const [imgInputValue, setImgInputValue] = useState(null);
   const position = useSelector(selectPosition);
   console.log('현재 활성화되어 있는 투게더의 position', position);
+
+  // const queryClient = useQueryClient();
+  // const { isLoading, isError, data } = useQuery('togethers', getTogethers);
+
+  // const Mutation = useMutation(addTogether, {
+  //   onSuccess: () => {
+  //     queryClient.invalidateQueries(['togethers']);
+  //     console.log('성공함');
+  //   },
+  // });
+
   const addImgHandler = (e) => {
     setImgInputValue(e.target.files[0]);
     setIsImgSelected(true);
   };
+
+  const submitNewTogetherHandler = (e) => {
+    e.preventDefault();
+
+    const newTogether = {
+      id: '1',
+      title: '새제목',
+      content: '새내용',
+      createdAt: '새생성시간??',
+      imgPath: sampleImg,
+      cost: 2,
+      togetherNum: 2,
+    };
+
+    alert(1);
+    // Mutation.mutate(newTogether);
+  };
+
   return (
     <StOuterFrame>
       <StAddFormContainer>
         <h1>🏠 투게더 등록</h1>
-        <StAddForm>
+        <StAddForm onSubmit={submitNewTogetherHandler}>
           <p>
             주소 <span>{position.address}</span>
           </p>
@@ -54,8 +86,8 @@ function AddForm() {
           </StTitle>
           <StContent placeholder="상세내용" />
           <StButtonContainer>
-            <StCancelBtn>취소</StCancelBtn>
-            <StAddBtn>등록</StAddBtn>
+            <StCancelBtn type="button">취소</StCancelBtn>
+            <StAddBtn type="submit">등록</StAddBtn>
           </StButtonContainer>
         </StAddForm>
       </StAddFormContainer>
