@@ -70,7 +70,7 @@ const StOuterFrame = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  /* height: 100vh; */
   border: 1px solid red;
   /* overflow-y: scroll; */
 `;
@@ -79,8 +79,9 @@ const StAddFormContainer = styled.div`
   background-color: #dfdfdf;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   font-size: 1.5rem;
-  padding: 25px;
+  padding: 40px 25px 50px 25px;
   max-width: 600px;
   /* min-width: 550px; */
   width: 100%;
@@ -88,7 +89,7 @@ const StAddFormContainer = styled.div`
   overflow-y: scroll;
   h1 {
     text-align: center;
-    margin: 20px;
+    margin: 20px 20px 40px 20px;
     font-size: 2rem;
   }
 `;
@@ -129,6 +130,7 @@ const StButtonContainer = styled.div`
   display: flex;
   flex-direction: row;
   gap: 10px;
+  padding-top: 30px;
 `;
 
 const StCancelBtn = styled.button`
