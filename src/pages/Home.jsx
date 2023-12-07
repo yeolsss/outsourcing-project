@@ -7,11 +7,14 @@ import TogetherList from '../components/togetherList/TogetherList';
 function Home() {
   const [isAdding, setIsAdding] = useState(false);
 
+  const [open, setOpen] = useState(false);
+
   return (
     <StMainContainer>
       <StLeftContainer>
         <AddBtn onClick={() => setIsAdding(!isAdding)}>새 게더 등록</AddBtn>
         {isAdding ? <AddForm /> : <TogetherList />}
+        <button>여기</button>
       </StLeftContainer>
       <KakaoMap />
     </StMainContainer>
