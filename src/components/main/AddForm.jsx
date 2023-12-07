@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 // import { useMutation, useQueryClient } from 'react-query';
 import { useSelector } from 'react-redux';
 import { styled } from 'styled-components';
 // import { addTogether } from '../../api/togethers';
-import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
-import { storage } from '../../common/firebaseHamin';
 import checkValidation from '../../hooks/checkValidation';
 import useInput from '../../hooks/useInput';
 import { selectPosition } from '../../redux/module/position.slice';
+// firebase 데이터 추가 아래부터
+import { addDoc, collection, onSnapshot } from 'firebase/firestore';
+import db from '../../common/firebaseHamin';
 
 function AddForm() {
   const [isImgSelected, setIsImgSelected] = useState(false);
@@ -30,6 +31,18 @@ function AddForm() {
   //     console.log('성공함');
   //   },
   // });
+
+  useEffect(() => {
+    onSnapshot(collection(db, 'togethers'), (snapshot) => {
+      console.log(
+        snapshot.docs.map((doc) => {
+          doc.data();
+        }),
+      );
+      console.log('snapshopt.docs', snapshot.docs);
+      console.log('snapshopt.docs...', snapshot.docs);
+    });
+  }, []);
 
   const addImgHandler = (e) => {
     // setImgPath(e.target.files[0]);
@@ -63,35 +76,49 @@ function AddForm() {
       password,
     };
 
-    try {
-      console.log('storage', storage); //undefined
-      const storageRef = ref(storage);
-      const imagesRef = ref(storage, 'images');
-      const fileRef = ref(storageRef, imgPath.name);
+    const collectionRef = collection(db, 'togethers');
+    const payload = newTogether;
+    await addDoc(collectionRef, payload);
 
-      await uploadBytes(fileRef, imgPath);
+    // try {
+    //   const docRef = await addDoc(collection(db, 'users'), {
+    //     first: 'Ada',
+    //     last: 'Lovelace',
+    //     born: 1815,
+    //   });
+    //   console.log('Document written with ID: ', docRef.id);
+    // } catch (e) {
+    //   console.error('Error adding document: ', e);
+    // }
+    // try {
+    //   console.log('storage', storage); //undefined
+    //   const storageRef = ref(storage);
+    //   const imagesRef = ref(storage, 'images');
+    //   const fileRef = ref(storageRef, imgPath.name);
 
-      const downloadURL = await getDownloadURL(fileRef);
-      setImgPath(downloadURL);
+    //   await uploadBytes(fileRef, imgPath);
 
-      // uploadBytes(imgPath, file).then((snapshot) => {
-      //   console.log('uploaded a blog or file!');
-      // });
-      // uploadBytes();
-      // const imageRef = storage.ref();
-      // const fileRef = imageRef.child(imgPath);
-      // await fileRef.put(imgPath);
+    //   const downloadURL = await getDownloadURL(fileRef);
+    //   setImgPath(downloadURL);
 
-      // const downloadURL = await fileRef.getDownloadURL();
-      setImgPath(downloadURL);
-      alert('파일 업로드가 완료되었습니다.');
-    } catch (error) {
-      console.error('파일 업로드 에러', error);
-      alert('파일 업로드 중 에러발생');
-    }
+    //   uploadBytes(imgPath, file).then((snapshot) => {
+    //     console.log('uploaded a blog or file!');
+    //   });
+    //   uploadBytes();
+    //   const imageRef = storage.ref();
+    //   const fileRef = imageRef.child(imgPath);
+    //   await fileRef.put(imgPath);
+
+    //   const downloadURL = await fileRef.getDownloadURL();
+    //   setImgPath(downloadURL);
+    //   alert('파일 업로드가 완료되었습니다.');
+    // } catch (error) {
+    //   console.error('파일 업로드 에러', error);
+    //   alert('파일 업로드 중 에러발생');
+    // }
     // const imageRef = ref(storage, 'folder/file');
     // uploadBytes(imageRef, imgPath);
-    // alert(1);
+    alert(1);
     // Mutation.mutate(newTogether);
   };
 
