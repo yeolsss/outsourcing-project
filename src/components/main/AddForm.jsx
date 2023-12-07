@@ -12,7 +12,7 @@ function AddForm() {
   return (
     <StOuterFrame>
       <StAddFormContainer>
-        <h1>🏠 투게더 등록하기</h1>
+        <h1>🏠 투게더 등록</h1>
         <StAddForm>
           <p>주소 </p>
           <StCost>
