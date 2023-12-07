@@ -30,8 +30,7 @@ function List({ list }) {
 export default List;
 
 const StLi = styled.li`
-  position: relative;
-  width: 33.33%;
+  margin: 0.4rem;
 `;
 
 const StImg = styled.img`

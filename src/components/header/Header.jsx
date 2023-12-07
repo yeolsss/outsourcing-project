@@ -31,6 +31,7 @@ const StContainer = styled.div`
   align-items: center;
   padding: 1rem;
   height: 8rem;
+  border-bottom: 1px solid #e6e6e6;
 `;
 
 const StLogoImg = styled.img`

@@ -32,6 +32,21 @@ const StLeftContainer = styled.div`
   width: 50%;
   height: calc(100vh - 8rem);
   overflow-y: scroll;
-  overflow-x: hidden;
+  position: absolute;
+  top: 8rem;
+  left: 0;
+  z-index: 99999;
+  background-color: #fff;
+
+  &::-webkit-scrollbar {
+    width: 0.8rem;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #19685b;
+    border-radius: 0.4rem;
+  }
+  &::-webkit-scrollbar-track {
+    background: #e6e6e6;
+  }
 `;
 export default Home;
