@@ -4,11 +4,16 @@ import { useSelector } from 'react-redux';
 import { styled } from 'styled-components';
 // import { addTogether } from '../../api/togethers';
 import sampleImg from '../../assets/sampleImg.jpeg';
+import useInput from '../../hooks/useInput';
 import { selectPosition } from '../../redux/module/position.slice';
 
 function AddForm() {
   const [isImgSelected, setIsImgSelected] = useState(false);
   const [imgInputValue, setImgInputValue] = useState(null);
+  const [title, onChangeTitleHandler] = useInput();
+  const [content, onChangeContentHandler] = useInput();
+  const [cost, onChangeCost] = useInput();
+  const [togetherNum, onChangeTogetherNum] = useInput();
   const position = useSelector(selectPosition);
   console.log('현재 활성화되어 있는 투게더의 position', position);
 
@@ -38,6 +43,8 @@ function AddForm() {
       imgPath: sampleImg,
       cost: 2,
       togetherNum: 2,
+      email: '새이메일',
+      password: '1234',
     };
 
     alert(1);
@@ -53,10 +60,12 @@ function AddForm() {
             주소 <span>{position.address}</span>
           </p>
           <StCost>
-            월세 <input type="number" /> 만원
+            월세
+            <input onChange={onChangeCost} type="number" /> 만원
           </StCost>
           <StGetherNum>
-            게더 수 <input type="number" /> 게더
+            게더 수
+            <input onChange={onChangeTogetherNum} type="number" /> 게더
           </StGetherNum>
           <StEmail>
             이메일 <input type="text" />
@@ -82,9 +91,9 @@ function AddForm() {
           </StImage>
           <StTitle>
             제목
-            <input />
+            <input onChange={onChangeTitleHandler} />
           </StTitle>
-          <StContent placeholder="상세내용" />
+          <StContent onChange={onChangeContentHandler} placeholder="상세내용" />
           <StButtonContainer>
             <StCancelBtn type="button">취소</StCancelBtn>
             <StAddBtn type="submit">등록</StAddBtn>
