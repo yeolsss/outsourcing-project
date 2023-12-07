@@ -1,34 +1,43 @@
-import { collection, getDocs } from 'firebase/firestore';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { useQuery } from 'react-query';
 import styled from 'styled-components';
-import { db } from '../../common/firebase';
+import { getLists } from '../../api/lists';
 import List from '../list/List';
 
 function TogetherList() {
   const [list, setList] = useState([]);
   const [searchInput, setSearchInput] = useState('');
 
-  // query를 사용해서 해봐라.. 제천튜터님꺼보고
-  // getDocs는 axios.get()이당
-  useEffect(() => {
-    const fechData = async () => {
-      const querySnapshot = await getDocs(collection(db, 'lists'));
-      const newArr = [];
-      querySnapshot.forEach((doc) => {
-        // console.log(`${doc.id} => ${doc.data()}`);
-        newArr.push(doc.data());
-      });
+  const { isLoading, isError, data } = useQuery('lists', getLists);
+  console.log(data);
+  if (isLoading) {
+    return <h1>로딩중 입니닷..!!</h1>;
+  }
 
-      setList(newArr);
-    };
-    fechData();
-  }, []);
+  if (isError) {
+    return <h1>오류가 발생하였습니닷..!!</h1>;
+  }
+
+  // getDocs는 axios.get()이당
+  // useEffect(() => {
+  //   const fechData = async () => {
+  //     const querySnapshot = await getDocs(collection(db, 'lists'));
+  //     const newArr = [];
+  //     querySnapshot.forEach((doc) => {
+  //       // console.log(`${doc.id} => ${doc.data()}`);
+  //       newArr.push(doc.data());
+  //     });
+
+  //     setList(newArr);
+  //   };
+  //   fechData();
+  // }, []);
 
   const handleSearch = (e) => {
     setSearchInput(e.target.value);
   };
 
-  const filterList = list.filter((item) => {
+  const filterList = data.filter((item) => {
     return item.title.includes(searchInput);
   });
 
