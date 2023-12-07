@@ -1,4 +1,3 @@
-import { useMutation } from '@tanstack/react-query';
 import { addDoc, collection } from 'firebase/firestore';
 import db from '../common/firebaseHamin';
 
@@ -16,8 +15,9 @@ export const addTogetherToFireBase = async (newTogether) => {
 };
 
 // 1 안. 하지만 오류 뜸. React Hook "useMutation" is called in function "addTogether" that is neither a React function component nor a custom React Hook function. React component names must start with an uppercase letter. React Hook names must start with the word "use"  react-hooks/rules-of-hooks Search for the keywords to learn more about each error.
-const addTogether = (newTogether) => {
-  return useMutation(addTogetherToFireBase);
+const addTogether = async (newTogether) => {
+  await addTogetherToFireBase(newTogether);
+  // return useMutation(addTogetherToFireBase);
 };
 
 //export 하기

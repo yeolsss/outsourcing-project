@@ -51,7 +51,7 @@ function AddForm({ setIsAdding }) {
       queryClient.invalidateQueries(['togethers']);
       alert('새 게더가 등록되었습니다!');
       resetInputValues();
-      console.log('성공');
+      console.log('mutation성공!!!!!!');
     },
     onError: (error) => {
       console.error('데이터 추가 에러:', error);
@@ -73,13 +73,35 @@ function AddForm({ setIsAdding }) {
     // 유효성 검사
     if (!cost || !togetherNum || !email || !password || !title || !content) {
       return alert('입력하지 않은 곳이 있습니다.');
+    } else if (
+      checkValidation('월세', cost, 6) &&
+      checkValidation('게더 수', togetherNum, 3) &&
+      checkValidation('이메일', email, 20) &&
+      checkValidation('비밀번호', password, 5) &&
+      checkValidation('제목', title, 30) &&
+      checkValidation('내용', content, 500)
+    ) {
+      alert('확인');
+      if (window.confirm('새 게더를 등록하시겠습니까?')) {
+        addTogetherToFireBase();
+        alert('새 게더가 등록되었습니다!');
+        resetInputValues();
+        Mutation.mutate(newTogether);
+        setIsAdding(false);
+      }
     }
-    checkValidation('월세', cost, 6);
-    checkValidation('게더 수', togetherNum, 3);
-    checkValidation('이메일', email, 20);
-    checkValidation('비밀번호', password, 5);
-    checkValidation('제목', title, 30);
-    checkValidation('내용', content, 500);
+
+    // if (
+    //   checkValidation('월세', cost, 6) ||
+    //   checkValidation('게더 수', togetherNum, 3) ||
+    //   checkValidation('이메일', email, 20) ||
+    //   checkValidation('비밀번호', password, 5) ||
+    //   checkValidation('제목', title, 30) ||
+    //   checkValidation('내용', content, 500)
+    // ) {
+    //   // 유효성 검사에서 오류가 발생하면 함수 종료
+    //   return;
+    // }
 
     const newTogether = {
       id: '1',
@@ -97,16 +119,6 @@ function AddForm({ setIsAdding }) {
       content,
     };
 
-    // const resetInputValues = () => {
-    //   onChangeTitleHandler({ target: { value: '' } });
-    //   onChangeContentHandler({ target: { value: '' } });
-    //   onChangeCost({ target: { value: '' } });
-    //   onChangeTogetherNum({ target: { value: '' } });
-    //   onChangeEmail({ target: { value: '' } });
-    //   onChangePassword({ target: { value: '' } });
-    //   setIsImgSelected(false);
-    // };
-
     // const addTogetherToFireBase = async () => {
     //   try {
     //     const collectionRef = collection(db, 'togethers');
@@ -118,15 +130,25 @@ function AddForm({ setIsAdding }) {
     //   }
     // };
 
-    if (!window.confirm('새 게더를 등록하시겠습니까?')) {
-      return;
-    }
+    // const shouldProceed = window.confirm('새 게더를 등록하시겠습니까?');
+    // if (shouldProceed) {
+    //   addTogetherToFireBase();
+    //   alert('새 게더가 등록되었습니다!');
+    //   resetInputValues();
+    //   Mutation.mutate(newTogether);
+    //   setIsAdding(false);
+    // }
 
-    // 1안 ------------------
-    addTogetherToFireBase();
-    alert('새 게더가 등록되었습니다!');
-    resetInputValues();
-    Mutation.mutate(newTogether);
+    // if (!window.confirm('새 게더를 등록하시겠습니까?')) {
+    //   return;
+    // }
+
+    // // 1안 ------------------
+    // addTogetherToFireBase();
+    // alert('새 게더가 등록되었습니다!');
+    // resetInputValues();
+    // Mutation.mutate(newTogether);
+    // setIsAdding(false);
     // -------------------------
 
     // try {
