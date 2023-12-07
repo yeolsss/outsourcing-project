@@ -8,8 +8,6 @@ function Home() {
   const [isAdding, setIsAdding] = useState(false);
   const [open, setOpen] = useState(false);
 
-  const openClose = 
-
   return (
     <StMainContainer>
       <StLeftContainer>
