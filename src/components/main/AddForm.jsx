@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { styled } from 'styled-components';
 // import { addTogether } from '../../api/togethers';
-import sampleImg from '../../assets/sampleImg.jpeg';
+import checkValidation from '../../hooks/checkValidation';
 import useInput from '../../hooks/useInput';
 import { selectPosition } from '../../redux/module/position.slice';
 
@@ -37,12 +37,23 @@ function AddForm() {
   const submitNewTogetherHandler = (e) => {
     e.preventDefault();
 
+    // 유효성 검사
+    if (!cost || !togetherNum || !email || !password || !title || !content) {
+      return alert('입력하지 않은 곳이 있습니다.');
+    }
+    checkValidation('월세', cost, 6);
+    checkValidation('게더 수', togetherNum, 3);
+    checkValidation('이메일', email, 20);
+    checkValidation('비밀번호', password, 5);
+    checkValidation('제목', title, 30);
+    checkValidation('내용', content, 500);
+
     const newTogether = {
       id: '1',
       title,
       content,
       createdAt: '새생성시간??',
-      imgPath: sampleImg,
+      // imgPath,
       cost,
       togetherNum,
       email,
@@ -63,17 +74,27 @@ function AddForm() {
           </p>
           <StCost>
             월세
-            <input onChange={onChangeCost} type="number" /> 만원
+            <input value={cost} onChange={onChangeCost} type="number" /> 만원
           </StCost>
           <StGetherNum>
             게더 수
-            <input onChange={onChangeTogetherNum} type="number" /> 게더
+            <input
+              value={togetherNum}
+              onChange={onChangeTogetherNum}
+              type="number"
+            />{' '}
+            게더
           </StGetherNum>
           <StEmail>
-            이메일 <input onChange={onChangeEmail} type="text" />
+            이메일 <input value={email} onChange={onChangeEmail} type="text" />
           </StEmail>
           <StPassword>
-            비밀번호 <input onChange={onChangePassword} type="password" />
+            비밀번호{' '}
+            <input
+              value={password}
+              onChange={onChangePassword}
+              type="password"
+            />
           </StPassword>
           <StImage>
             사진등록
@@ -93,9 +114,13 @@ function AddForm() {
           </StImage>
           <StTitle>
             제목
-            <input onChange={onChangeTitleHandler} />
+            <input value={title} onChange={onChangeTitleHandler} />
           </StTitle>
-          <StContent onChange={onChangeContentHandler} placeholder="상세내용" />
+          <StContent
+            value={content}
+            onChange={onChangeContentHandler}
+            placeholder="상세내용"
+          />
           <StButtonContainer>
             <StCancelBtn type="button">취소</StCancelBtn>
             <StAddBtn type="submit">등록</StAddBtn>
