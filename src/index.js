@@ -4,10 +4,6 @@ import { Provider } from 'react-redux';
 import App from './App';
 import store from './redux/configStore';
 
-import app from './common/firebase';
-
-console.log(app);
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>

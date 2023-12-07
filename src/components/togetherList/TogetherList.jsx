@@ -102,6 +102,12 @@ const StSearchBar = styled.input`
   border: 1px solid #e6e6e6;
   border-radius: 5rem;
   padding: 1rem;
+
+  &:focus {
+    outline: none;
+    border-color: #23917f;
+    box-shadow: 0 0 1rem #23917f;
+  }
 `;
 
 const StUl = styled.ul`
