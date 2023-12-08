@@ -22,6 +22,8 @@ export const getPosition = (address) => {
       // 정상적으로 검색이 완료됐으면
       if (status === window.kakao.maps.services.Status.OK) {
         res({ lat: result[0].y, lng: result[0].x });
+      } else {
+        res(false);
       }
     });
   });

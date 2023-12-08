@@ -4,6 +4,8 @@ import { __setAddress, selectPosition } from 'redux/module/position.slice';
 import { selectorTogether } from 'redux/module/together.slice';
 import { usePosts } from './usePosts';
 import { useZoom } from './useZoom';
+import { useInput } from './useInput';
+import { getPosition } from '../common/mapUtil';
 
 export function useMap() {
   const position = useSelector(selectPosition);
@@ -14,7 +16,7 @@ export function useMap() {
   const markerRef = useRef(null);
   const { handler: updatePosition } = usePosts();
   const [zoomHandler] = useZoom(mapRef);
-
+  const [searchInput, handleOnChangeInput] = useInput();
   const dispatch = useDispatch();
 
   // 클릭된 좌표 얻기
@@ -37,6 +39,15 @@ export function useMap() {
     const { Ma: lat, La: lng } = markerRef.current.getPosition();
     dispatch(__setAddress({ lat, lng }));
   };
+  const handleOnSubmitAddressSearch = async (e) => {
+    e.preventDefault();
+    const position = await getPosition(searchInput);
+    if (!position) {
+      alert('검색 결과가 없습니다.');
+      return;
+    }
+    dispatch(__setAddress({ ...position }));
+  };
 
   return {
     position,
@@ -50,5 +61,8 @@ export function useMap() {
     handleOnClickPosition,
     handleOnClickMarker,
     handleOnDragEndMarker,
+    searchInput,
+    handleOnChangeInput,
+    handleOnSubmitAddressSearch,
   };
 }
