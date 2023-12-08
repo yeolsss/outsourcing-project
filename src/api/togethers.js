@@ -5,7 +5,10 @@ import db from '../common/firebaseHamin';
 export const addTogetherToFireBase = async (newTogether) => {
   try {
     const collectionRef = collection(db, 'togethers');
+    console.log({ collectionRef });
+
     const payload = newTogether;
+    console.log({ payload });
     const docRef = await addDoc(collectionRef, payload);
     console.log('새 투게더 아이디 : ', docRef.id);
   } catch (error) {

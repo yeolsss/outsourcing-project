@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { styled } from 'styled-components';
 // import { addTogether, getTogethers } from '../../api/togethers';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { addTogether, addTogetherToFireBase } from '../../api/togethers';
+import { addTogether } from '../../api/togethers';
 import checkValidation from '../../hooks/checkValidation';
 import useInput from '../../hooks/useInput';
 import { selectPosition } from '../../redux/module/position.slice';
@@ -70,27 +70,6 @@ function AddForm({ setIsAdding }) {
   const submitNewTogetherHandler = async (e) => {
     e.preventDefault();
 
-    // 유효성 검사
-    if (!cost || !togetherNum || !email || !password || !title || !content) {
-      return alert('입력하지 않은 곳이 있습니다.');
-    } else if (
-      checkValidation('월세', cost, 6) &&
-      checkValidation('게더 수', togetherNum, 3) &&
-      checkValidation('이메일', email, 20) &&
-      checkValidation('비밀번호', password, 5) &&
-      checkValidation('제목', title, 30) &&
-      checkValidation('내용', content, 500)
-    ) {
-      alert('확인');
-      if (window.confirm('새 게더를 등록하시겠습니까?')) {
-        addTogetherToFireBase();
-        alert('새 게더가 등록되었습니다!');
-        resetInputValues();
-        Mutation.mutate(newTogether);
-        setIsAdding(false);
-      }
-    }
-
     const newTogether = {
       id: '1',
       address: position.address,
@@ -106,6 +85,24 @@ function AddForm({ setIsAdding }) {
       title,
       content,
     };
+
+    // 유효성 검사
+    if (!cost || !togetherNum || !email || !password || !title || !content) {
+      return alert('입력하지 않은 곳이 있습니다.');
+    } else if (
+      checkValidation('월세', cost, 6) &&
+      checkValidation('게더 수', togetherNum, 3) &&
+      checkValidation('이메일', email, 20) &&
+      checkValidation('비밀번호', password, 5) &&
+      checkValidation('제목', title, 30) &&
+      checkValidation('내용', content, 500)
+    ) {
+      if (window.confirm('새 게더를 등록하시겠습니까?')) {
+        // addTogetherToFireBase();
+        Mutation.mutate(newTogether);
+        setIsAdding(false);
+      }
+    }
 
     // const addTogetherToFireBase = async () => {
     //   try {
