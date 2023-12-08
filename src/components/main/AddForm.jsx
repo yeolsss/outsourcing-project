@@ -19,21 +19,19 @@ function AddForm({ setIsAdding }) {
   const [togetherNum, onChangeTogetherNum] = useInput('');
   const [email, onChangeEmail] = useInput('');
   const [password, onChangePassword] = useInput('');
+  const [gender, setGender] = useState('noGenderRequirement');
   const position = useSelector(selectPosition);
-  console.log('현재 활성화되어 있는 투게더의 position', position);
-
+  const genderOptions = [
+    { value: 'noGenderRequirement', label: '해당없음' },
+    { value: 'manOnly', label: '남성전용' },
+    { value: 'womanOnly', label: '여성전용' },
+  ];
   const queryClient = useQueryClient();
 
-  // const { isLoading, isError, data } = useQuery('togethers', getTogethers);
-
-  const resetInputValues = () => {
-    onChangeTitleHandler({ target: { value: '' } });
-    onChangeContentHandler({ target: { value: '' } });
-    onChangeCost({ target: { value: '' } });
-    onChangeTogetherNum({ target: { value: '' } });
-    onChangeEmail({ target: { value: '' } });
-    onChangePassword({ target: { value: '' } });
-    setIsImgSelected(false);
+  const selectGenderHandler = (e) => {
+    const selectedGender = e.target.value;
+    setGender(selectedGender);
+    console.log({ selectedGender });
   };
 
   const Mutation = useMutation({
@@ -49,6 +47,18 @@ function AddForm({ setIsAdding }) {
       alert('새 투게더 추가 중 오류가 발생했습니다.');
     },
   });
+
+  const resetInputValues = () => {
+    onChangeTitleHandler({ target: { value: '' } });
+    onChangeContentHandler({ target: { value: '' } });
+    onChangeCost({ target: { value: '' } });
+    onChangeTogetherNum({ target: { value: '' } });
+    onChangeEmail({ target: { value: '' } });
+    onChangePassword({ target: { value: '' } });
+    setGender('noGenderRequirement');
+    setIsImgSelected(false);
+  };
+
   const storage = getStorage();
   const togetherImgRef = useRef();
   // 이미지 추가 버튼 로직!
@@ -87,7 +97,7 @@ function AddForm({ setIsAdding }) {
       togetherNum,
       createdAt: getDate(),
       email,
-      gender: 'M or F',
+      gender,
       imgPath: imgPath,
       isDone: false,
       password,
@@ -124,6 +134,21 @@ function AddForm({ setIsAdding }) {
             월세
             <input value={cost} onChange={onChangeCost} type="number" /> 만원
           </StCost>
+          <StGender>
+            전용선택
+            {genderOptions.map((option) => (
+              <label key={option.value}>
+                {option.label}
+                <input
+                  type="radio"
+                  name="gender"
+                  value={option.value}
+                  checked={gender === option.value}
+                  onChange={selectGenderHandler}
+                />
+              </label>
+            ))}
+          </StGender>
           <StGetherNum>
             모집인원
             <input
@@ -283,6 +308,8 @@ const StGetherNum = styled.p`
     text-align: right;
   }
 `;
+
+const StGender = styled.p``;
 
 const StEmail = styled.p`
   input {
