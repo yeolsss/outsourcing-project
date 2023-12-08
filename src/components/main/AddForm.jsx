@@ -1,13 +1,13 @@
-import React, { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 // import { useMutation, useQueryClient } from 'react-query';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
-import { useSelector } from 'react-redux';
-import { styled } from 'styled-components';
 import { addTogether } from 'api/togethers';
 import { checkEmailValidation, checkValidation, getDate } from 'common/util';
+import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
 import { useInput } from 'hooks';
+import { useSelector } from 'react-redux';
 import { selectPosition } from 'redux/module/position.slice';
+import { styled } from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
 
 function AddForm({ setIsAdding }) {
@@ -64,7 +64,7 @@ function AddForm({ setIsAdding }) {
 
   const storage = getStorage();
   const togetherImgRef = useRef();
-  // 이미지 추가 버튼 로직!
+  // 이미지 추가 버튼 로직
   const addImgHandler = async (e) => {
     try {
       // 선택된 이미지 파일
