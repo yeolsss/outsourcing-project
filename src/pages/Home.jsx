@@ -8,14 +8,11 @@ function Home() {
   const [isAdding, setIsAdding] = useState(false);
   const [open, setOpen] = useState(false);
 
-  const openClose = 
-
   return (
     <StMainContainer>
       <StLeftContainer>
-        <AddBtn onClick={() => setIsAdding(!isAdding)}>새 게더 등록</AddBtn>
-        {isAdding ? <AddForm /> : <TogetherList />}
-        <button>여기</button>
+        <AddBtn onClick={() => setIsAdding(!isAdding)}>새 투게더 등록</AddBtn>
+        {isAdding ? <AddForm setIsAdding={setIsAdding} /> : <TogetherList />}
       </StLeftContainer>
       <KakaoMap />
     </StMainContainer>
