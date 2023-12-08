@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 // import { useMutation, useQueryClient } from 'react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useSelector } from 'react-redux';
 import { styled } from 'styled-components';
 import { addTogether } from '../../api/togethers';
-import { selectPosition } from '../../redux/module/position.slice';
-import { useInput } from '../../hooks';
 import { checkValidation, getDate } from '../../common/util';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useInput } from '../../hooks';
+import { selectPosition } from '../../redux/module/position.slice';
 
 function AddForm({ setIsAdding }) {
   const [isImgSelected, setIsImgSelected] = useState(false);
@@ -48,7 +48,7 @@ function AddForm({ setIsAdding }) {
     },
   });
 
-  // 이미지 추가 버튼 로직
+  // 이미지 추가 버튼 로직!
   const addImgHandler = (e) => {
     // setImgPath(e.target.files[0]);
     setImgPath(e.target.files[0].name);
