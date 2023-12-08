@@ -5,7 +5,11 @@ import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
 import { useSelector } from 'react-redux';
 import { styled } from 'styled-components';
 import { addTogether } from '../../api/togethers';
-import { checkValidation, getDate } from '../../common/util';
+import {
+  checkEmailValidation,
+  checkValidation,
+  getDate,
+} from '../../common/util';
 import { useInput } from '../../hooks';
 import { selectPosition } from '../../redux/module/position.slice';
 
@@ -40,11 +44,13 @@ function AddForm({ setIsAdding }) {
       queryClient.invalidateQueries({ queryKey: ['togethers'] });
       alert('새 투게더가 등록되었습니다!');
       resetInputValues();
-      console.log('mutation성공!!!!!!');
+      console.log('mutation성공!');
     },
     onError: (error) => {
-      console.error('데이터 추가 에러:', error);
-      alert('새 투게더 추가 중 오류가 발생했습니다.');
+      console.error('새 투게더 데이터 추가 중 에러 발생:', error);
+      alert(
+        '알 수 없는 오류가 생겼습니다. 고객센터(02-123-4567)로 문의해주세요.',
+      );
     },
   });
 
@@ -106,13 +112,22 @@ function AddForm({ setIsAdding }) {
     };
 
     // 유효성 검사
-    if (!cost || !togetherNum || !email || !password || !title || !content) {
+    if (
+      !cost ||
+      !gender ||
+      !togetherNum ||
+      !email ||
+      !password ||
+      !imgPath ||
+      !title ||
+      !content
+    ) {
       return alert('입력하지 않은 곳이 있습니다.');
     } else if (
       checkValidation('월세', cost, 6) &&
       checkValidation('모집인원 수', togetherNum, 3) &&
-      checkValidation('이메일', email, 20) &&
-      checkValidation('비밀번호', password, 5) &&
+      checkEmailValidation(email) &&
+      checkValidation('비밀번호', password, 10) &&
       checkValidation('제목', title, 30) &&
       checkValidation('내용', content, 500)
     ) {
@@ -175,7 +190,7 @@ function AddForm({ setIsAdding }) {
               {isImgSelected ? (
                 <StImgSlelctedText>사진 1개 선택 완료</StImgSlelctedText>
               ) : (
-                <span>+</span>
+                <span>➕</span>
               )}
             </label>
             <input
