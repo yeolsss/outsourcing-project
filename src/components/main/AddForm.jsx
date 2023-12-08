@@ -54,31 +54,24 @@ function AddForm({ setIsAdding }) {
   // 이미지 추가 버튼 로직!
   const addImgHandler = async (e) => {
     try {
-      // 1. 만약 이미지를 선택 후 '열기'를 누르면
-      const selectedImgFile = e.target.files[0]; // 선택된 이미지 파일
-      // 이미지를 선택하지 않은 경우 처리
-      // if (!selectedImgFile) {
-      //   return;
-      // }
-      setImgInputValue(selectedImgFile); // 사진입력창에 대한 입력값으로 state저장
+      // 선택된 이미지 파일
+      const selectedImgFile = e.target.files[0];
+      setImgInputValue(selectedImgFile);
       console.log({ selectedImgFile });
-      // 2. UI : 사진 1개 선택됨 랜더링, Logic: 선택된 이미지파일을 storage에 추가
+      // 선택된 이미지파일을 firebase storage에 추가
       const selectedImgFilePath = `togetherImages/${selectedImgFile.name}`;
       const togetherImageRef = ref(storage, selectedImgFilePath);
       await uploadBytes(togetherImageRef, selectedImgFile);
+      // firebase storage에 업로드된 사진파일 경로
       const downloadURL = await getDownloadURL(togetherImageRef);
       console.log({ downloadURL });
       setImgPath(downloadURL);
       setImgInputValue(downloadURL);
-      togetherImgRef.current.value = null; // 이미지 선택 input 초기화
+      // 이미지 선택 input 초기화
+      togetherImgRef.current.value = null;
     } catch (error) {
       console.error('이미지 업로드 에러', error);
     }
-    // 3. storage에 추가된 이미지의 url을 반환
-    // 4. 'submitNewTogetherHandler' 로직에 newTogether 의 imPath의 value 값에 3번 반환값 넣기
-    // 5. 입력값을 모두 모아 mutation에 저장한다(이 부분은 이미 로직완성되었으니 1~4만 하면됨)
-    // setImgPath(e.target.files[0]);
-    // setImgPath(e.target.files[0].name);
     setIsImgSelected(true);
   };
 
@@ -118,35 +111,6 @@ function AddForm({ setIsAdding }) {
         setIsAdding(false);
       }
     }
-
-    // try {
-    //   console.log('storage', storage); //undefined
-    //   const storageRef = ref(storage);
-    //   const imagesRef = ref(storage, 'images');
-    //   const fileRef = ref(storageRef, imgPath.name);
-
-    //   await uploadBytes(fileRef, imgPath);
-
-    //   const downloadURL = await getDownloadURL(fileRef);
-    //   setImgPath(downloadURL);
-
-    //   uploadBytes(imgPath, file).then((snapshot) => {
-    //     console.log('uploaded a blog or file!');
-    //   });
-    //   uploadBytes();
-    //   const imageRef = storage.ref();
-    //   const fileRef = imageRef.child(imgPath);
-    //   await fileRef.put(imgPath);
-
-    //   const downloadURL = await fileRef.getDownloadURL();
-    //   setImgPath(downloadURL);
-    //   alert('파일 업로드가 완료되었습니다.');
-    // } catch (error) {
-    //   console.error('파일 업로드 에러', error);
-    //   alert('파일 업로드 중 에러발생');
-    // }
-    // const imageRef = ref(storage, 'folder/file');
-    // uploadBytes(imageRef, imgPath);
   };
   return (
     <StOuterFrame>
