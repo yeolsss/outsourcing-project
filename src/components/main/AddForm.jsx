@@ -104,38 +104,6 @@ function AddForm({ setIsAdding }) {
       }
     }
 
-    // const addTogetherToFireBase = async () => {
-    //   try {
-    //     const collectionRef = collection(db, 'togethers');
-    //     const payload = newTogether;
-    //     const docRef = await addDoc(collectionRef, payload);
-    //     console.log('새 투게더 아이디 : ', docRef.id);
-    //   } catch (error) {
-    //     console.error(error);
-    //   }
-    // };
-
-    // const shouldProceed = window.confirm('새 게더를 등록하시겠습니까?');
-    // if (shouldProceed) {
-    //   addTogetherToFireBase();
-    //   alert('새 게더가 등록되었습니다!');
-    //   resetInputValues();
-    //   Mutation.mutate(newTogether);
-    //   setIsAdding(false);
-    // }
-
-    // if (!window.confirm('새 게더를 등록하시겠습니까?')) {
-    //   return;
-    // }
-
-    // // 1안 ------------------
-    // addTogetherToFireBase();
-    // alert('새 게더가 등록되었습니다!');
-    // resetInputValues();
-    // Mutation.mutate(newTogether);
-    // setIsAdding(false);
-    // -------------------------
-
     // try {
     //   console.log('storage', storage); //undefined
     //   const storageRef = ref(storage);
