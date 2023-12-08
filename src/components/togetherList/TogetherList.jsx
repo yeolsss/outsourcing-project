@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { getLists } from '../../api/lists';
+import { getLists } from '../../api/togethers';
 import List from '../list/List';
 
 function TogetherList() {
