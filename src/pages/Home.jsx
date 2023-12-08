@@ -10,9 +10,14 @@ function Home() {
   return (
     <StMainContainer>
       <StLeftContainer>
+<<<<<<< HEAD
         <AddBtn onClick={() => setIsAdding(!isAdding)}>새 게더 등록</AddBtn>
         {isAdding ? <AddForm /> : <TogetherList />}
         <StHiddenButton>여기</StHiddenButton>
+=======
+        <AddBtn onClick={() => setIsAdding(!isAdding)}>새 투게더 등록</AddBtn>
+        {isAdding ? <AddForm setIsAdding={setIsAdding} /> : <TogetherList />}
+>>>>>>> 88036ce5c88c6757f11c1e2f3f7b4dd153a2c7f3
       </StLeftContainer>
       <KakaoMap />
     </StMainContainer>
