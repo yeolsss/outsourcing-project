@@ -92,5 +92,5 @@ const StSearchBar = styled.input`
 const StUl = styled.ul`
   display: grid;
   grid-template-columns: 1fr 1fr;
-  margin: 2rem 0.6rem;
+  margin: 2rem;
 `;

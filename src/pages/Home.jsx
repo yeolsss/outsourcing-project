@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
 import LogoImg from '../assets/logo.png';
+import AddPlus from '../assets/plus.png';
 import KakaoMap from '../components/kakaoMap/KakaoMap';
 import AddForm from '../components/main/AddForm';
 import TogetherList from '../components/togetherList/TogetherList';
@@ -16,14 +17,14 @@ function Home() {
         <StHeader>
           <div>
             <Link to={'/'}>
-              <img src={LogoImg} alt="투게더로고" />
+              <StLogoImg src={LogoImg} alt="투게더로고" />
             </Link>
           </div>
           <ul>
             <li>
-              <AddBtn onClick={() => setIsAdding(!isAdding)}>
-                새 투게더 등록
-              </AddBtn>
+              <button onClick={() => setIsAdding(!isAdding)}>
+                <AddBtn src={AddPlus} alt="투게더 등록" />
+              </button>
             </li>
           </ul>
         </StHeader>
@@ -36,10 +37,9 @@ function Home() {
   );
 }
 
-const AddBtn = styled.button`
-  background-color: yellow;
-  border: 1px solid black;
-  position: absolute;
+const AddBtn = styled.img`
+  width: 4rem;
+  height: 4rem;
 `;
 
 const StMainContainer = styled.div`
@@ -73,7 +73,7 @@ const StHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 2rem;
+  padding: 1rem;
   border-bottom: 1px solid #e6e6e6;
 `;
 
