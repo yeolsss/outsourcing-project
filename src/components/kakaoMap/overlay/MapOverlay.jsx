@@ -1,27 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { styled } from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   handleMarker,
   selectCurrentMarker,
 } from '../../../redux/module/currentMarker.slice';
-import dumyData from '../../../common/dumy.json';
-import { getAddress } from '../../../common/mapUtil';
+import { selectorTogether } from '../../../redux/module/together.slice';
 
 const MapOverlay = () => {
-  const { isOpen, selectedMarkerId } = useSelector(selectCurrentMarker);
+  const { isOpen, selectedMarker } = useSelector(selectCurrentMarker);
+  const { togethers } = useSelector(selectorTogether);
   const dispatch = useDispatch();
-  const post = dumyData.find((post, idx) => {
-    return post.id === selectedMarkerId;
+
+  const together = togethers?.find((together, idx) => {
+    return together.docId === selectedMarker.docId;
   });
-
-  const [address, setAddress] = useState('');
-
-  useEffect(() => {
-    (async () => {
-      setAddress(await getAddress(post));
-    })();
-  }, [selectedMarkerId]);
 
   const handleOnClickCloseOverlay = () => {
     dispatch(handleMarker(false));
@@ -31,8 +24,8 @@ const MapOverlay = () => {
     <>
       <StBottomOverlay $isOpen={isOpen}>
         <div>
-          <span>제목: {post?.name || ''}</span>
-          <span>주소: {address || ''}</span>
+          <span>제목: {together?.title}</span>
+          <span>주소: {together?.address}</span>
           <button onClick={handleOnClickCloseOverlay}>❌</button>
         </div>
       </StBottomOverlay>

@@ -1,41 +1,29 @@
 import { useRef, useState } from 'react';
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
 import { useDispatch, useSelector } from 'react-redux';
+import currentPin from '../../assets/current-pin.png';
+import { usePosts, useZoom } from '../../hooks';
 import {
   __setAddress,
   selectPosition,
 } from '../../redux/module/position.slice';
-import CustomMapMarkerOverlay from './customMapMarker/CustomMapMarkerOverlay';
-import currentPin from '../../assets/current-pin.png';
-import CustomMarkerClusterer from './customMarkerClusterer/CustomMarkerClusterer';
-import ZoomButtonWrapper from './zoomButton/ZoomButtonWrapper';
-import MapOverlay from './overlay/MapOverlay';
-import { usePosts } from '../../hooks';
 import { selectorTogether } from '../../redux/module/together.slice';
+import CustomMapMarkerOverlay from './customMapMarker/CustomMapMarkerOverlay';
+import CustomMarkerClusterer from './customMarkerClusterer/CustomMarkerClusterer';
+import MapOverlay from './overlay/MapOverlay';
+import ZoomButtonWrapper from './zoomButton/ZoomButtonWrapper';
 
 function KakaoMap() {
   const position = useSelector(selectPosition);
   const selectTogethers = useSelector(selectorTogether);
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedMarkerId, setSelectedMarkerId] = useState('');
+  const [selectedMarker, setSelectedMarker] = useState('');
   const mapRef = useRef(null);
   const markerRef = useRef(null);
   const { handler } = usePosts();
+  const [zoomHandler] = useZoom(mapRef);
 
   const dispatch = useDispatch();
-
-  // zoomIn, zoomOut func
-  const zoomIn = () => {
-    const map = mapRef.current;
-    if (!map) return;
-    map.setLevel(map.getLevel() - 1);
-  };
-
-  const zoomOut = () => {
-    const map = mapRef.current;
-    if (!map) return;
-    map.setLevel(map.getLevel() + 1);
-  };
 
   // 클릭된 좌표 얻기
   const handleOnClickPosition = (_target, mouseEvent) => {
@@ -49,7 +37,7 @@ function KakaoMap() {
   // 마커 클릭하면 overlay 보여주기
   const handleOnClickMarker = (postId = '') => {
     setIsOpen(!isOpen);
-    setSelectedMarkerId(postId);
+    setSelectedMarker(postId);
   };
   // 마커 드레그가 마치면 position을 얻어옴
   const handleOnDragEndMarker = () => {
@@ -84,14 +72,14 @@ function KakaoMap() {
             },
           }}
         >
-          {isOpen && selectedMarkerId === '' && (
+          {isOpen && selectedMarker === '' && (
             <CustomMapMarkerOverlay position={position} />
           )}
         </MapMarker>
 
         <CustomMarkerClusterer togethers={selectTogethers.togethers} />
       </Map>
-      <ZoomButtonWrapper zoom={{ zoomIn, zoomOut }} />
+      <ZoomButtonWrapper handler={{ zoomHandler }} />
       <MapOverlay />
     </>
   );

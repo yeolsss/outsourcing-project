@@ -1,18 +1,18 @@
 import React from 'react';
 import { styled } from 'styled-components';
 
-const ZoomButtonWrapper = ({ zoom }) => {
-  const { zoomIn, zoomOut } = zoom;
+const ZoomButtonWrapper = ({ handler }) => {
+  const { zoomHandler } = handler;
   return (
     <>
       <StZoomBtnWrapper>
-        <span onClick={zoomIn}>
+        <span onClick={() => zoomHandler('in')}>
           <img
             src="https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/ico_plus.png"
             alt="확대"
           />
         </span>
-        <span onClick={zoomOut}>
+        <span onClick={() => zoomHandler('out')}>
           <img
             src="https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/ico_minus.png"
             alt="축소"

@@ -10,11 +10,11 @@ import {
 
 const CustomMarker = ({ together }) => {
   // redux 가져와
-  const { isOpen, selectedMarkerId } = useSelector(selectCurrentMarker);
+  const { isOpen, selectedMarker } = useSelector(selectCurrentMarker);
   const dispatch = useDispatch();
 
-  const handleOnClickMarker = (id) => {
-    dispatch(handleMarker(id));
+  const handleOnClickMarker = () => {
+    dispatch(handleMarker(together));
   };
 
   return (
@@ -24,7 +24,7 @@ const CustomMarker = ({ together }) => {
           lat: together.coordinates.lat,
           lng: together.coordinates.lng,
         }}
-        onClick={() => handleOnClickMarker(together.id)}
+        onClick={() => handleOnClickMarker(together.docId)}
         image={{
           src: locationPin, // 마커이미지의 주소입니다
           size: {
@@ -33,7 +33,7 @@ const CustomMarker = ({ together }) => {
           },
         }}
       >
-        {isOpen && selectedMarkerId === together.id && (
+        {isOpen && selectedMarker.docId === together.docId && (
           <CustomMapMarkerOverlay
             title={together.title}
             position={{
