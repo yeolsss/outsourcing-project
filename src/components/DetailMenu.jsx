@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const { Kakao } = window;
@@ -38,7 +39,9 @@ function DetailMenu({ gether }) {
     <StDetailMenuContainer>
       <StDetailShare onClick={shareKakao}>공유하기</StDetailShare>;
       <StDetailJoin>입주신청</StDetailJoin>;
-      <StDetailHome>홈으로가기</StDetailHome>;
+      <Link to={'/'}>
+        <StDetailHome>홈으로가기</StDetailHome>;
+      </Link>
       <StDetailEdit>수정하기</StDetailEdit>;<StTogelDone>완료</StTogelDone>;
     </StDetailMenuContainer>
   );
