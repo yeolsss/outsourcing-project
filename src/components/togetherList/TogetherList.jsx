@@ -2,12 +2,12 @@ import { useQuery } from '@tanstack/react-query';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { getLists } from '../../api/togethers';
+import { getLists } from 'api/togethers';
 import {
   selectorTogether,
   setOriginTogethers,
   setTogethers,
-} from '../../redux/module/together.slice';
+} from 'redux/module/together.slice';
 import List from '../list/List';
 import SearchBar from '../searchBar/SearchBar';
 
