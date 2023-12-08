@@ -1,8 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
-function DetailText() {
-  return <StDetailText>확인용 텍스트</StDetailText>;
+function DetailText({ gether }) {
+  const [text, setText] = useState('');
+
+  return (
+    <div>
+      <StDetailText>{gether.content}</StDetailText>;
+    </div>
+  );
 }
 
 export default DetailText;
