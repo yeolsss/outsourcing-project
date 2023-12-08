@@ -1,5 +1,5 @@
 import { addDoc, collection } from 'firebase/firestore';
-import db from '../common/firebaseHamin';
+import { db } from '../common/firebase';
 
 // firestore 데이터 추가 로직
 export const addTogetherToFireBase = async (newTogether) => {

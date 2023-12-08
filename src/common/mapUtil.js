@@ -7,10 +7,23 @@ export const getAddress = (marker) => {
       }
     };
     geocoder.coord2Address(
-      parseFloat(marker.lng),
-      parseFloat(marker.lat),
+      parseFloat(marker?.lng),
+      parseFloat(marker?.lat),
       callback,
     );
+  });
+};
+
+export const getPosition = (address) => {
+  return new Promise((res) => {
+    const geocoder = new window.kakao.maps.services.Geocoder();
+    // 주소로 좌표를 검색합니다
+    geocoder.addressSearch(address, function (result, status) {
+      // 정상적으로 검색이 완료됐으면
+      if (status === window.kakao.maps.services.Status.OK) {
+        res({ lat: result[0].y, lng: result[0].x });
+      }
+    });
   });
 };
 

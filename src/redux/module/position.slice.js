@@ -1,11 +1,12 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { getAddress } from '../../common/mapUtil';
+import { getAddress, getPosition } from '../../common/mapUtil';
 
 const initialState = {
   position: {
     lat: 37.5023262,
     lng: 127.0444546,
     address: '서울 강남구 역삼동 706-19',
+    title: '',
   },
 };
 
@@ -17,16 +18,25 @@ export const __setAddress = createAsyncThunk(
     return { ...payload, address };
   },
 );
+
+// 주소로 검색 할 때
+export const __searchAddress = createAsyncThunk(
+  'searchAddress',
+  async (payload) => {
+    const position = await getPosition(payload);
+    return { ...position };
+  },
+);
+
 const positionSlice = createSlice({
   name: 'position',
   initialState,
-  reducers: {
-    setPosition: (state, action) => {
-      state.position = action.payload;
-    },
-  },
+  reducers: {},
   extraReducers: {
     [__setAddress.fulfilled]: (state, { payload }) => {
+      state.position = payload;
+    },
+    [__searchAddress.fulfilled]: (state, { payload }) => {
       state.position = payload;
     },
   },

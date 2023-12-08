@@ -3,18 +3,18 @@ import styled from 'styled-components';
 import { getAddress } from '../../../common/mapUtil';
 
 const CustomMapMarkerOverlay = ({ title = '', position }) => {
-  //TODO: 미리 등록된 marker면 클릭 시 상세페이지로 이동.
-  // 아닐 경우 등록
   const [address, setAddress] = useState();
 
   useEffect(() => {
     (async () => {
+      // !나중에 db연결되면 디비에 저장된 주소로 가져오기
+      // !현재 클릭된 마커이면 주소 가져오기(redux에 데이터 있음)
       setAddress((await getAddress(position)) || '주소를 찾을 수 없습니다.');
     })();
   }, [position]);
 
   return (
-    <Container>
+    <StContainer>
       {title && (
         <>
           <li>
@@ -32,12 +32,12 @@ const CustomMapMarkerOverlay = ({ title = '', position }) => {
       <li>
         <StAddress>주소: {address}</StAddress>
       </li>
-    </Container>
+    </StContainer>
   );
 };
 export default CustomMapMarkerOverlay;
 
-const Container = styled.ul`
+const StContainer = styled.ul`
   width: 20rem;
   height: 10rem;
   border-radius: 0.5rem;
