@@ -9,6 +9,7 @@ import {
   setTogethers,
 } from '../../redux/module/together.slice';
 import List from '../list/List';
+import SearchBar from '../searchBar/SearchBar';
 
 function TogetherList() {
   const dispatch = useDispatch();
@@ -61,12 +62,7 @@ function TogetherList() {
 
   return (
     <>
-      <StSearchBar
-        type="text"
-        placeholder="검색.."
-        onChange={(e) => handleSearch(e)}
-      />
-
+      <SearchBar value={searchInput} handler={handleSearch} />
       <StUl>
         <List list={filterList} />
       </StUl>
@@ -75,20 +71,6 @@ function TogetherList() {
 }
 
 export default TogetherList;
-
-const StSearchBar = styled.input`
-  width: -webkit-fill-available;
-  margin: 2rem 2rem 0 2rem;
-  border: 1px solid #e6e6e6;
-  border-radius: 5rem;
-  padding: 1rem;
-
-  &:focus {
-    outline: none;
-    border-color: #23917f;
-    box-shadow: 0 0 1rem #23917f;
-  }
-`;
 
 const StUl = styled.ul`
   display: grid;

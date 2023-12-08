@@ -5,6 +5,8 @@ import CustomMapMarkerOverlay from './customMapMarker/CustomMapMarkerOverlay';
 import CustomMarkerClusterer from './customMarkerClusterer/CustomMarkerClusterer';
 import MapOverlay from './overlay/MapOverlay';
 import ZoomButtonWrapper from './zoomButton/ZoomButtonWrapper';
+import SearchBar from '../searchBar/SearchBar';
+import { styled } from 'styled-components';
 
 function KakaoMap() {
   const {
@@ -19,6 +21,9 @@ function KakaoMap() {
     handleOnClickPosition,
     handleOnClickMarker,
     handleOnDragEndMarker,
+    searchInput,
+    handleOnChangeInput,
+    handleOnSubmitAddressSearch,
   } = useMap();
 
   return (
@@ -39,7 +44,10 @@ function KakaoMap() {
           position={position} // 마커를 표시할 위치
           draggable={true}
           ref={markerRef}
-          onDragEnd={() => handleOnDragEndMarker()}
+          onDragEnd={() => {
+            handleOnDragEndMarker();
+            updatePosition(mapRef);
+          }}
           onClick={() => handleOnClickMarker()}
           image={{
             src: currentPin, // 마커이미지의 주소입니다
@@ -56,10 +64,21 @@ function KakaoMap() {
 
         <CustomMarkerClusterer togethers={selectTogethers.togethers} />
       </Map>
+      <StSearchBarWrapper>
+        <form onSubmit={handleOnSubmitAddressSearch}>
+          <SearchBar value={searchInput} handler={handleOnChangeInput} />
+        </form>
+      </StSearchBarWrapper>
       <ZoomButtonWrapper handler={{ zoomHandler }} />
       <MapOverlay />
     </>
   );
 }
-
+const StSearchBarWrapper = styled.div`
+  position: absolute;
+  top: 2rem;
+  left: 50%;
+  z-index: 10;
+  width: 50%;
+`;
 export default KakaoMap;

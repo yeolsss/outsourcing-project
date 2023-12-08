@@ -1,5 +1,4 @@
 export const useZoom = (mapRef) => {
-  console.log(mapRef);
   const handler = (type) => {
     const map = mapRef.current;
     if (!map) return;
