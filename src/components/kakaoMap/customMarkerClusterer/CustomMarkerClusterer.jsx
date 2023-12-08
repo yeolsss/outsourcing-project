@@ -7,7 +7,7 @@ const CustomMarkerClusterer = ({ togethers }) => {
     <>
       <MarkerClusterer averageCenter={true} minLevel={10}>
         {togethers?.map((together) => (
-          <CustomMarker key={together.id} together={together} />
+          <CustomMarker key={together.docId} together={together} />
         ))}
       </MarkerClusterer>
     </>
