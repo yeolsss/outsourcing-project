@@ -39,13 +39,13 @@ function AddForm({ setIsAdding }) {
     mutationFn: addTogether,
     onSuccess: () => {
       queryClient.invalidateQueries(['togethers']);
-      alert('새 게더가 등록되었습니다!');
+      alert('새 투게더가 등록되었습니다!');
       resetInputValues();
       console.log('mutation성공!!!!!!');
     },
     onError: (error) => {
       console.error('데이터 추가 에러:', error);
-      alert('새 게더 추가 중 오류가 발생했습니다.');
+      alert('새 투게더 추가 중 오류가 발생했습니다.');
     },
   });
 
@@ -81,13 +81,13 @@ function AddForm({ setIsAdding }) {
       return alert('입력하지 않은 곳이 있습니다.');
     } else if (
       UseCheckValidation('월세', cost, 6) &&
-      UseCheckValidation('게더 수', togetherNum, 3) &&
+      UseCheckValidation('모집인원 수', togetherNum, 3) &&
       UseCheckValidation('이메일', email, 20) &&
       UseCheckValidation('비밀번호', password, 5) &&
       UseCheckValidation('제목', title, 30) &&
       UseCheckValidation('내용', content, 500)
     ) {
-      if (window.confirm('새 게더를 등록하시겠습니까?')) {
+      if (window.confirm('새 투게더를 등록하시겠습니까?')) {
         Mutation.mutate(newTogether);
         setIsAdding(false);
       }
@@ -135,13 +135,13 @@ function AddForm({ setIsAdding }) {
             <input value={cost} onChange={onChangeCost} type="number" /> 만원
           </StCost>
           <StGetherNum>
-            게더 수
+            모집인원
             <input
               value={togetherNum}
               onChange={onChangeTogetherNum}
               type="number"
             />{' '}
-            게더
+            명
           </StGetherNum>
           <StEmail>
             이메일 <input value={email} onChange={onChangeEmail} type="text" />
