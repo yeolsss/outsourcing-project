@@ -1,15 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Map, MapMarker, MarkerClusterer } from 'react-kakao-maps-sdk';
 import { useDispatch, useSelector } from 'react-redux';
+import currentPin from '../../assets/current-pin.png';
+import locationPin from '../../assets/together.png';
+import dumyData from '../../common/dumy.json';
+import { filterMarkersInBounds } from '../../common/mapUtil';
 import {
   __setAddress,
   selectPosition,
 } from '../../redux/module/position.slice';
 import CustomMapMarkerOverlay from './customMapMarker/CustomMapMarkerOverlay';
-import locationPin from '../../assets/together.png';
-import currentPin from '../../assets/current-pin.png';
-import { filterMarkersInBounds } from '../../common/mapUtil';
-import dumyData from '../../common/dumy.json';
 
 function KakaoMap() {
   const position = useSelector(selectPosition);
@@ -48,10 +48,8 @@ function KakaoMap() {
     <>
       <Map
         center={{ lat: marker.lat, lng: marker.lng }} // 지도의 중심 좌표
-
         style={{ width: '50%', height: '100%' }} // 지도 크기
         level={13} // 지도 확대 레벨
-
         onClick={(e, mouseEvent) => handleOnClickPosition(e, mouseEvent)}
         onIdle={handleOnIdleMap}
         ref={mapRef}

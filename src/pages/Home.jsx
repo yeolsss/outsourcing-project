@@ -6,13 +6,14 @@ import TogetherList from '../components/togetherList/TogetherList';
 
 function Home() {
   const [isAdding, setIsAdding] = useState(false);
-  const [open, setOpen] = useState(false);
+  // const [open, setOpen] = useState(false);
 
   return (
     <StMainContainer>
       <StLeftContainer>
-        <AddBtn onClick={() => setIsAdding(!isAdding)}>새 투게더 등록</AddBtn>
-        {isAdding ? <AddForm setIsAdding={setIsAdding} /> : <TogetherList />}
+        <AddBtn onClick={() => setIsAdding(!isAdding)}>새 게더 등록</AddBtn>
+        {isAdding ? <AddForm /> : <TogetherList />}
+        {/* <button>여기</button> */}
       </StLeftContainer>
       <KakaoMap />
     </StMainContainer>
@@ -34,7 +35,7 @@ const StLeftContainer = styled.div`
   width: 50%;
   height: calc(100vh - 8rem);
   overflow-y: scroll;
-  position: absolute;
+  /* position: absolute; */
   top: 8rem;
   left: 0;
   z-index: 99999;
