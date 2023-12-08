@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
-export default function useInput(initialValue) {
+export function useInput(initialValue) {
   const [state, setState] = useState(initialValue);
 
   const handleState = (e) => {
