@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 // import { useMutation, useQueryClient } from 'react-query';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { getStorage, ref, uploadBytes } from 'firebase/storage';
 import { useSelector } from 'react-redux';
 import { styled } from 'styled-components';
 import { addTogether } from '../../api/togethers';
@@ -10,6 +11,7 @@ import { selectPosition } from '../../redux/module/position.slice';
 
 function AddForm({ setIsAdding }) {
   const [isImgSelected, setIsImgSelected] = useState(false);
+  const [imgInputValue, setImgInputValue] = useState(null);
   const [imgPath, setImgPath] = useState('');
   const [title, onChangeTitleHandler] = useInput();
   const [content, onChangeContentHandler] = useInput();
@@ -48,10 +50,30 @@ function AddForm({ setIsAdding }) {
     },
   });
 
+  const togetherImgRef = useRef();
   // 이미지 추가 버튼 로직!
-  const addImgHandler = (e) => {
+  const addImgHandler = async (e) => {
+    try {
+      // 1. 만약 이미지를 선택 후 '열기'를 누르면
+      const selectedImgFile = e.target.files[0]; // 선택된 이미지 파일
+      setImgInputValue(selectedImgFile); // 사진입력창에 대한 입력값으로 state저장
+      console.log({ selectedImgFile });
+      // 2. UI : 사진 1개 선택됨 랜더링, Logic: 선택된 이미지파일을 storage에 추가
+      const storage = getStorage();
+      const togetherImgRef = ref(storage, selectedImgFile.name);
+      const togetherImageRef = ref(
+        storage,
+        `togetherImages/${selectedImgFile.name}`,
+      );
+      uploadBytes(togetherImgRef, selectedImgFile).then((snapshot) => {
+        console.log('uploaded a file!');
+      });
+    } catch (error) {}
+    // 3. storage에 추가된 이미지의 url을 반환
+    // 4. 'submitNewTogetherHandler' 로직에 newTogether 의 imPath의 value 값에 3번 반환값 넣기
+    // 5. 입력값을 모두 모아 mutation에 저장한다(이 부분은 이미 로직완성되었으니 1~4만 하면됨)
     // setImgPath(e.target.files[0]);
-    setImgPath(e.target.files[0].name);
+    // setImgPath(e.target.files[0].name);
     setIsImgSelected(true);
   };
 
@@ -155,7 +177,7 @@ function AddForm({ setIsAdding }) {
           </StPassword>
           <StImage>
             사진등록
-            <label htmlFor="profileImg">
+            <label htmlFor="togetherImg">
               {isImgSelected ? (
                 <StImgSlelctedText>사진 1개 선택 완료</StImgSlelctedText>
               ) : (
@@ -165,8 +187,9 @@ function AddForm({ setIsAdding }) {
             <input
               type="file"
               accept="image/*"
-              id="profileImg"
+              id="togetherImg"
               onChange={addImgHandler}
+              ref={togetherImgRef}
             />
           </StImage>
           <StTitle>
