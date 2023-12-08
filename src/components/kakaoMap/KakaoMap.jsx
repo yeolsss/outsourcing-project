@@ -1,49 +1,26 @@
-import { useRef, useState } from 'react';
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
-import { useDispatch, useSelector } from 'react-redux';
-import currentPin from '../../assets/current-pin.png';
-import { usePosts, useZoom } from '../../hooks';
-import {
-  __setAddress,
-  selectPosition,
-} from '../../redux/module/position.slice';
-import { selectorTogether } from '../../redux/module/together.slice';
+import currentPin from 'assets/current-pin.png';
+import { useMap } from 'hooks';
 import CustomMapMarkerOverlay from './customMapMarker/CustomMapMarkerOverlay';
 import CustomMarkerClusterer from './customMarkerClusterer/CustomMarkerClusterer';
 import MapOverlay from './overlay/MapOverlay';
 import ZoomButtonWrapper from './zoomButton/ZoomButtonWrapper';
 
 function KakaoMap() {
-  const position = useSelector(selectPosition);
-  const selectTogethers = useSelector(selectorTogether);
-  const [isOpen, setIsOpen] = useState(false);
-  const [selectedMarker, setSelectedMarker] = useState('');
-  const mapRef = useRef(null);
-  const markerRef = useRef(null);
-  const { handler } = usePosts();
-  const [zoomHandler] = useZoom(mapRef);
+  const {
+    position,
+    selectTogethers,
+    isOpen,
+    selectedMarker,
+    mapRef,
+    markerRef,
+    updatePosition,
+    zoomHandler,
+    handleOnClickPosition,
+    handleOnClickMarker,
+    handleOnDragEndMarker,
+  } = useMap();
 
-  const dispatch = useDispatch();
-
-  // 클릭된 좌표 얻기
-  const handleOnClickPosition = (_target, mouseEvent) => {
-    const position = {
-      lat: mouseEvent.latLng.getLat(),
-      lng: mouseEvent.latLng.getLng(),
-    };
-    dispatch(__setAddress({ ...position }));
-  };
-
-  // 마커 클릭하면 overlay 보여주기
-  const handleOnClickMarker = (postId = '') => {
-    setIsOpen(!isOpen);
-    setSelectedMarker(postId);
-  };
-  // 마커 드레그가 마치면 position을 얻어옴
-  const handleOnDragEndMarker = () => {
-    const { Ma: lat, La: lng } = markerRef.current.getPosition();
-    dispatch(__setAddress({ lat, lng }));
-  };
   return (
     <>
       <Map
@@ -52,9 +29,9 @@ function KakaoMap() {
         level={13} // 지도 확대 레벨
         onClick={(e, mouseEvent) => {
           handleOnClickPosition(e, mouseEvent);
-          handler(mapRef);
+          updatePosition(mapRef);
         }}
-        onIdle={() => handler(mapRef)}
+        onIdle={() => updatePosition(mapRef)}
         ref={mapRef}
       >
         {/*이 부분 CustomMapMaker와 통합해야함.*/}

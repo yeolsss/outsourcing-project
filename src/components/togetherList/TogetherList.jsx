@@ -14,6 +14,7 @@ function TogetherList() {
   const dispatch = useDispatch();
   const selectTogethers = useSelector(selectorTogether);
   const [searchInput, setSearchInput] = useState('');
+
   const { isLoading, isError, data } = useQuery({
     queryKey: ['togethers'],
     queryFn: getLists,

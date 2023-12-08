@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   handleMarker,
   selectCurrentMarker,
-} from '../../../../redux/module/currentMarker.slice';
+} from 'redux/module/currentMarker.slice';
 
 const CustomMarker = ({ together }) => {
   // redux 가져와

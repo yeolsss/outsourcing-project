@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { getAddress } from '../../../common/mapUtil';
+import { getAddress } from 'common/mapUtil';
 
 const CustomMapMarkerOverlay = ({ title = '', position }) => {
   const [address, setAddress] = useState();
 
   useEffect(() => {
     (async () => {
-      // !나중에 db연결되면 디비에 저장된 주소로 가져오기
-      // !현재 클릭된 마커이면 주소 가져오기(redux에 데이터 있음)
       setAddress((await getAddress(position)) || '주소를 찾을 수 없습니다.');
     })();
   }, [position]);

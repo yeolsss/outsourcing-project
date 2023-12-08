@@ -1,5 +1,5 @@
-import { filterMarkersInBounds } from '../common/mapUtil';
 import { useDispatch, useSelector } from 'react-redux';
+import { filterMarkersInBounds } from '../common/mapUtil';
 import { selectorTogether, setTogethers } from '../redux/module/together.slice';
 
 export const usePosts = () => {

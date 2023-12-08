@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   handleMarker,
   selectCurrentMarker,
-} from '../../../redux/module/currentMarker.slice';
-import { selectorTogether } from '../../../redux/module/together.slice';
+} from 'redux/module/currentMarker.slice';
+import { selectorTogether } from 'redux/module/together.slice';
 
 const MapOverlay = () => {
   const { isOpen, selectedMarker } = useSelector(selectCurrentMarker);
