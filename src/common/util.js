@@ -10,6 +10,17 @@ export const checkValidation = (key, value, num) => {
   }
 };
 
+export const checkEmailValidation = (email) => {
+  const emailRegEx =
+    /^[A-Za-z0-9]([-_.]?[A-Za-z0-9])*@[A-Za-z0-9]([-_.]?[A-Za-z0-9])*\.[A-Za-z]{2,3}$/i;
+  if (emailRegEx.test(email)) {
+    return true;
+  } else {
+    alert('이메일 형식이 올바르지 않습니다. 다시 입력해주세요.');
+    return false;
+  }
+};
+
 export const getDate = (setDate = '') => {
   const today = setDate === '' ? new Date() : new Date(setDate);
 
