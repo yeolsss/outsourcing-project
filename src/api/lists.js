@@ -1,4 +1,4 @@
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDoc, getDocs, doc } from 'firebase/firestore';
 import { db } from '../common/firebase';
 
 // 조회
@@ -25,3 +25,8 @@ export { getLists };
 //   };
 //   fechData();
 // }, []);
+export const fetchToGetherData = async (id) => {
+  const docRef = doc(db, 'togethers', id);
+  const docSnap = await getDoc(docRef);
+  return docSnap.data();
+};

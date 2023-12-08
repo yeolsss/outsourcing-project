@@ -1,12 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function DetailUrl() {
+function DetailUrl({ gether }) {
+  const { cost, togetherNum, address } = gether;
   return (
     <StDetailUrlContainer>
-      <StDetailCost>50만원</StDetailCost>
-      <StDetailTogetherNum>1게더</StDetailTogetherNum>
-      <StDetailRoadName>서울특별시 광진구</StDetailRoadName>
+      <StDetailCost>{cost}만원</StDetailCost>
+      <StDetailTogetherNum>{togetherNum}명</StDetailTogetherNum>
+      <StDetailRoadName>{address}</StDetailRoadName>
     </StDetailUrlContainer>
   );
 }

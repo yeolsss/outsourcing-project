@@ -1,13 +1,45 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
-function DetailMenu() {
+const { Kakao } = window;
+
+function DetailMenu({ gether }) {
+  const resultUrl = 'http://localhost:3000/detail/wfAycBYFNnYSqozdip4L';
+
+  // JavaScript SDK 초기화 함수
+  useEffect(() => {
+    Kakao.cleanup();
+    Kakao.init('12145a9d8ac8f055f6cd69e42d9b4ad2');
+  }, []);
+
+  const shareKakao = () => {
+    Kakao.Share.sendDefault({
+      objectType: 'feed',
+      content: {
+        title: `${gether.cost}`,
+        description: `${gether.address}`,
+        imageUrl:
+          'https://mud-kage.kakao.com/dn/NTmhS/btqfEUdFAUf/FjKzkZsnoeE4o19klTOVI1/openlink_640x640s.jpg',
+        link: {
+          webUrl: resultUrl,
+        },
+      },
+      buttons: [
+        {
+          title: '웹으로 이동',
+          link: {
+            webUrl: resultUrl,
+          },
+        },
+      ],
+    });
+  };
   return (
     <StDetailMenuContainer>
-      <StDetailShare>공유하기</StDetailShare>;
+      <StDetailShare onClick={shareKakao}>공유하기</StDetailShare>;
       <StDetailJoin>입주신청</StDetailJoin>;
       <StDetailHome>홈으로가기</StDetailHome>;
-      <StDetailEdit>수정하기</StDetailEdit>;<StTogeDone>완료</StTogeDone>;
+      <StDetailEdit>수정하기</StDetailEdit>;<StTogelDone>완료</StTogelDone>;
     </StDetailMenuContainer>
   );
 }
@@ -54,7 +86,7 @@ const StDetailEdit = styled.button`
   font-size: 2.5rem;
   font-weight: bold;
 `;
-const StTogeDone = styled.button`
+const StTogelDone = styled.button`
   width: 15.9rem;
   height: 11rem;
   background-color: #e7e7e7;

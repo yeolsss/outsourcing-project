@@ -1,34 +1,12 @@
-import { collection, getDocs, query } from 'firebase/firestore';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { db } from '../common/firebase';
 
-function DetailText() {
+function DetailText({ gether }) {
   const [text, setText] = useState('');
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const q = query(collection(db, 'list'));
-      const querySnapshot = await getDocs(q);
-
-      const initialText = [];
-
-      querySnapshot.forEach((doc) => {
-        const data = {
-          id: doc.id,
-          ...doc.data(),
-        };
-
-        initialText.push(data);
-      });
-      setText(initialText);
-    };
-    fetchData();
-  }, []);
 
   return (
     <div>
-      <StDetailText>{text[0].content}</StDetailText>;
+      <StDetailText>{gether.content}</StDetailText>;
     </div>
   );
 }
