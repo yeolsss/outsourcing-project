@@ -1,4 +1,4 @@
-const checkValidation = (key, value, num) => {
+const UseCheckValidation = (key, value, num) => {
   if (/^\s*$/.test(value)) {
     alert(`${key} 칸에 공백만 입력하셨습니다.`);
     return false;
@@ -10,4 +10,4 @@ const checkValidation = (key, value, num) => {
   }
 };
 
-export default checkValidation;
+export default UseCheckValidation;
