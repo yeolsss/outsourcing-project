@@ -4,10 +4,11 @@ import styled from 'styled-components';
 function DetailMenu() {
   return (
     <StDetailMenuContainer>
-      <StDetailShare>공유하기</StDetailShare>;
-      <StDetailJoin>입주신청</StDetailJoin>;
-      <StDetailHome>홈으로가기</StDetailHome>;
-      <StDetailEdit>수정하기</StDetailEdit>;<StTogeDone>완료</StTogeDone>;
+      <StDetailShare>공유하기</StDetailShare>
+      <StDetailJoin>입주신청</StDetailJoin>
+      <StDetailHome>홈으로가기</StDetailHome>
+      <StDetailEdit>수정하기</StDetailEdit>
+      <StTogeDone>완료</StTogeDone>
     </StDetailMenuContainer>
   );
 }

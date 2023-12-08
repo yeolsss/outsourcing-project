@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   isOpen: false,
-  selectedMarkerId: '',
+  selectedMarker: '',
 };
 
 const CurrentMarkerSlice = createSlice({
@@ -12,13 +12,13 @@ const CurrentMarkerSlice = createSlice({
     handleMarker: (state, { payload }) => {
       if (!payload) {
         state.isOpen = false;
-        state.selectedMarkerId = '';
+        state.selectedMarker = '';
         return;
       }
-      payload === state.selectedMarkerId
+      payload.docId === state.selectedMarker.docId
         ? (state.isOpen = !state.isOpen)
         : (state.isOpen = true);
-      state.selectedMarkerId = payload;
+      state.selectedMarker = payload;
     },
   },
 });

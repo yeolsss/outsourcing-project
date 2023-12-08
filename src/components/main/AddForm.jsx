@@ -4,14 +4,11 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
 import { useSelector } from 'react-redux';
 import { styled } from 'styled-components';
-import { addTogether } from '../../api/togethers';
-import {
-  checkEmailValidation,
-  checkValidation,
-  getDate,
-} from '../../common/util';
-import { useInput } from '../../hooks';
-import { selectPosition } from '../../redux/module/position.slice';
+import { addTogether } from 'api/togethers';
+import { checkEmailValidation, checkValidation, getDate } from 'common/util';
+import { useInput } from 'hooks';
+import { selectPosition } from 'redux/module/position.slice';
+import { v4 as uuidv4 } from 'uuid';
 
 function AddForm({ setIsAdding }) {
   const [isImgSelected, setIsImgSelected] = useState(false);
@@ -96,7 +93,7 @@ function AddForm({ setIsAdding }) {
     e.preventDefault();
 
     const newTogether = {
-      id: '임의 아이디 1',
+      id: uuidv4(),
       address: position.address,
       coordinates: { lat: position.lat, lng: position.lng },
       cost,
