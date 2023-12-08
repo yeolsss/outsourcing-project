@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import defaultImg from '../../assets/defaultImg.png';
 
 function List({ list }) {
   return (
@@ -9,7 +10,10 @@ function List({ list }) {
           <StLi key={index}>
             <a>
               <StContentImg>
-                <StImg src={element.imgPath} alt={element.title} />
+                <StImg
+                  src={element.imgPath || defaultImg}
+                  alt={element.title}
+                />
               </StContentImg>
               <StContentWrap>
                 <h3>{element.title}</h3>
