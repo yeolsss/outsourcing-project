@@ -36,21 +36,6 @@ function TogetherList() {
     return <h1>오류가 발생하였습니닷..!!</h1>;
   }
 
-  // getDocs는 axios.get()이당
-  // useEffect(() => {
-  //   const fechData = async () => {
-  //     const querySnapshot = await getDocs(collection(db, 'lists'));
-  //     const newArr = [];
-  //     querySnapshot.forEach((doc) => {
-  //       // console.log(`${doc.id} => ${doc.data()}`);
-  //       newArr.push(doc.data());
-  //     });
-
-  //     setList(newArr);
-  //   };
-  //   fechData();
-  // }, []);
-
   const handleSearch = (e) => {
     setSearchInput(e.target.value);
   };

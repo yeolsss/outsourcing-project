@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 import defaultImg from '../../assets/defaultImg.png';
 
@@ -17,12 +16,9 @@ function List({ list }) {
                 />
               </StContentImg>
               <StContentWrap>
-                <h3>{element.title}</h3>
-                <p>{element.content}</p>
-                <p>{element.createdAt}</p>
-                <p>
-                  <span>{element.togetherNum}</span>게더..?
-                </p>
+                <StTitle>{element.title}</StTitle>
+                <StContent>{element.content}</StContent>
+                <StAddress>{element.address}</StAddress>
               </StContentWrap>
             </a>
           </StLi>
@@ -41,7 +37,7 @@ const StLi = styled.li`
 const StContentImg = styled.div`
   position: relative;
   border-radius: 0.6rem;
-  height: 60%;
+  height: 16rem;
   overflow: hidden;
   box-sizing: border-box;
 `;
@@ -54,4 +50,17 @@ const StImg = styled.img`
 
 const StContentWrap = styled.div`
   padding: 1rem;
+`;
+
+const StTitle = styled.h3`
+  font-size: 2.4rem;
+`;
+
+const StContent = styled.p`
+  font-size: 1.4rem;
+  line-height: 2;
+`;
+
+const StAddress = styled.p`
+  font-size: 1.4rem;
 `;
