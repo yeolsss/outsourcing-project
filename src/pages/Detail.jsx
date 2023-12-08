@@ -1,17 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
-import DetailImage from '../components/DetailImage';
 import DetailMenu from '../components/DetailMenu';
-import DetailText from '../components/DetailText';
+import DetailImage from '../components/DetailImage';
 import DetailUrl from '../components/DetailUrl';
+import DetailText from '../components/DetailText';
 
 function Detail() {
   return (
     <DetailContainer>
-      <DetailMenu></DetailMenu>
-      <DetailImage></DetailImage>
-      <DetailUrl></DetailUrl>
-      <DetailText></DetailText>
+      <DetailMenu />
+      <DetailImage />
+      <DetailUrl />
+      <DetailText />
     </DetailContainer>
   );
 }
