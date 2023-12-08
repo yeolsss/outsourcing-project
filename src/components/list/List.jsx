@@ -19,10 +19,7 @@ function List({ list }) {
               <StContentWrap>
                 <h3>{element.title}</h3>
                 <p>{element.content}</p>
-                <p>{element.createdAt}</p>
-                <p>
-                  <span>{element.togetherNum}</span>게더..?
-                </p>
+                <p>{element.address}</p>
               </StContentWrap>
             </a>
           </StLi>
