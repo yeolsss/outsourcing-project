@@ -1,37 +1,38 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 // import { useMutation, useQueryClient } from 'react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
 import { useSelector } from 'react-redux';
 import { styled } from 'styled-components';
-import { addTogether } from '../../api/togethers';
-import { selectPosition } from '../../redux/module/position.slice';
-import { useInput } from '../../hooks';
-import { checkValidation, getDate } from '../../common/util';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { addTogether } from 'api/togethers';
+import { checkEmailValidation, checkValidation, getDate } from 'common/util';
+import { useInput } from 'hooks';
+import { selectPosition } from 'redux/module/position.slice';
+import { v4 as uuidv4 } from 'uuid';
 
 function AddForm({ setIsAdding }) {
   const [isImgSelected, setIsImgSelected] = useState(false);
+  const [imgInputValue, setImgInputValue] = useState(null);
   const [imgPath, setImgPath] = useState('');
-  const [title, onChangeTitleHandler] = useInput();
-  const [content, onChangeContentHandler] = useInput();
-  const [cost, onChangeCost] = useInput();
-  const [togetherNum, onChangeTogetherNum] = useInput();
-  const [email, onChangeEmail] = useInput();
-  const [password, onChangePassword] = useInput();
+  const [title, onChangeTitleHandler] = useInput('');
+  const [content, onChangeContentHandler] = useInput('');
+  const [cost, onChangeCost] = useInput('');
+  const [togetherNum, onChangeTogetherNum] = useInput('');
+  const [email, onChangeEmail] = useInput('');
+  const [password, onChangePassword] = useInput('');
+  const [gender, setGender] = useState('noGenderRequirement');
   const position = useSelector(selectPosition);
-  console.log('현재 활성화되어 있는 투게더의 position', position);
-
+  const genderOptions = [
+    { value: 'noGenderRequirement', label: '해당없음' },
+    { value: 'manOnly', label: '남성전용' },
+    { value: 'womanOnly', label: '여성전용' },
+  ];
   const queryClient = useQueryClient();
 
-  // const { isLoading, isError, data } = useQuery('togethers', getTogethers);
-
-  const resetInputValues = () => {
-    onChangeTitleHandler({ target: { value: '' } });
-    onChangeContentHandler({ target: { value: '' } });
-    onChangeCost({ target: { value: '' } });
-    onChangeTogetherNum({ target: { value: '' } });
-    onChangeEmail({ target: { value: '' } });
-    onChangePassword({ target: { value: '' } });
-    setIsImgSelected(false);
+  const selectGenderHandler = (e) => {
+    const selectedGender = e.target.value;
+    setGender(selectedGender);
+    console.log({ selectedGender });
   };
 
   const Mutation = useMutation({
@@ -40,18 +41,50 @@ function AddForm({ setIsAdding }) {
       queryClient.invalidateQueries({ queryKey: ['togethers'] });
       alert('새 투게더가 등록되었습니다!');
       resetInputValues();
-      console.log('mutation성공!!!!!!');
+      console.log('mutation성공!');
     },
     onError: (error) => {
-      console.error('데이터 추가 에러:', error);
-      alert('새 투게더 추가 중 오류가 발생했습니다.');
+      console.error('새 투게더 데이터 추가 중 에러 발생:', error);
+      alert(
+        '알 수 없는 오류가 생겼습니다. 고객센터(02-123-4567)로 문의해주세요.',
+      );
     },
   });
 
-  // 이미지 추가 버튼 로직
-  const addImgHandler = (e) => {
-    // setImgPath(e.target.files[0]);
-    setImgPath(e.target.files[0].name);
+  const resetInputValues = () => {
+    onChangeTitleHandler({ target: { value: '' } });
+    onChangeContentHandler({ target: { value: '' } });
+    onChangeCost({ target: { value: '' } });
+    onChangeTogetherNum({ target: { value: '' } });
+    onChangeEmail({ target: { value: '' } });
+    onChangePassword({ target: { value: '' } });
+    setGender('noGenderRequirement');
+    setIsImgSelected(false);
+  };
+
+  const storage = getStorage();
+  const togetherImgRef = useRef();
+  // 이미지 추가 버튼 로직!
+  const addImgHandler = async (e) => {
+    try {
+      // 선택된 이미지 파일
+      const selectedImgFile = e.target.files[0];
+      setImgInputValue(selectedImgFile);
+      console.log({ selectedImgFile });
+      // 선택된 이미지파일을 firebase storage에 추가
+      const selectedImgFilePath = `togetherImages/${selectedImgFile.name}`;
+      const togetherImageRef = ref(storage, selectedImgFilePath);
+      await uploadBytes(togetherImageRef, selectedImgFile);
+      // firebase storage에 업로드된 사진파일 경로
+      const downloadURL = await getDownloadURL(togetherImageRef);
+      console.log({ downloadURL });
+      setImgPath(downloadURL);
+      setImgInputValue(downloadURL);
+      // 이미지 선택 input 초기화
+      togetherImgRef.current.value = null;
+    } catch (error) {
+      console.error('이미지 업로드 에러', error);
+    }
     setIsImgSelected(true);
   };
 
@@ -60,15 +93,15 @@ function AddForm({ setIsAdding }) {
     e.preventDefault();
 
     const newTogether = {
-      id: '임의 아이디 1',
+      id: uuidv4(),
       address: position.address,
       coordinates: { lat: position.lat, lng: position.lng },
       cost,
       togetherNum,
       createdAt: getDate(),
       email,
-      gender: 'M or F',
-      imgPath,
+      gender,
+      imgPath: imgPath,
       isDone: false,
       password,
       title,
@@ -76,13 +109,22 @@ function AddForm({ setIsAdding }) {
     };
 
     // 유효성 검사
-    if (!cost || !togetherNum || !email || !password || !title || !content) {
+    if (
+      !cost ||
+      !gender ||
+      !togetherNum ||
+      !email ||
+      !password ||
+      !imgPath ||
+      !title ||
+      !content
+    ) {
       return alert('입력하지 않은 곳이 있습니다.');
     } else if (
       checkValidation('월세', cost, 6) &&
       checkValidation('모집인원 수', togetherNum, 3) &&
-      checkValidation('이메일', email, 20) &&
-      checkValidation('비밀번호', password, 5) &&
+      checkEmailValidation(email) &&
+      checkValidation('비밀번호', password, 10) &&
       checkValidation('제목', title, 30) &&
       checkValidation('내용', content, 500)
     ) {
@@ -91,35 +133,6 @@ function AddForm({ setIsAdding }) {
         setIsAdding(false);
       }
     }
-
-    // try {
-    //   console.log('storage', storage); //undefined
-    //   const storageRef = ref(storage);
-    //   const imagesRef = ref(storage, 'images');
-    //   const fileRef = ref(storageRef, imgPath.name);
-
-    //   await uploadBytes(fileRef, imgPath);
-
-    //   const downloadURL = await getDownloadURL(fileRef);
-    //   setImgPath(downloadURL);
-
-    //   uploadBytes(imgPath, file).then((snapshot) => {
-    //     console.log('uploaded a blog or file!');
-    //   });
-    //   uploadBytes();
-    //   const imageRef = storage.ref();
-    //   const fileRef = imageRef.child(imgPath);
-    //   await fileRef.put(imgPath);
-
-    //   const downloadURL = await fileRef.getDownloadURL();
-    //   setImgPath(downloadURL);
-    //   alert('파일 업로드가 완료되었습니다.');
-    // } catch (error) {
-    //   console.error('파일 업로드 에러', error);
-    //   alert('파일 업로드 중 에러발생');
-    // }
-    // const imageRef = ref(storage, 'folder/file');
-    // uploadBytes(imageRef, imgPath);
   };
   return (
     <StOuterFrame>
@@ -133,6 +146,21 @@ function AddForm({ setIsAdding }) {
             월세
             <input value={cost} onChange={onChangeCost} type="number" /> 만원
           </StCost>
+          <StGender>
+            전용선택
+            {genderOptions.map((option) => (
+              <StLabel key={option.value}>
+                {option.label}
+                <StGenderInput
+                  type="radio"
+                  name="gender"
+                  value={option.value}
+                  checked={gender === option.value}
+                  onChange={selectGenderHandler}
+                />
+              </StLabel>
+            ))}
+          </StGender>
           <StGetherNum>
             모집인원
             <input
@@ -155,18 +183,19 @@ function AddForm({ setIsAdding }) {
           </StPassword>
           <StImage>
             사진등록
-            <label htmlFor="profileImg">
+            <label htmlFor="togetherImg">
               {isImgSelected ? (
                 <StImgSlelctedText>사진 1개 선택 완료</StImgSlelctedText>
               ) : (
-                <span>+</span>
+                <span>➕</span>
               )}
             </label>
             <input
               type="file"
               accept="image/*"
-              id="profileImg"
+              id="togetherImg"
               onChange={addImgHandler}
+              ref={togetherImgRef}
             />
           </StImage>
           <StTitle>
@@ -291,6 +320,10 @@ const StGetherNum = styled.p`
     text-align: right;
   }
 `;
+
+const StGender = styled.p``;
+const StLabel = styled.label``;
+const StGenderInput = styled.input``;
 
 const StEmail = styled.p`
   input {

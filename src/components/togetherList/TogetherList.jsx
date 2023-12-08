@@ -1,17 +1,33 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import List from '../list/List';
-import { getLists } from '../../api/lists';
 import { useQuery } from '@tanstack/react-query';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import styled from 'styled-components';
+import { getLists } from '../../api/togethers';
+import {
+  selectorTogether,
+  setOriginTogethers,
+  setTogethers,
+} from '../../redux/module/together.slice';
+import List from '../list/List';
 
 function TogetherList() {
-  const [list, setList] = useState([]);
+  const dispatch = useDispatch();
+  const selectTogethers = useSelector(selectorTogether);
   const [searchInput, setSearchInput] = useState('');
+
   const { isLoading, isError, data } = useQuery({
-    queryKey: ['lists'],
+    queryKey: ['togethers'],
     queryFn: getLists,
+    staleTime: Infinity,
   });
-  console.log(data);
+
+  useEffect(() => {
+    if (data) {
+      dispatch(setOriginTogethers(data));
+      dispatch(setTogethers(data));
+    }
+  }, [data]);
+
   if (isLoading) {
     return <h1>로딩중 입니닷..!!</h1>;
   }
@@ -39,7 +55,7 @@ function TogetherList() {
     setSearchInput(e.target.value);
   };
 
-  const filterList = data.filter((item) => {
+  const filterList = selectTogethers.togethers?.filter((item) => {
     return item.title.includes(searchInput);
   });
 
@@ -50,6 +66,7 @@ function TogetherList() {
         placeholder="검색.."
         onChange={(e) => handleSearch(e)}
       />
+
       <StUl>
         <List list={filterList} />
       </StUl>
@@ -61,7 +78,7 @@ export default TogetherList;
 
 const StSearchBar = styled.input`
   width: -webkit-fill-available;
-  margin: 2rem;
+  margin: 2rem 2rem 0 2rem;
   border: 1px solid #e6e6e6;
   border-radius: 5rem;
   padding: 1rem;
@@ -76,5 +93,5 @@ const StSearchBar = styled.input`
 const StUl = styled.ul`
   display: grid;
   grid-template-columns: 1fr 1fr;
-  margin: 0 0.6rem;
+  margin: 2rem;
 `;

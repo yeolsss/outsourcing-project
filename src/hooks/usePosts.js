@@ -1,12 +1,13 @@
-import {useState} from "react";
-import dumyData from "../common/dumy.json";
-import {filterMarkersInBounds} from "../common/mapUtil";
+import { useDispatch, useSelector } from 'react-redux';
+import { filterMarkersInBounds } from '../common/mapUtil';
+import { selectorTogether, setTogethers } from '../redux/module/together.slice';
 
-export const usePosts =() =>{
-	const [posts, setPosts] = useState(dumyData);
-	const handler = (mapRef) => {
-		setPosts(filterMarkersInBounds(dumyData, mapRef));
-	};
-	
-	return { posts, handler };
-}
+export const usePosts = () => {
+  const { originTogethers } = useSelector(selectorTogether);
+  const dispatch = useDispatch();
+  const handler = (mapRef) => {
+    dispatch(setTogethers(filterMarkersInBounds(originTogethers, mapRef)));
+  };
+
+  return { handler };
+};

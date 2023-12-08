@@ -6,22 +6,25 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   handleMarker,
   selectCurrentMarker,
-} from '../../../../redux/module/currentMarker.slice';
+} from 'redux/module/currentMarker.slice';
 
-const CustomMarker = ({ post }) => {
+const CustomMarker = ({ together }) => {
   // redux 가져와
-  const { isOpen, selectedMarkerId } = useSelector(selectCurrentMarker);
+  const { isOpen, selectedMarker } = useSelector(selectCurrentMarker);
   const dispatch = useDispatch();
 
-  const handleOnClickMarker = (id) => {
-    dispatch(handleMarker(id));
+  const handleOnClickMarker = () => {
+    dispatch(handleMarker(together));
   };
 
   return (
     <>
       <MapMarker
-        position={{ lat: post.lat, lng: post.lng }}
-        onClick={() => handleOnClickMarker(post.id)}
+        position={{
+          lat: together.coordinates.lat,
+          lng: together.coordinates.lng,
+        }}
+        onClick={() => handleOnClickMarker(together.docId)}
         image={{
           src: locationPin, // 마커이미지의 주소입니다
           size: {
@@ -30,10 +33,13 @@ const CustomMarker = ({ post }) => {
           },
         }}
       >
-        {isOpen && selectedMarkerId === post.id && (
+        {isOpen && selectedMarker.docId === together.docId && (
           <CustomMapMarkerOverlay
-            title={post.name}
-            position={{ lat: post.lat, lng: post.lng }}
+            title={together.title}
+            position={{
+              lat: together.coordinates.lat,
+              lng: together.coordinates.lng,
+            }}
           />
         )}
       </MapMarker>

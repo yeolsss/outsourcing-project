@@ -1,4 +1,4 @@
-import { addDoc, collection } from 'firebase/firestore';
+import { addDoc, collection, getDocs } from 'firebase/firestore';
 import { db } from '../common/firebase';
 
 // firestore 데이터 추가 로직
@@ -20,7 +20,15 @@ const addTogether = async (newTogether) => {
   await addTogetherToFireBase(newTogether);
 };
 
-export { addTogether };
+// 조회
+const getLists = async () => {
+  const response = await getDocs(collection(db, 'togethers'));
+  return response.docs.map((doc) => {
+    return { ...doc.data(), docId: doc.id };
+  });
+};
+
+export { addTogether, getLists };
 
 //----------------------------------
 //조회

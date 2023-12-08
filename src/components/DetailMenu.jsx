@@ -37,12 +37,20 @@ function DetailMenu({ gether }) {
   };
   return (
     <StDetailMenuContainer>
+<<<<<<< HEAD
       <StDetailShare onClick={shareKakao}>공유하기</StDetailShare>;
       <StDetailJoin>입주신청</StDetailJoin>;
       <Link to={'/'}>
         <StDetailHome>홈으로가기</StDetailHome>;
       </Link>
       <StDetailEdit>수정하기</StDetailEdit>;<StTogelDone>완료</StTogelDone>;
+=======
+      <StDetailShare>공유하기</StDetailShare>
+      <StDetailJoin>입주신청</StDetailJoin>
+      <StDetailHome>홈으로가기</StDetailHome>
+      <StDetailEdit>수정하기</StDetailEdit>
+      <StTogeDone>완료</StTogeDone>
+>>>>>>> a9cf1309bb6e2d28e74c38ac1a74033f4720216d
     </StDetailMenuContainer>
   );
 }
