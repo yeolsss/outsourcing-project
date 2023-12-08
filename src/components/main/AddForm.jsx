@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 // import { useMutation, useQueryClient } from 'react-query';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useSelector } from 'react-redux';
 import { styled } from 'styled-components';
 import { addTogether } from '../../api/togethers';
 import { selectPosition } from '../../redux/module/position.slice';
-import { useCheckValidation, useInput } from '../../hooks';
-
-// import { useQuery } from '@tanstack/react-query';
+import { useInput } from '../../hooks';
+import { checkValidation, getDate } from '../../common/util';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 function AddForm({ setIsAdding }) {
   const [isImgSelected, setIsImgSelected] = useState(false);
@@ -38,7 +37,7 @@ function AddForm({ setIsAdding }) {
   const Mutation = useMutation({
     mutationFn: addTogether,
     onSuccess: () => {
-      queryClient.invalidateQueries(['togethers']);
+      queryClient.invalidateQueries({ queryKey: ['togethers'] });
       alert('새 투게더가 등록되었습니다!');
       resetInputValues();
       console.log('mutation성공!!!!!!');
@@ -66,7 +65,7 @@ function AddForm({ setIsAdding }) {
       coordinates: { lat: position.lat, lng: position.lng },
       cost,
       togetherNum,
-      createdAt: '임의 새 생성시간',
+      createdAt: getDate(),
       email,
       gender: 'M or F',
       imgPath,
@@ -80,12 +79,12 @@ function AddForm({ setIsAdding }) {
     if (!cost || !togetherNum || !email || !password || !title || !content) {
       return alert('입력하지 않은 곳이 있습니다.');
     } else if (
-      useCheckValidation('월세', cost, 6) &&
-      useCheckValidation('모집인원 수', togetherNum, 3) &&
-      useCheckValidation('이메일', email, 20) &&
-      useCheckValidation('비밀번호', password, 5) &&
-      useCheckValidation('제목', title, 30) &&
-      useCheckValidation('내용', content, 500)
+      checkValidation('월세', cost, 6) &&
+      checkValidation('모집인원 수', togetherNum, 3) &&
+      checkValidation('이메일', email, 20) &&
+      checkValidation('비밀번호', password, 5) &&
+      checkValidation('제목', title, 30) &&
+      checkValidation('내용', content, 500)
     ) {
       if (window.confirm('새 투게더를 등록하시겠습니까?')) {
         Mutation.mutate(newTogether);

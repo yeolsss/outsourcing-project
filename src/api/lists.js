@@ -3,7 +3,7 @@ import { db } from '../common/firebase';
 
 // 조회
 const getLists = async () => {
-  const response = await getDocs(collection(db, 'lists'));
+  const response = await getDocs(collection(db, 'togethers'));
   const fechData = response.docs.map((doc) => doc.data());
   console.log(fechData);
   return fechData;

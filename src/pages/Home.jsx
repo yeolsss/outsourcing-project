@@ -3,6 +3,7 @@ import { styled } from 'styled-components';
 import AddForm from '../components/main/AddForm';
 import TogetherList from '../components/togetherList/TogetherList';
 import KakaoMap from '../components/kakaoMap/KakaoMap';
+
 function Home() {
   const [isAdding, setIsAdding] = useState(false);
   // const [open, setOpen] = useState(false);
@@ -10,20 +11,8 @@ function Home() {
   return (
     <StMainContainer>
       <StLeftContainer>
-<<<<<<< HEAD
-<<<<<<< HEAD
-        <AddBtn onClick={() => setIsAdding(!isAdding)}>새 게더 등록</AddBtn>
-        {isAdding ? <AddForm /> : <TogetherList />}
-        <StHiddenButton>여기</StHiddenButton>
-=======
         <AddBtn onClick={() => setIsAdding(!isAdding)}>새 투게더 등록</AddBtn>
         {isAdding ? <AddForm setIsAdding={setIsAdding} /> : <TogetherList />}
->>>>>>> 88036ce5c88c6757f11c1e2f3f7b4dd153a2c7f3
-=======
-        <AddBtn onClick={() => setIsAdding(!isAdding)}>새 게더 등록</AddBtn>
-        {isAdding ? <AddForm /> : <TogetherList />}
-        {/* <button>여기</button> */}
->>>>>>> 99ca02a863cb1e6c7217b90b7503b1c184f54752
       </StLeftContainer>
       <KakaoMap />
     </StMainContainer>
@@ -48,13 +37,6 @@ const StLeftContainer = styled.div`
   //position: relative;
   height: calc(100vh - 8rem);
   overflow-y: scroll;
-<<<<<<< HEAD
-=======
-  /* position: absolute; */
-  top: 8rem;
-  left: 0;
-  z-index: 99999;
->>>>>>> 99ca02a863cb1e6c7217b90b7503b1c184f54752
   background-color: #fff;
 
   &::-webkit-scrollbar {

@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import List from '../list/List';
-import { useQuery } from 'react-query';
 import { getLists } from '../../api/lists';
+import { useQuery } from '@tanstack/react-query';
 
 function TogetherList() {
   const [list, setList] = useState([]);
   const [searchInput, setSearchInput] = useState('');
-  const { isLoading, isError, data } = useQuery('lists', getLists);
+  const { isLoading, isError, data } = useQuery({
+    queryKey: ['lists'],
+    queryFn: getLists,
+  });
   console.log(data);
   if (isLoading) {
     return <h1>로딩중 입니닷..!!</h1>;
