@@ -1,23 +1,22 @@
 import React, { useState } from 'react';
 // import { useMutation, useQueryClient } from 'react-query';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useSelector } from 'react-redux';
 import { styled } from 'styled-components';
 import { addTogether } from '../../api/togethers';
-import UseCheckValidation from '../../hooks/UseCheckValidation';
-import UseInput from '../../hooks/UseInput';
 import { selectPosition } from '../../redux/module/position.slice';
-// import { useQuery } from '@tanstack/react-query';
+import { useInput } from '../../hooks';
+import { checkValidation, getDate } from '../../common/util';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 function AddForm({ setIsAdding }) {
   const [isImgSelected, setIsImgSelected] = useState(false);
   const [imgPath, setImgPath] = useState('');
-  const [title, onChangeTitleHandler] = UseInput();
-  const [content, onChangeContentHandler] = UseInput();
-  const [cost, onChangeCost] = UseInput();
-  const [togetherNum, onChangeTogetherNum] = UseInput();
-  const [email, onChangeEmail] = UseInput();
-  const [password, onChangePassword] = UseInput();
+  const [title, onChangeTitleHandler] = useInput();
+  const [content, onChangeContentHandler] = useInput();
+  const [cost, onChangeCost] = useInput();
+  const [togetherNum, onChangeTogetherNum] = useInput();
+  const [email, onChangeEmail] = useInput();
+  const [password, onChangePassword] = useInput();
   const position = useSelector(selectPosition);
   console.log('현재 활성화되어 있는 투게더의 position', position);
 
@@ -38,7 +37,7 @@ function AddForm({ setIsAdding }) {
   const Mutation = useMutation({
     mutationFn: addTogether,
     onSuccess: () => {
-      queryClient.invalidateQueries(['togethers']);
+      queryClient.invalidateQueries({ queryKey: ['togethers'] });
       alert('새 투게더가 등록되었습니다!');
       resetInputValues();
       console.log('mutation성공!!!!!!');
@@ -66,7 +65,7 @@ function AddForm({ setIsAdding }) {
       coordinates: { lat: position.lat, lng: position.lng },
       cost,
       togetherNum,
-      createdAt: '임의 새 생성시간',
+      createdAt: getDate(),
       email,
       gender: 'M or F',
       imgPath,
@@ -80,12 +79,12 @@ function AddForm({ setIsAdding }) {
     if (!cost || !togetherNum || !email || !password || !title || !content) {
       return alert('입력하지 않은 곳이 있습니다.');
     } else if (
-      UseCheckValidation('월세', cost, 6) &&
-      UseCheckValidation('모집인원 수', togetherNum, 3) &&
-      UseCheckValidation('이메일', email, 20) &&
-      UseCheckValidation('비밀번호', password, 5) &&
-      UseCheckValidation('제목', title, 30) &&
-      UseCheckValidation('내용', content, 500)
+      checkValidation('월세', cost, 6) &&
+      checkValidation('모집인원 수', togetherNum, 3) &&
+      checkValidation('이메일', email, 20) &&
+      checkValidation('비밀번호', password, 5) &&
+      checkValidation('제목', title, 30) &&
+      checkValidation('내용', content, 500)
     ) {
       if (window.confirm('새 투게더를 등록하시겠습니까?')) {
         Mutation.mutate(newTogether);

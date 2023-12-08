@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { styled } from 'styled-components';
-import KakaoMap from '../components/kakaoMap/KakaoMap';
 import AddForm from '../components/main/AddForm';
 import TogetherList from '../components/togetherList/TogetherList';
+import KakaoMap from '../components/kakaoMap/KakaoMap';
 
 function Home() {
   const [isAdding, setIsAdding] = useState(false);
@@ -11,9 +11,8 @@ function Home() {
   return (
     <StMainContainer>
       <StLeftContainer>
-        <AddBtn onClick={() => setIsAdding(!isAdding)}>새 게더 등록</AddBtn>
-        {isAdding ? <AddForm /> : <TogetherList />}
-        {/* <button>여기</button> */}
+        <AddBtn onClick={() => setIsAdding(!isAdding)}>새 투게더 등록</AddBtn>
+        {isAdding ? <AddForm setIsAdding={setIsAdding} /> : <TogetherList />}
       </StLeftContainer>
       <KakaoMap />
     </StMainContainer>
@@ -29,16 +28,15 @@ const StMainContainer = styled.div`
   height: 100%;
   display: flex;
   max-height: calc(100% - 8rem);
+  overflow: hidden;
+  position: relative;
 `;
 
 const StLeftContainer = styled.div`
   width: 50%;
+  //position: relative;
   height: calc(100vh - 8rem);
   overflow-y: scroll;
-  /* position: absolute; */
-  top: 8rem;
-  left: 0;
-  z-index: 99999;
   background-color: #fff;
 
   &::-webkit-scrollbar {
@@ -51,6 +49,15 @@ const StLeftContainer = styled.div`
   &::-webkit-scrollbar-track {
     background: #e6e6e6;
   }
+`;
+
+const StHiddenButton = styled.button`
+  position: absolute;
+  right: 0;
+  top: 50%;
+  width: 4rem;
+  background-color: white;
+  transform: translateY(-50%);
 `;
 
 export default Home;
