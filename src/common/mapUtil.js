@@ -75,9 +75,9 @@ export const filterMarkersInBounds = (postsData, mapRef) => {
 
   return postsData.filter(
     (post) =>
-      post.lat >= swLatLng.getLat() &&
-      post.lat <= neLatLng.getLat() &&
-      post.lng >= swLatLng.getLng() &&
-      post.lng <= neLatLng.getLng(),
+      post.coordinates.lat >= swLatLng.getLat() &&
+      post.coordinates.lat <= neLatLng.getLat() &&
+      post.coordinates.lng >= swLatLng.getLng() &&
+      post.coordinates.lng <= neLatLng.getLng(),
   );
 };

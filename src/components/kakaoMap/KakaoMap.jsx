@@ -11,14 +11,16 @@ import CustomMarkerClusterer from './customMarkerClusterer/CustomMarkerClusterer
 import ZoomButtonWrapper from './zoomButton/ZoomButtonWrapper';
 import MapOverlay from './overlay/MapOverlay';
 import { usePosts } from '../../hooks';
+import { selectorTogether } from '../../redux/module/together.slice';
 
 function KakaoMap() {
   const position = useSelector(selectPosition);
+  const selectTogethers = useSelector(selectorTogether);
   const [isOpen, setIsOpen] = useState(false);
   const [selectedMarkerId, setSelectedMarkerId] = useState('');
   const mapRef = useRef(null);
   const markerRef = useRef(null);
-  const { posts, handler } = usePosts();
+  const { handler } = usePosts();
 
   const dispatch = useDispatch();
 
@@ -84,7 +86,7 @@ function KakaoMap() {
           )}
         </MapMarker>
 
-        <CustomMarkerClusterer posts={posts} />
+        <CustomMarkerClusterer togethers={selectTogethers.togethers} />
       </Map>
       <ZoomButtonWrapper zoom={{ zoomIn, zoomOut }} />
       <MapOverlay />

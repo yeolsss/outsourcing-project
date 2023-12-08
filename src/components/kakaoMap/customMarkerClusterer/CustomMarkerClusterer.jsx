@@ -2,12 +2,12 @@ import React from 'react';
 import { MarkerClusterer } from 'react-kakao-maps-sdk';
 import CustomMarker from './comtomMarker/CustomMarker';
 
-const CustomMarkerClusterer = ({ posts }) => {
+const CustomMarkerClusterer = ({ togethers }) => {
   return (
     <>
       <MarkerClusterer averageCenter={true} minLevel={10}>
-        {posts?.map((post) => (
-          <CustomMarker key={post.id} post={post} />
+        {togethers?.map((together) => (
+          <CustomMarker key={together.id} together={together} />
         ))}
       </MarkerClusterer>
     </>

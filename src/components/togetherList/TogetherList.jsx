@@ -1,17 +1,32 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import List from '../list/List';
 import { getLists } from '../../api/lists';
 import { useQuery } from '@tanstack/react-query';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  selectorTogether,
+  setOriginTogethers,
+  setTogethers,
+} from '../../redux/module/together.slice';
 
 function TogetherList() {
-  const [list, setList] = useState([]);
+  const dispatch = useDispatch();
+  const selectTogethers = useSelector(selectorTogether);
   const [searchInput, setSearchInput] = useState('');
   const { isLoading, isError, data } = useQuery({
     queryKey: ['lists'],
     queryFn: getLists,
+    staleTime: Infinity,
   });
-  console.log(data);
+
+  useEffect(() => {
+    if (data) {
+      dispatch(setOriginTogethers(data));
+      dispatch(setTogethers(data));
+    }
+  }, [data]);
+
   if (isLoading) {
     return <h1>로딩중 입니닷..!!</h1>;
   }
@@ -39,7 +54,7 @@ function TogetherList() {
     setSearchInput(e.target.value);
   };
 
-  const filterList = data.filter((item) => {
+  const filterList = selectTogethers.togethers?.filter((item) => {
     return item.title.includes(searchInput);
   });
 
