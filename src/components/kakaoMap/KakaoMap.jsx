@@ -62,7 +62,10 @@ function KakaoMap() {
         center={{ lat: position.lat, lng: position.lng }} // 지도의 중심 좌표
         style={{ width: '50%', height: '100%', position: 'relative' }} // 지도 크기
         level={13} // 지도 확대 레벨
-        onClick={(e, mouseEvent) => handleOnClickPosition(e, mouseEvent)}
+        onClick={(e, mouseEvent) => {
+          handleOnClickPosition(e, mouseEvent);
+          handler(mapRef);
+        }}
         onIdle={() => handler(mapRef)}
         ref={mapRef}
       >
