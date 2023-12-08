@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -7,24 +7,18 @@ import {
 } from '../../redux/module/position.slice';
 import CustomMapMarkerOverlay from './customMapMarker/CustomMapMarkerOverlay';
 import currentPin from '../../assets/current-pin.png';
-import { filterMarkersInBounds } from '../../common/mapUtil';
-import dumyData from '../../common/dumy.json';
 import CustomMarkerClusterer from './customMarkerClusterer/CustomMarkerClusterer';
 import ZoomButtonWrapper from './zoomButton/ZoomButtonWrapper';
 import MapOverlay from './overlay/MapOverlay';
+import { usePosts } from '../../hooks';
 
 function KakaoMap() {
   const position = useSelector(selectPosition);
-  const mapRef = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
   const [selectedMarkerId, setSelectedMarkerId] = useState('');
-  const [marker, setMarker] = useState(position);
-  const [posts, setPosts] = useState();
-  const [displayInfo, setDisplayInfo] = useState();
-  console.log(posts);
-  const handleOnIdleMap = () => {
-    setPosts(filterMarkersInBounds(dumyData, mapRef));
-  };
+  const mapRef = useRef(null);
+  const markerRef = useRef(null);
+  const { posts, handler } = usePosts();
 
   const dispatch = useDispatch();
 
@@ -48,7 +42,6 @@ function KakaoMap() {
       lng: mouseEvent.latLng.getLng(),
     };
     dispatch(__setAddress({ ...position }));
-    setMarker(position);
   };
 
   // 마커 클릭하면 overlay 보여주기
@@ -56,24 +49,27 @@ function KakaoMap() {
     setIsOpen(!isOpen);
     setSelectedMarkerId(postId);
   };
-
-  useEffect(() => {
-    setPosts(filterMarkersInBounds(dumyData, mapRef));
-  }, [mapRef.current]);
-
+  // 마커 드레그가 마치면 position을 얻어옴
+  const handleOnDragEndMarker = () => {
+    const { Ma: lat, La: lng } = markerRef.current.getPosition();
+    dispatch(__setAddress({ lat, lng }));
+  };
   return (
     <>
       <Map
-        center={{ lat: marker.lat, lng: marker.lng }} // 지도의 중심 좌표
+        center={{ lat: position.lat, lng: position.lng }} // 지도의 중심 좌표
         style={{ width: '50%', height: '100%', position: 'relative' }} // 지도 크기
         level={13} // 지도 확대 레벨
         onClick={(e, mouseEvent) => handleOnClickPosition(e, mouseEvent)}
-        onIdle={handleOnIdleMap}
+        onIdle={() => handler(mapRef)}
         ref={mapRef}
       >
-        {/*현재 클릭한 마커 start*/}
+        {/*이 부분 CustomMapMaker와 통합해야함.*/}
         <MapMarker
-          position={marker} // 마커를 표시할 위치
+          position={position} // 마커를 표시할 위치
+          draggable={true}
+          ref={markerRef}
+          onDragEnd={() => handleOnDragEndMarker()}
           onClick={() => handleOnClickMarker()}
           image={{
             src: currentPin, // 마커이미지의 주소입니다
@@ -84,10 +80,9 @@ function KakaoMap() {
           }}
         >
           {isOpen && selectedMarkerId === '' && (
-            <CustomMapMarkerOverlay position={marker} />
+            <CustomMapMarkerOverlay position={position} />
           )}
         </MapMarker>
-        {/*현재 클릭한 마커 end*/}
 
         <CustomMarkerClusterer posts={posts} />
       </Map>

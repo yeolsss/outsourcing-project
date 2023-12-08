@@ -3,7 +3,6 @@ import { MarkerClusterer } from 'react-kakao-maps-sdk';
 import CustomMarker from './comtomMarker/CustomMarker';
 
 const CustomMarkerClusterer = ({ posts }) => {
-  console.log(posts);
   return (
     <>
       <MarkerClusterer averageCenter={true} minLevel={10}>

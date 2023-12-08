@@ -10,6 +10,11 @@ const CurrentMarkerSlice = createSlice({
   initialState,
   reducers: {
     handleMarker: (state, { payload }) => {
+      if (!payload) {
+        state.isOpen = false;
+        state.selectedMarkerId = '';
+        return;
+      }
       payload === state.selectedMarkerId
         ? (state.isOpen = !state.isOpen)
         : (state.isOpen = true);

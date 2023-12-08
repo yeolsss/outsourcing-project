@@ -11,7 +11,9 @@ import { getAddress } from '../../../common/mapUtil';
 const MapOverlay = () => {
   const { isOpen, selectedMarkerId } = useSelector(selectCurrentMarker);
   const dispatch = useDispatch();
-  const post = dumyData.find((post) => post.id === selectedMarkerId || '1');
+  const post = dumyData.find((post, idx) => {
+    return post.id === selectedMarkerId;
+  });
 
   const [address, setAddress] = useState('');
 
@@ -22,14 +24,14 @@ const MapOverlay = () => {
   }, [selectedMarkerId]);
 
   const handleOnClickCloseOverlay = () => {
-    dispatch(handleMarker());
+    dispatch(handleMarker(false));
   };
 
   return (
     <>
       <StBottomOverlay $isOpen={isOpen}>
         <div>
-          <span>제목: {post.name || ''}</span>
+          <span>제목: {post?.name || ''}</span>
           <span>주소: {address || ''}</span>
           <button onClick={handleOnClickCloseOverlay}>❌</button>
         </div>

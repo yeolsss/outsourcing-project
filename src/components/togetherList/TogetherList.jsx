@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import sampleImg from '../../assets/sampleImg.jpeg';
 import List from '../list/List';
+import useInput from '../../hooks/useInput';
 
 function TogetherList() {
   const initialState = [
@@ -70,11 +71,14 @@ function TogetherList() {
     },
   ];
   const [list, setList] = useState(initialState);
-  const [searchInput, setSearchInput] = useState('');
+  /* const [searchInput, setSearchInput] = useState('');
 
   const handleSearch = (e) => {
     setSearchInput(e.target.value);
-  };
+  }; */
+  // 재사용성이 늘어나고
+  // 저  handleSearch 같은 비슷한 로직을 분리시켰다 -> 책임 전가
+  const [searchInput, handleSearch] = useInput('');
 
   const filterList = list.filter((item) => {
     return item.title.includes(searchInput);
