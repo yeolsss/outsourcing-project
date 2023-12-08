@@ -8,6 +8,7 @@ function List({ list }) {
       {list.map((element, index) => {
         return (
           <StLi key={index}>
+            {/* Link올것이니.. */}
             <a>
               <StContentImg>
                 <StImg

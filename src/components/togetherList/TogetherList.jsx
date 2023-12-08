@@ -65,6 +65,7 @@ function TogetherList() {
         placeholder="검색.."
         onChange={(e) => handleSearch(e)}
       />
+
       <StUl>
         <List list={filterList} />
       </StUl>
@@ -76,7 +77,7 @@ export default TogetherList;
 
 const StSearchBar = styled.input`
   width: -webkit-fill-available;
-  margin: 2rem;
+  margin: 2rem 2rem 0 2rem;
   border: 1px solid #e6e6e6;
   border-radius: 5rem;
   padding: 1rem;
@@ -91,5 +92,5 @@ const StSearchBar = styled.input`
 const StUl = styled.ul`
   display: grid;
   grid-template-columns: 1fr 1fr;
-  margin: 0 0.6rem;
+  margin: 2rem 0.6rem;
 `;
