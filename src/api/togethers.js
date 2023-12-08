@@ -1,29 +1,25 @@
 import { addDoc, collection } from 'firebase/firestore';
 import db from '../common/firebaseHamin';
 
-// 데이터 추가 로직 (firestore)
+// firestore 데이터 추가 로직
 export const addTogetherToFireBase = async (newTogether) => {
   try {
     const collectionRef = collection(db, 'togethers');
     console.log({ collectionRef });
-
     const payload = newTogether;
     console.log({ payload });
     const docRef = await addDoc(collectionRef, payload);
     console.log('새 투게더 아이디 : ', docRef.id);
   } catch (error) {
     console.error(error);
-    throw error; // 에러를 상위로 전파하여 처리
+    throw error;
   }
 };
 
-// 1 안. 하지만 오류 뜸. React Hook "useMutation" is called in function "addTogether" that is neither a React function component nor a custom React Hook function. React component names must start with an uppercase letter. React Hook names must start with the word "use"  react-hooks/rules-of-hooks Search for the keywords to learn more about each error.
 const addTogether = async (newTogether) => {
   await addTogetherToFireBase(newTogether);
-  // return useMutation(addTogetherToFireBase);
 };
 
-//export 하기
 export { addTogether };
 
 //----------------------------------

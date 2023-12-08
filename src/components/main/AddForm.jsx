@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
 // import { useMutation, useQueryClient } from 'react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useSelector } from 'react-redux';
 import { styled } from 'styled-components';
-// import { addTogether, getTogethers } from '../../api/togethers';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { addTogether } from '../../api/togethers';
 import checkValidation from '../../hooks/checkValidation';
 import useInput from '../../hooks/useInput';
 import { selectPosition } from '../../redux/module/position.slice';
-// firebase 데이터 추가 아래부터
 // import { useQuery } from '@tanstack/react-query';
 
 function AddForm({ setIsAdding }) {
@@ -27,13 +25,6 @@ function AddForm({ setIsAdding }) {
 
   // const { isLoading, isError, data } = useQuery('togethers', getTogethers);
 
-  // const Mutation = useMutation(addTogether, {
-  //   onSuccess: () => {
-  //     queryClient.invalidateQueries(['togethers']);
-  //     console.log('성공함');
-  //   },
-  // });
-
   const resetInputValues = () => {
     onChangeTitleHandler({ target: { value: '' } });
     onChangeContentHandler({ target: { value: '' } });
@@ -44,7 +35,6 @@ function AddForm({ setIsAdding }) {
     setIsImgSelected(false);
   };
 
-  // 1안 --------------
   const Mutation = useMutation({
     mutationFn: addTogether,
     onSuccess: () => {
@@ -58,25 +48,25 @@ function AddForm({ setIsAdding }) {
       alert('새 게더 추가 중 오류가 발생했습니다.');
     },
   });
-  // ---------------------
 
-  // 추가 버튼 로직
+  // 이미지 추가 버튼 로직
   const addImgHandler = (e) => {
     // setImgPath(e.target.files[0]);
     setImgPath(e.target.files[0].name);
     setIsImgSelected(true);
   };
 
+  // 새 투게더 등록 버튼 로직
   const submitNewTogetherHandler = async (e) => {
     e.preventDefault();
 
     const newTogether = {
-      id: '1',
+      id: '임의 아이디 1',
       address: position.address,
       coordinates: { lat: position.lat, lng: position.lng },
       cost,
       togetherNum,
-      createdAt: '새생성시간??',
+      createdAt: '임의 새 생성시간',
       email,
       gender: 'M or F',
       imgPath,
@@ -98,7 +88,6 @@ function AddForm({ setIsAdding }) {
       checkValidation('내용', content, 500)
     ) {
       if (window.confirm('새 게더를 등록하시겠습니까?')) {
-        // addTogetherToFireBase();
         Mutation.mutate(newTogether);
         setIsAdding(false);
       }
