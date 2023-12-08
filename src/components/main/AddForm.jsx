@@ -137,16 +137,16 @@ function AddForm({ setIsAdding }) {
           <StGender>
             전용선택
             {genderOptions.map((option) => (
-              <label key={option.value}>
+              <StLabel key={option.value}>
                 {option.label}
-                <input
+                <StGenderInput
                   type="radio"
                   name="gender"
                   value={option.value}
                   checked={gender === option.value}
                   onChange={selectGenderHandler}
                 />
-              </label>
+              </StLabel>
             ))}
           </StGender>
           <StGetherNum>
@@ -310,6 +310,8 @@ const StGetherNum = styled.p`
 `;
 
 const StGender = styled.p``;
+const StLabel = styled.label``;
+const StGenderInput = styled.input``;
 
 const StEmail = styled.p`
   input {
