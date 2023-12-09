@@ -1,11 +1,10 @@
-import { collection, getDoc, getDocs, doc } from 'firebase/firestore';
+import { collection, doc, getDoc, getDocs } from 'firebase/firestore';
 import { db } from '../common/firebase';
 
 // 조회
 const getLists = async () => {
   const response = await getDocs(collection(db, 'togethers'));
   const fechData = response.docs.map((doc) => doc.data());
-  console.log(fechData);
   return fechData;
 };
 

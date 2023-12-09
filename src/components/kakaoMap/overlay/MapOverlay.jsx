@@ -38,7 +38,7 @@ const StBottomOverlay = styled.div`
   bottom: ${({ $isOpen }) => ($isOpen ? '0' : '-100%')};
   right: 0;
   z-index: 100;
-  width: 50%;
+  width: 100%;
   transition: bottom 0.3s ease-in;
 
   > div {

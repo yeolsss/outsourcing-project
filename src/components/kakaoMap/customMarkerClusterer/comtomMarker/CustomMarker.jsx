@@ -28,8 +28,8 @@ const CustomMarker = ({ together }) => {
         image={{
           src: locationPin, // 마커이미지의 주소입니다
           size: {
-            width: 36,
-            height: 40,
+            width: 45,
+            height: 45,
           },
         }}
       >

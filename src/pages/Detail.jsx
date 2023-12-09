@@ -1,22 +1,34 @@
 import { useQuery } from '@tanstack/react-query';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { fetchToGetherData } from '../api/lists';
-import DetailImage from '../components/DetailImage';
-import DetailMenu from '../components/DetailMenu';
-import DetailText from '../components/DetailText';
-import DetailUrl from '../components/DetailUrl';
+import DetailImage from '../components/detail/DetailImage';
+import DetailMenu from '../components/detail/DetailMenu';
+import { setPosition } from '../redux/module/position.slice';
+import { DetailForm } from '../components/detail/DetailForm';
+import { DetailTitle } from '../components/detail/DetailTitle';
 
 function Detail() {
-  // 여기에서 데이터를 받아서
-  // props로 내려줄게요
-
   const { id: docId } = useParams();
-
+  const dispatch = useDispatch();
   const { isLoading, data, isError, error } = useQuery({
-    queryKey: ['together'],
+    queryKey: ['together', docId],
     queryFn: () => fetchToGetherData(docId),
   });
+
+  useEffect(() => {
+    if (isLoading || isError) return;
+
+    const newData = {
+      lat: data.coordinates.lat,
+      lng: data.coordinates.lng,
+      title: data.title,
+      address: data.address,
+    };
+    dispatch(setPosition(newData));
+  }, [data]);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -44,10 +56,14 @@ function Detail() {
 
   return (
     <DetailContainer>
-      <DetailMenu gether={{ cost, address }} />
-      <DetailImage />
-      <DetailUrl gether={{ cost, togetherNum, address }} />
-      <DetailText gether={data} />
+      <div>
+        {/*메뉴바*/}
+        <DetailMenu together={{ cost, address, imgPath, email }} />
+        {/*이미지*/}
+        <DetailTitle title={title} />
+        <DetailImage imgPath={imgPath} title={title} />
+        <DetailForm together={data} />
+      </div>
     </DetailContainer>
   );
 }
@@ -55,9 +71,10 @@ function Detail() {
 export default Detail;
 
 const DetailContainer = styled.div`
-  background-color: #c8c8c8;
-  width: 96rem;
-  height: 130.5rem;
-  padding: 5.3rem;
-  margin: auto;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  > div {
+    margin: 0 auto;
+  }
 `;

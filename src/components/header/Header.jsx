@@ -2,26 +2,24 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import LogoImg from 'assets/logo.png';
+import AddPlus from 'assets/plus.png';
 
 function Header() {
   return (
-    <StContainer>
-      <Link to={'/'}>
-        <StLogoImg src={LogoImg} alt="투게더로고" />
-      </Link>
-      <StPages>
-        <StPageFont>
-          <Link to={'/'}>
-            <StPageFont>Home</StPageFont>
+    <StHeader>
+      <div>
+        <Link to={'/'}>
+          <StLogoImg src={LogoImg} alt="투게더로고" />
+        </Link>
+      </div>
+      <ul>
+        <li>
+          <Link to={'/create'}>
+            <AddBtn src={AddPlus} alt="투게더 등록" />
           </Link>
-        </StPageFont>
-        <StPageFont>
-          <Link to={'/detail'}>
-            <StPageFont>Detail</StPageFont>
-          </Link>
-        </StPageFont>
-      </StPages>
-    </StContainer>
+        </li>
+      </ul>
+    </StHeader>
   );
 }
 
@@ -34,21 +32,27 @@ const StContainer = styled.div`
   border-bottom: 1px solid #e6e6e6;
 `;
 
+const StHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid #e6e6e6;
+`;
 const StLogoImg = styled.img`
   width: 6rem;
 `;
 
-const StPages = styled.div`
+const AddBtn = styled.img`
+  width: 4rem;
+  height: 4rem;
+`;
+
+const StMainContainer = styled.div`
+  height: 100%;
   display: flex;
+  max-height: 100%;
+  overflow: hidden;
+  position: relative;
 `;
-
-const StPageFont = styled.div`
-  font-size: 2rem;
-  color: #0f3f37;
-  padding: 0.4rem;
-  &:hover {
-    color: #23917f;
-  }
-`;
-
 export default Header;

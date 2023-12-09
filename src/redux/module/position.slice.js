@@ -31,7 +31,11 @@ export const __searchAddress = createAsyncThunk(
 const positionSlice = createSlice({
   name: 'position',
   initialState,
-  reducers: {},
+  reducers: {
+    setPosition: (state, { payload }) => {
+      state.position = payload;
+    },
+  },
   extraReducers: {
     [__setAddress.fulfilled]: (state, { payload }) => {
       state.position = payload;
@@ -42,5 +46,7 @@ const positionSlice = createSlice({
   },
 });
 
+export const { setPosition } = positionSlice.actions;
 export const selectPosition = (state) => state.position.position;
+
 export default positionSlice.reducer;

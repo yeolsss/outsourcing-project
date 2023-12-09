@@ -2,13 +2,15 @@ import React, { useRef, useState } from 'react';
 // import { useMutation, useQueryClient } from 'react-query';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { styled } from 'styled-components';
-import { addTogether } from 'api/togethers';
+import { addTogetherToFireBase } from 'api/togethers';
 import { checkEmailValidation, checkValidation, getDate } from 'common/util';
 import { useInput } from 'hooks';
 import { selectPosition } from 'redux/module/position.slice';
 import { v4 as uuidv4 } from 'uuid';
+import { useNavigate } from 'react-router-dom';
+import { setTogethers } from '../../redux/module/together.slice';
 
 function AddForm({ setIsAdding }) {
   const [isImgSelected, setIsImgSelected] = useState(false);
@@ -22,12 +24,15 @@ function AddForm({ setIsAdding }) {
   const [password, onChangePassword] = useInput('');
   const [gender, setGender] = useState('noGenderRequirement');
   const position = useSelector(selectPosition);
+  const dispatch = useDispatch();
   const genderOptions = [
     { value: 'noGenderRequirement', label: '해당없음' },
     { value: 'manOnly', label: '남성전용' },
     { value: 'womanOnly', label: '여성전용' },
   ];
   const queryClient = useQueryClient();
+
+  const navigate = useNavigate();
 
   const selectGenderHandler = (e) => {
     const selectedGender = e.target.value;
@@ -36,12 +41,13 @@ function AddForm({ setIsAdding }) {
   };
 
   const Mutation = useMutation({
-    mutationFn: addTogether,
-    onSuccess: () => {
+    mutationFn: addTogetherToFireBase,
+    onSuccess: (response) => {
       queryClient.invalidateQueries({ queryKey: ['togethers'] });
       alert('새 투게더가 등록되었습니다!');
       resetInputValues();
-      console.log('mutation성공!');
+      dispatch(setTogethers());
+      navigate(`/detail/${response}`);
     },
     onError: (error) => {
       console.error('새 투게더 데이터 추가 중 에러 발생:', error);
@@ -130,7 +136,6 @@ function AddForm({ setIsAdding }) {
     ) {
       if (window.confirm('새 투게더를 등록하시겠습니까?')) {
         Mutation.mutate(newTogether);
-        setIsAdding(false);
       }
     }
   };

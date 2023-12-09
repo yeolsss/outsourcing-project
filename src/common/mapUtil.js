@@ -68,18 +68,30 @@ function degreesToRadians(degrees) {
 }
 
 export const filterMarkersInBounds = (postsData, mapRef) => {
-  const map = mapRef.current;
-  if (!map) return [];
-
-  const bounds = map.getBounds();
-  const swLatLng = bounds.getSouthWest();
-  const neLatLng = bounds.getNorthEast();
+  const swLatLng = mapRef.swLatLng;
+  const neLatLng = mapRef.neLatLng;
 
   return postsData.filter(
     (post) =>
-      post.coordinates.lat >= swLatLng.getLat() &&
-      post.coordinates.lat <= neLatLng.getLat() &&
-      post.coordinates.lng >= swLatLng.getLng() &&
-      post.coordinates.lng <= neLatLng.getLng(),
+      post.coordinates.lat >= swLatLng.lat &&
+      post.coordinates.lat <= neLatLng.lat &&
+      post.coordinates.lng >= swLatLng.lng &&
+      post.coordinates.lng <= neLatLng.lng,
   );
+};
+
+export const updateMapRef = (map) => {
+  const bounds = map.getBounds();
+  const swLatLng = bounds.getSouthWest();
+  const neLatLng = bounds.getNorthEast();
+  return {
+    swLatLng: {
+      lat: swLatLng.getLat(),
+      lng: swLatLng.getLng(),
+    },
+    neLatLng: {
+      lat: neLatLng.getLat(),
+      lng: neLatLng.getLng(),
+    },
+  };
 };
