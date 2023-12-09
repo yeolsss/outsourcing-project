@@ -12,7 +12,7 @@ const SearchBar = ({ value, handler }) => {
 };
 const StSearchBar = styled.input`
   width: -webkit-fill-available;
-  margin: 2rem 2.8rem 0 2.8rem;
+  margin: 2rem 3.7rem 0 3.7rem;
   border: 1px solid #e6e6e6;
   border-radius: 5rem;
   padding: 1rem 1rem 1rem 1.5rem;
