@@ -1,14 +1,21 @@
 import { createGlobalStyle } from 'styled-components';
+<<<<<<< HEAD
 
 const styled = { createGlobalStyle };
 
+=======
+const styled = { createGlobalStyle };
+>>>>>>> b879d2fa3a0cdad6d8e6068501aed00a88789604
 export const GlobalStyle = styled.createGlobalStyle`
   // reset Css
-  /* http://meyerweb.com/eric/tools/css/reset/ 
+  /* http://meyerweb.com/eric/tools/css/reset/
      v2.0 | 20110126
      License: none (public domain)
   */
+<<<<<<< HEAD
 
+=======
+>>>>>>> b879d2fa3a0cdad6d8e6068501aed00a88789604
   html,
   body,
   div,
@@ -97,7 +104,6 @@ export const GlobalStyle = styled.createGlobalStyle`
     font: inherit;
     vertical-align: baseline;
   }
-
   /* HTML5 display-role reset for older browsers */
   article,
   aside,
@@ -112,21 +118,29 @@ export const GlobalStyle = styled.createGlobalStyle`
   section {
     display: block;
   }
-
   body {
     line-height: 1;
   }
+<<<<<<< HEAD
 
+=======
+>>>>>>> b879d2fa3a0cdad6d8e6068501aed00a88789604
   ol,
   ul {
     list-style: none;
   }
+<<<<<<< HEAD
 
+=======
+>>>>>>> b879d2fa3a0cdad6d8e6068501aed00a88789604
   blockquote,
   q {
     quotes: none;
   }
+<<<<<<< HEAD
 
+=======
+>>>>>>> b879d2fa3a0cdad6d8e6068501aed00a88789604
   blockquote:before,
   blockquote:after,
   q:before,
@@ -134,12 +148,14 @@ export const GlobalStyle = styled.createGlobalStyle`
     content: '';
     content: none;
   }
-
   table {
     border-collapse: collapse;
     border-spacing: 0;
   }
+<<<<<<< HEAD
 
+=======
+>>>>>>> b879d2fa3a0cdad6d8e6068501aed00a88789604
   div,
   section,
   header,
@@ -191,24 +207,24 @@ export const GlobalStyle = styled.createGlobalStyle`
   option {
     box-sizing: border-box;
   }
-
   button {
     cursor: pointer;
     background-color: unset;
     border: none;
   }
-
   /* */
   html {
     font-size: 62.5%;
   }
-
   body {
     height: 100vh;
     width: 100vw;
     display: flex;
   }
+<<<<<<< HEAD
 
+=======
+>>>>>>> b879d2fa3a0cdad6d8e6068501aed00a88789604
   a {
     text-decoration: none;
   }

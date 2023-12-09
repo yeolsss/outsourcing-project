@@ -1,4 +1,3 @@
-import React from 'react';
 import { styled } from 'styled-components';
 import TogetherList from '../components/togetherList/TogetherList';
 
@@ -20,6 +19,7 @@ const StMainContainer = styled.div`
   //position: relative;
   height: 100vh;
   overflow-y: scroll;
+  overflow-x: hidden; // 테스트코드
   background-color: #fff;
 
   &::-webkit-scrollbar {
