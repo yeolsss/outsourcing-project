@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { selectorTogether, setTogethers } from '../redux/module/together.slice';
+import { selectTogether, setTogethers } from '../redux/module/together.slice';
 
 export const usePosts = () => {
-  const { originTogethers } = useSelector(selectorTogether);
+  const { originTogethers } = useSelector(selectTogether);
   const dispatch = useDispatch();
   const handler = (mapRef) => {
     dispatch(setTogethers());
