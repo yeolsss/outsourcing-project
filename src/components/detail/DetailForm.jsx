@@ -326,8 +326,6 @@ const StImgSelectedText = styled.span`
 `;
 
 const StDetailButtonWrapper = styled.div`
-  width: 100%;
-  margin: 1rem auto 0;
   padding: 0 5rem;
   display: flex;
   justify-content: space-between;

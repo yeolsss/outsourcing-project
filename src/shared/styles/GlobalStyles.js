@@ -201,9 +201,12 @@ export const GlobalStyle = styled.createGlobalStyle`
     --accent: #23917f;
     --darkgreen: #051613;
     --lightgray: #e6e6e6;
+    --error: #ea8685;
+    --errorAccent: #f78fb3;
   }
   #root {
     height: inherit;
     width: inherit;
+    position: relative;
   }
 `;

@@ -1,7 +1,6 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import defaultImg from '../../assets/defaultImg.png';
-import { Link } from 'react-router-dom';
-import React from 'react';
 
 function TogetherCard({ together }) {
   if (together.gender.womanOnly) return '여성전용';
@@ -93,10 +92,10 @@ const StTogetherNum = styled.span`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  padding: 1rem;
+  padding: 1rem 0.5rem;
   background-color: #926753;
   color: white;
-  width: 4.7rem;
+  width: 5rem;
   height: 1.9rem;
   border-radius: 8px;
   margin-bottom: 0.5rem;
