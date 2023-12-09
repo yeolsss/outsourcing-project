@@ -35,7 +35,8 @@ function TogetherList() {
 export default TogetherList;
 
 const StLi = styled.li`
-  margin: 0.8rem;
+  /* margin: 0.8rem; */
+  margin: 1.5rem;
   > a {
     text-decoration: none;
     color: black;
