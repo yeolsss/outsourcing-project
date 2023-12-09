@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import {
   handleMarker,
   selectCurrentMarker,
@@ -29,7 +30,9 @@ const MapOverlay = () => {
             <span>{together?.address}</span>
             <StOverlayTitle>{together?.title}</StOverlayTitle>
             <span>모집인원 / {together?.togetherNum} 명</span>
-            <StSeeMoreBtn>상세보기</StSeeMoreBtn>
+            <StLink to={`/detail/${together?.docId}`}>
+              <StSeeMoreBtn>상세보기</StSeeMoreBtn>
+            </StLink>
             <StCloseBtn onClick={handleOnClickCloseOverlay}>×</StCloseBtn>
           </StOverlayContent>
         </div>
@@ -99,6 +102,11 @@ const StCloseBtn = styled.button`
   top: 1rem;
   right: 0.5rem;
   font-size: 3.5rem;
+`;
+
+const StLink = styled(Link)`
+  width: 100%;
+  height: 4rem;
 `;
 
 const StSeeMoreBtn = styled.button`
