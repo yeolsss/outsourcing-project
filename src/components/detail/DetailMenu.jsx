@@ -12,9 +12,6 @@ function DetailMenu({ together, handler: handleIsUpdate, isUpdate }) {
     Kakao.cleanup();
     Kakao.init('12145a9d8ac8f055f6cd69e42d9b4ad2');
   }, []);
-  // TODO : 삭제
-  // 삭제해야 하는 것이 뭐지? 삭제는 마커에서 삭제를 시켜야 한다
-  // 그러면 마커에 대한 데이터는 어디에 잇지?
 
   const shareKakao = () => {
     Kakao.Share.sendDefault({
@@ -44,11 +41,13 @@ function DetailMenu({ together, handler: handleIsUpdate, isUpdate }) {
       <StDetailJoin href={`mailto: ${together.email}`} target="_blank">
         입주신청
       </StDetailJoin>
-      {!isUpdate.isUpdate ? (
-        <StDetailEdit onClick={handleIsUpdate}>수정하기</StDetailEdit>
-      ) : (
-        <StDetailEdit onClick={() => isUpdate.setIsUpdate(false)}>
-          수정취소
+      {!isUpdate.isUpdate && (
+        <StDetailEdit
+          onClick={() => {
+            handleIsUpdate(true);
+          }}
+        >
+          수정하기
         </StDetailEdit>
       )}
 

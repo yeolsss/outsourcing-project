@@ -1,12 +1,19 @@
-import { addDoc, collection, deleteDoc, getDocs } from 'firebase/firestore';
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+  updateDoc,
+} from 'firebase/firestore';
 import { db } from '../common/firebase';
+
 const COLLECTION_TOGETHERS = collection(db, 'togethers');
 
 // firestore 데이터 추가 로직
 export const addTogetherToFireBase = async (newTogether) => {
   try {
-    const collectionRef = collection(db, 'togethers');
-    const docRef = await addDoc(collectionRef, newTogether);
+    const docRef = await addDoc(COLLECTION_TOGETHERS, newTogether);
     return docRef.id;
   } catch (error) {
     console.error(error);
@@ -17,6 +24,14 @@ export const removeTogetherToFireBase = async (docId) => {
   try {
     console.log('togheters.js removeTogetherToFireBase docId', docId);
     await deleteDoc(COLLECTION_TOGETHERS, docId);
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const updateTogetherToFireBase = async ({ docId, updateTogether }) => {
+  try {
+    await updateDoc(doc(COLLECTION_TOGETHERS, docId), updateTogether);
   } catch (err) {
     throw err;
   }

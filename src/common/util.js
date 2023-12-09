@@ -38,3 +38,7 @@ export const genderOptions = [
   { value: 'manOnly', label: '남성전용' },
   { value: 'womanOnly', label: '여성전용' },
 ];
+
+export const checkPassword = (prevPassword, newPassword) => {
+  return prevPassword === newPassword;
+};

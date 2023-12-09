@@ -57,8 +57,8 @@ function Detail() {
     togetherNum,
   } = data;
 
-  const handleIsUpdate = () => {
-    setIsUpdate(!isUpdate);
+  const handleIsUpdate = (type) => {
+    setIsUpdate(type);
   };
 
   return (
@@ -67,7 +67,7 @@ function Detail() {
       <DetailMenu
         together={{ cost, address, imgPath, email }}
         handler={handleIsUpdate}
-        isUpdate={{isUpdate, setIsUpdate}}
+        isUpdate={{ isUpdate, setIsUpdate }}
       />
       {/* !isUpdate ?  밑에꺼보여주고 :  form있는놈 보여주고*/}
       {!isUpdate ? (
@@ -78,7 +78,7 @@ function Detail() {
           <DetailData together={data} />
         </div>
       ) : (
-        <DetailForm together={data} />
+        <DetailForm docId={docId} together={data} setIsUpdate={setIsUpdate} />
       )}
     </DetailContainer>
   );
