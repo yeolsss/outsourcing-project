@@ -1,8 +1,8 @@
-import React from 'react';
+import LogoImg from 'assets/logo4.png';
+// import LogoImg from 'assets/logo3.png';
+import AddPlus from 'assets/plus.png';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import LogoImg from 'assets/logo.png';
-import AddPlus from 'assets/plus.png';
 
 function Header() {
   return (
@@ -36,16 +36,18 @@ const StHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem;
+  padding: 1.4rem 3.2rem;
   border-bottom: 1px solid #e6e6e6;
 `;
 const StLogoImg = styled.img`
-  width: 6rem;
+  /* width: 7rem; */
+  width: 16rem;
 `;
 
 const AddBtn = styled.img`
-  width: 4rem;
-  height: 4rem;
+  width: 3.5rem;
+  height: 3.5rem;
+  margin-right: 0.5rem;
 `;
 
 const StMainContainer = styled.div`
