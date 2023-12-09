@@ -36,7 +36,7 @@ const StHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.2rem 1.5rem;
+  padding: 1.4rem 3.2rem;
   border-bottom: 1px solid #e6e6e6;
 `;
 const StLogoImg = styled.img`
@@ -45,8 +45,9 @@ const StLogoImg = styled.img`
 `;
 
 const AddBtn = styled.img`
-  width: 4rem;
-  height: 4rem;
+  width: 3.5rem;
+  height: 3.5rem;
+  margin-right: 0.5rem;
 `;
 
 const StMainContainer = styled.div`
