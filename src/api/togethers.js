@@ -2,23 +2,20 @@ import { addDoc, collection, getDocs } from 'firebase/firestore';
 import { db } from '../common/firebase';
 
 // firestore 데이터 추가 로직
-export const addTogetherToFireBase = async (newTogether) => {
+const addTogetherToFireBase = async (newTogether) => {
   try {
     const collectionRef = collection(db, 'togethers');
-    console.log({ collectionRef });
-    const payload = newTogether;
-    console.log({ payload });
-    const docRef = await addDoc(collectionRef, payload);
-    console.log('새 투게더 아이디 : ', docRef.id);
+    const docRef = await addDoc(collectionRef, newTogether);
+    return docRef.id;
   } catch (error) {
     console.error(error);
     throw error;
   }
 };
 
-const addTogether = async (newTogether) => {
+/*const addTogether = async (newTogether) => {
   await addTogetherToFireBase(newTogether);
-};
+};*/
 
 // 조회
 const getLists = async () => {
@@ -28,7 +25,7 @@ const getLists = async () => {
   });
 };
 
-export { addTogether, getLists };
+export { addTogetherToFireBase, getLists };
 
 //----------------------------------
 //조회

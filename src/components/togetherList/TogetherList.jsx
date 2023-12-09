@@ -1,56 +1,13 @@
-import { useQuery } from '@tanstack/react-query';
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { getLists } from '../../api/togethers';
-import {
-  selectorTogether,
-  setOriginTogethers,
-  setTogethers,
-} from '../../redux/module/together.slice';
-import List from '../list/List';
+import { selectorTogether } from 'redux/module/together.slice';
+import SearchBar from '../searchBar/SearchBar';
+import TogetherCard from '../togetherCard/TogetherCard';
 
 function TogetherList() {
-  const dispatch = useDispatch();
   const selectTogethers = useSelector(selectorTogether);
   const [searchInput, setSearchInput] = useState('');
-
-  const { isLoading, isError, data } = useQuery({
-    queryKey: ['togethers'],
-    queryFn: getLists,
-    staleTime: Infinity,
-  });
-
-  useEffect(() => {
-    if (data) {
-      dispatch(setOriginTogethers(data));
-      dispatch(setTogethers(data));
-    }
-  }, [data]);
-
-  if (isLoading) {
-    return <h1>로딩중 입니닷..!!</h1>;
-  }
-
-  if (isError) {
-    return <h1>오류가 발생하였습니닷..!!</h1>;
-  }
-
-  // getDocs는 axios.get()이당
-  // useEffect(() => {
-  //   const fechData = async () => {
-  //     const querySnapshot = await getDocs(collection(db, 'lists'));
-  //     const newArr = [];
-  //     querySnapshot.forEach((doc) => {
-  //       // console.log(`${doc.id} => ${doc.data()}`);
-  //       newArr.push(doc.data());
-  //     });
-
-  //     setList(newArr);
-  //   };
-  //   fechData();
-  // }, []);
-
   const handleSearch = (e) => {
     setSearchInput(e.target.value);
   };
@@ -61,14 +18,15 @@ function TogetherList() {
 
   return (
     <>
-      <StSearchBar
-        type="text"
-        placeholder="검색.."
-        onChange={(e) => handleSearch(e)}
-      />
-
+      <SearchBar value={searchInput} handler={handleSearch} />
       <StUl>
-        <List list={filterList} />
+        {filterList?.map((together, index) => {
+          return (
+            <StLi key={index}>
+              <TogetherCard together={together} />
+            </StLi>
+          );
+        })}
       </StUl>
     </>
   );
@@ -76,17 +34,11 @@ function TogetherList() {
 
 export default TogetherList;
 
-const StSearchBar = styled.input`
-  width: -webkit-fill-available;
-  margin: 2rem 2rem 0 2rem;
-  border: 1px solid #e6e6e6;
-  border-radius: 5rem;
-  padding: 1rem;
-
-  &:focus {
-    outline: none;
-    border-color: #23917f;
-    box-shadow: 0 0 1rem #23917f;
+const StLi = styled.li`
+  margin: 0.8rem;
+  > a {
+    text-decoration: none;
+    color: black;
   }
 `;
 

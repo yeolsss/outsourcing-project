@@ -1,8 +1,14 @@
 import { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { __setAddress, selectPosition } from 'redux/module/position.slice';
-import { selectorTogether } from 'redux/module/together.slice';
+import {
+  selectorTogether,
+  setMapRefCurrent,
+} from 'redux/module/together.slice';
+import { getPosition } from '../common/mapUtil';
+import { useInput } from './useInput';
 import { usePosts } from './usePosts';
+import { useTogethers } from './useTogethers';
 import { useZoom } from './useZoom';
 
 export function useMap() {
@@ -14,8 +20,9 @@ export function useMap() {
   const markerRef = useRef(null);
   const { handler: updatePosition } = usePosts();
   const [zoomHandler] = useZoom(mapRef);
-
+  const [searchInput, handleOnChangeInput] = useInput();
   const dispatch = useDispatch();
+  useTogethers();
 
   // 클릭된 좌표 얻기
   const handleOnClickPosition = (_target, mouseEvent) => {
@@ -37,6 +44,34 @@ export function useMap() {
     const { Ma: lat, La: lng } = markerRef.current.getPosition();
     dispatch(__setAddress({ lat, lng }));
   };
+  const handleOnSubmitAddressSearch = async (e) => {
+    e.preventDefault();
+    const position = await getPosition(searchInput);
+    if (!position) {
+      alert('검색 결과가 없습니다.');
+      return;
+    }
+    dispatch(__setAddress({ ...position }));
+  };
+
+  const onIdleMapRef = () => {
+    const map = mapRef.current;
+    if (!map) return [];
+    const bounds = map.getBounds();
+    const swLatLng = bounds.getSouthWest();
+    const neLatLng = bounds.getNorthEast();
+    const currentCoordinates = {
+      swLatLng: {
+        lat: swLatLng.getLat(),
+        lng: swLatLng.getLng(),
+      },
+      neLatLng: {
+        lat: neLatLng.getLat(),
+        lng: neLatLng.getLng(),
+      },
+    };
+    dispatch(setMapRefCurrent(currentCoordinates));
+  };
 
   return {
     position,
@@ -50,5 +85,9 @@ export function useMap() {
     handleOnClickPosition,
     handleOnClickMarker,
     handleOnDragEndMarker,
+    searchInput,
+    handleOnChangeInput,
+    handleOnSubmitAddressSearch,
+    onIdleMapRef,
   };
 }
