@@ -47,6 +47,15 @@ const StContentImg = styled.div`
   height: 16rem;
   overflow: hidden;
   box-sizing: border-box;
+  transition: box-shadow 0.25s ease-in-out;
+  &:hover {
+    box-shadow:
+      8px 0 12px -5px gray,
+      -8px 0 12px -5px gray;
+    /* box-shadow:
+      0 4px 8px 0 rgba(0, 0, 0, 0.2),
+      0 6px 20px 0 rgba(0, 0, 0, 0.19); */
+  }
 `;
 
 const StImg = styled.img`
