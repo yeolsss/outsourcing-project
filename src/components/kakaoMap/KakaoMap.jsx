@@ -1,12 +1,12 @@
-import { Map, MapMarker } from 'react-kakao-maps-sdk';
 import currentPin from 'assets/current-pin.png';
 import { useMap } from 'hooks';
+import { Map, MapMarker } from 'react-kakao-maps-sdk';
+import { styled } from 'styled-components';
+import SearchBar from '../searchBar/SearchBar';
 import CustomMapMarkerOverlay from './customMapMarker/CustomMapMarkerOverlay';
 import CustomMarkerClusterer from './customMarkerClusterer/CustomMarkerClusterer';
 import MapOverlay from './overlay/MapOverlay';
 import ZoomButtonWrapper from './zoomButton/ZoomButtonWrapper';
-import SearchBar from '../searchBar/SearchBar';
-import { styled } from 'styled-components';
 
 function KakaoMap() {
   const {
@@ -24,22 +24,27 @@ function KakaoMap() {
     searchInput,
     handleOnChangeInput,
     handleOnSubmitAddressSearch,
+    onIdleMapRef,
   } = useMap();
 
   return (
     <>
       <Map
         center={{ lat: position.lat, lng: position.lng }} // 지도의 중심 좌표
-        style={{ width: '50%', height: '100%', position: 'relative' }} // 지도 크기
+        style={{ width: '100%', height: '100%', position: 'relative' }} // 지도 크기
         level={13} // 지도 확대 레벨
         onClick={(e, mouseEvent) => {
           handleOnClickPosition(e, mouseEvent);
-          updatePosition(mapRef);
+          onIdleMapRef();
+          updatePosition();
         }}
-        onIdle={() => updatePosition(mapRef)}
+        onIdle={() => {
+          onIdleMapRef();
+          updatePosition();
+        }}
         ref={mapRef}
       >
-        {/*이 부분 CustomMapMaker와 통합해야함.*/}
+        <CustomMarkerClusterer togethers={selectTogethers.togethers} />
         <MapMarker
           position={position} // 마커를 표시할 위치
           draggable={true}
@@ -51,6 +56,7 @@ function KakaoMap() {
           onClick={() => handleOnClickMarker()}
           image={{
             src: currentPin, // 마커이미지의 주소입니다
+            zIndex: 1000,
             size: {
               width: 36,
               height: 40,
@@ -61,8 +67,6 @@ function KakaoMap() {
             <CustomMapMarkerOverlay position={position} />
           )}
         </MapMarker>
-
-        <CustomMarkerClusterer togethers={selectTogethers.togethers} />
       </Map>
       <StSearchBarWrapper>
         <form onSubmit={handleOnSubmitAddressSearch}>
@@ -77,8 +81,8 @@ function KakaoMap() {
 const StSearchBarWrapper = styled.div`
   position: absolute;
   top: 2rem;
-  left: 50%;
+  left: 0;
   z-index: 10;
-  width: 50%;
+  width: 100%;
 `;
 export default KakaoMap;

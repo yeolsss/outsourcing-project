@@ -1,11 +1,15 @@
 import { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { __setAddress, selectPosition } from 'redux/module/position.slice';
-import { selectorTogether } from 'redux/module/together.slice';
-import { usePosts } from './usePosts';
-import { useZoom } from './useZoom';
-import { useInput } from './useInput';
+import {
+  selectorTogether,
+  setMapRefCurrent,
+} from 'redux/module/together.slice';
 import { getPosition } from '../common/mapUtil';
+import { useInput } from './useInput';
+import { usePosts } from './usePosts';
+import { useTogethers } from './useTogethers';
+import { useZoom } from './useZoom';
 
 export function useMap() {
   const position = useSelector(selectPosition);
@@ -18,6 +22,7 @@ export function useMap() {
   const [zoomHandler] = useZoom(mapRef);
   const [searchInput, handleOnChangeInput] = useInput();
   const dispatch = useDispatch();
+  useTogethers();
 
   // 클릭된 좌표 얻기
   const handleOnClickPosition = (_target, mouseEvent) => {
@@ -49,6 +54,25 @@ export function useMap() {
     dispatch(__setAddress({ ...position }));
   };
 
+  const onIdleMapRef = () => {
+    const map = mapRef.current;
+    if (!map) return [];
+    const bounds = map.getBounds();
+    const swLatLng = bounds.getSouthWest();
+    const neLatLng = bounds.getNorthEast();
+    const currentCoordinates = {
+      swLatLng: {
+        lat: swLatLng.getLat(),
+        lng: swLatLng.getLng(),
+      },
+      neLatLng: {
+        lat: neLatLng.getLat(),
+        lng: neLatLng.getLng(),
+      },
+    };
+    dispatch(setMapRefCurrent(currentCoordinates));
+  };
+
   return {
     position,
     selectTogethers,
@@ -64,5 +88,6 @@ export function useMap() {
     searchInput,
     handleOnChangeInput,
     handleOnSubmitAddressSearch,
+    onIdleMapRef,
   };
 }
