@@ -1,7 +1,6 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import defaultImg from '../../assets/defaultImg.png';
-import { Link } from 'react-router-dom';
-import React from 'react';
 
 function TogetherCard({ together }) {
   return (
@@ -42,6 +41,9 @@ const StContentWrap = styled.div`
 
 const StTitle = styled.h3`
   font-size: 2.4rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 
 const StContent = styled.p`

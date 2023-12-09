@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import styled from 'styled-components';
 import { selectorTogether } from 'redux/module/together.slice';
+import styled from 'styled-components';
 import SearchBar from '../searchBar/SearchBar';
 import TogetherCard from '../togetherCard/TogetherCard';
 
@@ -44,6 +44,7 @@ const StLi = styled.li`
 
 const StUl = styled.ul`
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  margin: 2rem;
+  /* grid-template-columns: 1fr 1fr; */
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 2.3rem;
 `;
