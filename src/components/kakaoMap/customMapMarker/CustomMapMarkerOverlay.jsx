@@ -16,19 +16,19 @@ const CustomMapMarkerOverlay = ({ title = '', position }) => {
       {title && (
         <>
           <li>
+            <StCost>30만원</StCost>
+          </li>
+          <li>
+            <StTitle>모집인원: 3명</StTitle>
+          </li>
+          <li>
             <StTitle>{title}</StTitle>
-          </li>
-          <li>
-            <StCost>모집인원: 3명</StCost>
-          </li>
-          <li>
-            <StCost>월세: 50만원</StCost>
           </li>
         </>
       )}
 
       <li>
-        <StAddress>주소: {address}</StAddress>
+        <StAddress>{address}</StAddress>
       </li>
     </StContainer>
   );
@@ -38,7 +38,6 @@ export default CustomMapMarkerOverlay;
 const StContainer = styled.ul`
   width: 20rem;
   height: 10rem;
-
   border-radius: 0.5rem;
   overflow: scroll;
   display: flex;
@@ -53,15 +52,20 @@ const StContainer = styled.ul`
 `;
 
 const StTitle = styled.span`
-  font-size: 1.6rem;
-  font-weight: bold;
-  margin-bottom: 0.5rem;
+  font-size: 1.4rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+  display: inline-block;
 `;
 
 const StAddress = styled.span`
-  font-size: 1.6rem;
+  font-size: 1.4rem;
 `;
 
 const StCost = styled.span`
-  font-size: 1.6rem;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
 `;
