@@ -1,10 +1,6 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
-<<<<<<< HEAD
 import { selectTogether } from 'redux/module/together.slice';
-=======
-import { selectorTogether } from 'redux/module/together.slice';
->>>>>>> b879d2fa3a0cdad6d8e6068501aed00a88789604
 import styled from 'styled-components';
 import SearchBar from '../searchBar/SearchBar';
 import TogetherCard from '../togetherCard/TogetherCard';
@@ -39,7 +35,7 @@ function TogetherList() {
 export default TogetherList;
 
 const StLi = styled.li`
-  /* margin: 0.8rem; */
+  /*margin: 0.8rem;*/
   margin: 1.5rem;
   > a {
     text-decoration: none;
@@ -49,7 +45,7 @@ const StLi = styled.li`
 
 const StUl = styled.ul`
   display: grid;
-  /* grid-template-columns: 1fr 1fr; */
+  /*grid-template-columns: 1fr 1fr;*/
   grid-template-columns: repeat(2, minmax(0, 1fr));
   margin: 2.3rem;
 `;

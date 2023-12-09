@@ -1,21 +1,12 @@
 import { createGlobalStyle } from 'styled-components';
-<<<<<<< HEAD
 
 const styled = { createGlobalStyle };
-
-=======
-const styled = { createGlobalStyle };
->>>>>>> b879d2fa3a0cdad6d8e6068501aed00a88789604
 export const GlobalStyle = styled.createGlobalStyle`
   // reset Css
   /* http://meyerweb.com/eric/tools/css/reset/
      v2.0 | 20110126
      License: none (public domain)
   */
-<<<<<<< HEAD
-
-=======
->>>>>>> b879d2fa3a0cdad6d8e6068501aed00a88789604
   html,
   body,
   div,
@@ -121,26 +112,13 @@ export const GlobalStyle = styled.createGlobalStyle`
   body {
     line-height: 1;
   }
-<<<<<<< HEAD
-
-=======
->>>>>>> b879d2fa3a0cdad6d8e6068501aed00a88789604
-  ol,
   ul {
     list-style: none;
   }
-<<<<<<< HEAD
-
-=======
->>>>>>> b879d2fa3a0cdad6d8e6068501aed00a88789604
   blockquote,
   q {
     quotes: none;
   }
-<<<<<<< HEAD
-
-=======
->>>>>>> b879d2fa3a0cdad6d8e6068501aed00a88789604
   blockquote:before,
   blockquote:after,
   q:before,
@@ -152,11 +130,6 @@ export const GlobalStyle = styled.createGlobalStyle`
     border-collapse: collapse;
     border-spacing: 0;
   }
-<<<<<<< HEAD
-
-=======
->>>>>>> b879d2fa3a0cdad6d8e6068501aed00a88789604
-  div,
   section,
   header,
   footer,
@@ -220,12 +193,6 @@ export const GlobalStyle = styled.createGlobalStyle`
     height: 100vh;
     width: 100vw;
     display: flex;
-  }
-<<<<<<< HEAD
-
-=======
->>>>>>> b879d2fa3a0cdad6d8e6068501aed00a88789604
-  a {
     text-decoration: none;
   }
   :root {

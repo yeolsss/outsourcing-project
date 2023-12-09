@@ -2,17 +2,13 @@ import { useRef, useState } from 'react';
 // import { useMutation, useQueryClient } from 'react-query';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { addTogetherToFireBase } from 'api/togethers';
-<<<<<<< HEAD
 import {
   checkEmailValidation,
   checkValidation,
   genderOptions,
   getDate,
 } from 'common/util';
-=======
-import { checkEmailValidation, checkValidation, getDate } from 'common/util';
 import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
->>>>>>> b879d2fa3a0cdad6d8e6068501aed00a88789604
 import { useInput } from 'hooks';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
