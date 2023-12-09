@@ -83,6 +83,14 @@ export const GlobalStyle = createGlobalStyle`
     text-decoration: none;
   }
 
+  :root{
+    --primary: #0f3f37;
+    --secondary: #19685b; 
+    --accent: #23917f;
+    --darkgreen: #051613;
+    --lightgray: #e6e6e6;
+  }
+
   #root {
     height: inherit;
     width: inherit;
