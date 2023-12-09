@@ -1,4 +1,5 @@
-import LogoImg from 'assets/logo.png';
+import LogoImg from 'assets/logo4.png';
+// import LogoImg from 'assets/logo3.png';
 import AddPlus from 'assets/plus.png';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -35,11 +36,12 @@ const StHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.8rem 1.5rem 0.5rem 1rem;
+  padding: 1.2rem 1.5rem;
   border-bottom: 1px solid #e6e6e6;
 `;
 const StLogoImg = styled.img`
-  width: 8rem;
+  /* width: 7rem; */
+  width: 16rem;
 `;
 
 const AddBtn = styled.img`
