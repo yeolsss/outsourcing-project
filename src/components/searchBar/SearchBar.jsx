@@ -19,8 +19,7 @@ const StSearchBar = styled.input`
 
   &:focus {
     outline: none;
-    /* border-color: #23917f; */
-    box-shadow: 0 0 0.3rem #23917f;
+    box-shadow: 0 0 0.3rem var(--accent);
   }
 `;
 export default SearchBar;
