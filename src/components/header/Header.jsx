@@ -1,5 +1,4 @@
 import LogoImg from 'assets/logo4.png';
-// import LogoImg from 'assets/logo3.png';
 import AddPlus from 'assets/plus.png';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
