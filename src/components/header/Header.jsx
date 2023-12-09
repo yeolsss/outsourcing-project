@@ -1,8 +1,7 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
 import LogoImg from 'assets/logo.png';
 import AddPlus from 'assets/plus.png';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
 function Header() {
   return (
@@ -36,11 +35,11 @@ const StHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem;
+  padding: 0.8rem 1.5rem 0.5rem 1rem;
   border-bottom: 1px solid #e6e6e6;
 `;
 const StLogoImg = styled.img`
-  width: 6rem;
+  width: 8rem;
 `;
 
 const AddBtn = styled.img`
