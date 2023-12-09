@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
 import { getAddress } from 'common/mapUtil';
+import { useEffect, useState } from 'react';
+import styled from 'styled-components';
 
 const CustomMapMarkerOverlay = ({ title = '', position }) => {
   const [address, setAddress] = useState();
@@ -38,6 +38,7 @@ export default CustomMapMarkerOverlay;
 const StContainer = styled.ul`
   width: 20rem;
   height: 10rem;
+
   border-radius: 0.5rem;
   overflow: scroll;
   display: flex;
