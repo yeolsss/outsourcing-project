@@ -43,7 +43,7 @@ export const updateTogetherToFireBase = async ({ docId, updateTogether }) => {
 export const getLists = async () => {
   const response = await getDocs(COLLECTION_TOGETHERS);
   return response.docs
-    .filter((doc) => !doc.data().isDone) // 필터링: isDone이 false인 아이템만 선택
+    .filter((doc) => !doc.data().isDone)
     .map((doc) => {
       return { ...doc.data(), docId: doc.id };
     });
