@@ -61,10 +61,12 @@ function DetailMenu({ together, isUpdate }) {
   return (
     <StDetailMenuContainer>
       <StDetailShare onClick={shareKakao}>공유하기</StDetailShare>
-      <StHomeButton to={'/'}>홈으로가기</StHomeButton>
       <StDetailJoin href={`mailto: ${together.email}`} target="_blank">
         입주신청
       </StDetailJoin>
+      <StToggleDone onClick={() => handleOnClickConfirm('done')}>
+        투게더 마감
+      </StToggleDone>
       {!isUpdate ? (
         <StDetailEdit onClick={() => handleOnClickConfirm('update')}>
           수정하기
@@ -74,10 +76,7 @@ function DetailMenu({ together, isUpdate }) {
           삭제하기
         </StDelButton>
       )}
-
-      <StToggleDone onClick={() => handleOnClickConfirm('done')}>
-        투게더 마감
-      </StToggleDone>
+      <StHomeButton to={'/'}>뒤로가기</StHomeButton>
     </StDetailMenuContainer>
   );
 }
@@ -88,7 +87,7 @@ const StDetailMenuContainer = styled.div`
   background-color: white;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0.7rem;
   padding: 1rem;
   z-index: 10;
   border-radius: 0.5rem;
@@ -107,11 +106,13 @@ const StDetailMenuContainer = styled.div`
     width: 12rem;
     height: 6rem;
     border-radius: 0.5rem;
-    background-color: var(--accent);
-    color: white;
+    color: var(--darkgreen);
+    font-weight: 400;
+    box-shadow: 0 0 1.5rem rgba(198, 198, 198, 0.3);
+    background-color: #ffffff;
     transition: background-color 0.2s ease-in;
     &:hover {
-      background-color: var(--primary);
+      background-color: var(--lightgray);
     }
   }
 `;
@@ -121,30 +122,20 @@ const StHomeButton = styled(Link)`
   justify-content: center;
   align-items: center;
   text-decoration: unset;
-
-  font-weight: bold;
   white-space: pre-wrap;
 `;
 
-const StDetailShare = styled.button`
-  font-weight: bold;
-`;
+const StDetailShare = styled.button``;
 const StDetailJoin = styled.a`
   display: flex;
   justify-content: center;
   align-items: center;
   text-decoration: unset;
-
-  font-weight: bold;
 `;
-const StDetailEdit = styled.button`
-  font-weight: bold;
-`;
+const StDetailEdit = styled.button``;
 const StToggleDone = styled.button`
-  font-weight: bold;
   padding: 0 2rem;
 `;
 const StDelButton = styled.button`
-  font-weight: bold;
   padding: 0 1rem;
 `;
