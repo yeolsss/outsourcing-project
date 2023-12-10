@@ -37,8 +37,8 @@ const CustomConfirmForm = () => {
   };
 
   return (
-    <StConfirm onSubmit={handleOnSubmitConfirm} $passwordError={passwordError}>
-      <form>
+    <StConfirm $passwordError={passwordError}>
+      <form onSubmit={handleOnSubmitConfirm}>
         <h1>{selectConfirm.subTitle}</h1>
         <h2>{selectConfirm.title}</h2>
         <input

@@ -3,8 +3,10 @@ import {
   closeModel,
   openAlert,
   openConfirm,
+  openModal,
   setResult,
 } from '../redux/module/customConfirm.slice';
+import store from '../redux/configStore';
 
 export const useCustomConfirm = () => {
   const dispatch = useDispatch();
@@ -16,7 +18,19 @@ export const useCustomConfirm = () => {
     dispatch(openConfirm(newConfirmStatus));
   };
 
-  const handleOpenAlert = (title, targetPage) => {
+  const handleOpenModal = (title) => {
+    return new Promise((res) => {
+      dispatch(openModal({ title }));
+
+      const unsubscribe = store.subscribe(() => {
+        const result = store.getState().customConfirm.result;
+        res(result);
+        unsubscribe();
+      });
+    });
+  };
+
+  const handleOpenAlert = (title, targetPage = '') => {
     dispatch(openAlert({ title, targetPage }));
   };
 
@@ -33,5 +47,6 @@ export const useCustomConfirm = () => {
     handleCloseCustomConfirm,
     checkResult,
     handleOpenAlert,
+    handleOpenModal,
   };
 };
