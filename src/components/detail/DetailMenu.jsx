@@ -61,10 +61,12 @@ function DetailMenu({ together, isUpdate }) {
   return (
     <StDetailMenuContainer>
       <StDetailShare onClick={shareKakao}>공유하기</StDetailShare>
-      <StHomeButton to={'/'}>홈으로가기</StHomeButton>
       <StDetailJoin href={`mailto: ${together.email}`} target="_blank">
         입주신청
       </StDetailJoin>
+      <StToggleDone onClick={() => handleOnClickConfirm('done')}>
+        투게더 마감
+      </StToggleDone>
       {!isUpdate ? (
         <StDetailEdit onClick={() => handleOnClickConfirm('update')}>
           수정하기
@@ -74,10 +76,7 @@ function DetailMenu({ together, isUpdate }) {
           삭제하기
         </StDelButton>
       )}
-
-      <StToggleDone onClick={() => handleOnClickConfirm('done')}>
-        투게더 마감
-      </StToggleDone>
+      <StHomeButton to={'/'}>뒤로가기</StHomeButton>
     </StDetailMenuContainer>
   );
 }
