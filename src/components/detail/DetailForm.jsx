@@ -279,18 +279,6 @@ const StDetailForm = styled.form`
   width: 100%;
   height: 100%;
   margin: auto;
-  overflow-y: scroll;
-
-  &::-webkit-scrollbar {
-    width: 0.8rem;
-  }
-  &::-webkit-scrollbar-thumb {
-    background: #19685b;
-    border-radius: 0.4rem;
-  }
-  &::-webkit-scrollbar-track {
-    background: #e6e6e6;
-  }
 `;
 
 const StDetailUl = styled.ul`
