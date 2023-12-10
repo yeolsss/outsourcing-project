@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import DetailData from 'components/detail/DetailData';
 import DetailForm from 'components/detail/DetailForm';
-import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { fetchToGetherData } from '../api/lists';
@@ -10,6 +10,11 @@ import DetailImage from '../components/detail/DetailImage';
 import DetailMenu from '../components/detail/DetailMenu';
 import { DetailTitle } from '../components/detail/DetailTitle';
 import { setPosition } from '../redux/module/position.slice';
+import {
+  selectorDetailStatus,
+  setDelete,
+  setUpdate,
+} from '../redux/module/detailStatus.slice';
 
 function Detail() {
   const { id: docId } = useParams();
@@ -19,8 +24,8 @@ function Detail() {
     queryFn: () => fetchToGetherData(docId),
   });
 
-  const [isUpdate, setIsUpdate] = useState(false);
-
+  const { isUpdate, isDelete } = useSelector(selectorDetailStatus);
+  console.log(isUpdate);
   useEffect(() => {
     if (isLoading || isError) return;
 
@@ -33,6 +38,13 @@ function Detail() {
     dispatch(setPosition(newData));
   }, [data]);
 
+  useEffect(() => {
+    return () => {
+      dispatch(setUpdate(false));
+      dispatch(setDelete(false));
+    };
+  }, []);
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -41,33 +53,14 @@ function Detail() {
     return <div>{error}</div>;
   }
 
-  const {
-    address,
-    content,
-    coordinates,
-    cost,
-    createdAt,
-    email,
-    gender,
-    id,
-    imgPath,
-    isDone,
-    password,
-    title,
-    togetherNum,
-  } = data;
-
-  const handleIsUpdate = (type) => {
-    setIsUpdate(type);
-  };
+  const { address, cost, email, imgPath, password, title } = data;
 
   return (
     <DetailContainer>
       {/*메뉴바*/}
       <DetailMenu
-        together={{ cost, address, imgPath, email }}
-        handler={handleIsUpdate}
-        isUpdate={{ isUpdate, setIsUpdate }}
+        together={{ cost, address, imgPath, email, password }}
+        isUpdate={isUpdate}
       />
       {/* !isUpdate ?  밑에꺼보여주고 :  form있는놈 보여주고*/}
       {!isUpdate ? (
@@ -78,7 +71,7 @@ function Detail() {
           <DetailData together={data} />
         </div>
       ) : (
-        <DetailForm docId={docId} together={data} setIsUpdate={setIsUpdate} />
+        <DetailForm docId={docId} together={data} />
       )}
     </DetailContainer>
   );

@@ -1,11 +1,13 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { useCustomConfirm } from '../../hooks/useCustomConfirm';
 
 const { Kakao } = window;
 
-function DetailMenu({ together, handler: handleIsUpdate, isUpdate }) {
+function DetailMenu({ together, isUpdate }) {
   const url = window.location.href;
+  const { handleOpenConfirm } = useCustomConfirm();
 
   // JavaScript SDK 초기화 함수
   useEffect(() => {
@@ -34,6 +36,23 @@ function DetailMenu({ together, handler: handleIsUpdate, isUpdate }) {
       ],
     });
   };
+
+  const handleOnClickUpdate = () => {
+    const newCustomConfirmStatus = {
+      title: '비밀번호 확인',
+      checkValue: together.password,
+    };
+    handleOpenConfirm(newCustomConfirmStatus);
+  };
+
+  const handleOnClickDelete = () => {
+    const newCustomConfirmStatus = {
+      title: '비밀번호 확인',
+      checkValue: together.password,
+    };
+    handleOpenConfirm(newCustomConfirmStatus);
+  };
+
   return (
     <StDetailMenuContainer>
       <StDetailShare onClick={shareKakao}>공유하기</StDetailShare>
@@ -41,18 +60,13 @@ function DetailMenu({ together, handler: handleIsUpdate, isUpdate }) {
       <StDetailJoin href={`mailto: ${together.email}`} target="_blank">
         입주신청
       </StDetailJoin>
-      {!isUpdate.isUpdate && (
-        <StDetailEdit
-          onClick={() => {
-            handleIsUpdate(true);
-          }}
-        >
-          수정하기
-        </StDetailEdit>
+      {!isUpdate ? (
+        <StDetailEdit onClick={handleOnClickUpdate}>수정하기</StDetailEdit>
+      ) : (
+        <StDelButton onClick={handleOnClickDelete}>삭제하기</StDelButton>
       )}
 
       <StToggleDone>투게더 마감</StToggleDone>
-      <StDelButton>삭제하기</StDelButton>
     </StDetailMenuContainer>
   );
 }
@@ -124,5 +138,5 @@ const StDelButton = styled.button`
   background-color: #e7e7e7;
   font-size: 2.5rem;
   font-weight: bold;
-  padding: 0 2rem;
+  padding: 0 1rem;
 `;
