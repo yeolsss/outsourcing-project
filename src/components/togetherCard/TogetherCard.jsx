@@ -1,12 +1,9 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import defaultImg from '../../assets/defaultImg.png';
+import { getGenderText } from '../../common/util';
 
 function TogetherCard({ together }) {
-  if (together.gender.womanOnly) return '여성전용';
-  if (together.gender.manOnly) return '남성전용';
-  if (together.gender.noGenderRequirement) return '공동';
-
   return (
     <>
       <Link to={`/detail/${together.docId}`}>
@@ -19,9 +16,7 @@ function TogetherCard({ together }) {
             <StTogetherOption>
               <StTogetherNum>{together.togetherNum} 명</StTogetherNum>
               <StGender gender={together.gender}>
-                {together.gender === 'womanOnly' && '여성전용'}
-                {together.gender === 'manOnly' && '남성전용'}
-                {together.gender === 'noGenderRequirement' && '공동'}
+                {getGenderText(together.gender)}
               </StGender>
             </StTogetherOption>
           </StFirstLine>

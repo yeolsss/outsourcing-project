@@ -4,7 +4,11 @@ import { useInput } from '../../hooks';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectorConfirm } from '../../redux/module/customConfirm.slice';
 import { useCustomConfirm } from '../../hooks/useCustomConfirm';
-import { setDelete, setUpdate } from '../../redux/module/detailStatus.slice';
+import {
+  setDelete,
+  setDone,
+  setUpdate,
+} from '../../redux/module/detailStatus.slice';
 
 const CustomConfirmForm = () => {
   const [password, handlePassword] = useInput();
@@ -19,12 +23,14 @@ const CustomConfirmForm = () => {
     if (password === selectConfirm.checkValue) {
       if (selectConfirm.model.task === 'update') dispatch(setUpdate(true));
       else if (selectConfirm.model.task === 'delete') dispatch(setDelete(true));
+      else if (selectConfirm.model.task === 'done') dispatch(setDone(true));
       handleCloseCustomConfirm();
     } else {
       setPasswordError(true);
       if (selectConfirm.model.task === 'update') dispatch(setUpdate(false));
       else if (selectConfirm.model.task === 'delete')
         dispatch(setDelete(false));
+      else if (selectConfirm.model.task === 'done') dispatch(setDone(false));
 
       passwordRef.current.focus();
     }
@@ -33,7 +39,8 @@ const CustomConfirmForm = () => {
   return (
     <StConfirm onSubmit={handleOnSubmitConfirm} $passwordError={passwordError}>
       <form>
-        <h1>비밀번호 확인</h1>
+        <h1>{selectConfirm.subTitle}</h1>
+        <h2>{selectConfirm.title}</h2>
         <input
           type="password"
           value={password}
@@ -69,6 +76,10 @@ const StConfirm = styled.div`
 
     > h1 {
       font-size: 4rem;
+      font-weight: bold;
+    }
+    > h2 {
+      font-size: 3.4rem;
       font-weight: bold;
     }
 

@@ -14,7 +14,6 @@ import {
   deleteImagesInStorage,
   updateTogetherToFireBase,
 } from '../../api/togethers';
-import { useNavigate } from 'react-router-dom';
 import { setUpdate } from '../../redux/module/detailStatus.slice';
 
 function DetailForm({ docId, together, setIsUpdate }) {
@@ -22,7 +21,6 @@ function DetailForm({ docId, together, setIsUpdate }) {
     mutationFn: updateTogetherToFireBase,
   });
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
 
   const position = useSelector(selectPosition);
   const dispatch = useDispatch();
@@ -123,7 +121,7 @@ function DetailForm({ docId, together, setIsUpdate }) {
 
   return (
     <StDetailForm onSubmit={handleOnSubmitUpdateTogether}>
-      <StTitle>🏠 수정 하기</StTitle>
+      <StTitle>🏠 투게더 수정</StTitle>
       <StDetailUl>
         <li>
           <p>
@@ -194,7 +192,7 @@ function DetailForm({ docId, together, setIsUpdate }) {
         </li>
         <li>
           <StImage>
-            사진등록
+            <span>사진등록</span>
             <label htmlFor="togetherImg">
               {isImgSelected ? (
                 <StImgSelectedText>사진 1개 선택 완료</StImgSelectedText>
@@ -255,9 +253,7 @@ const Input = ({ inputType, inputValue, inputRef, handle }) => {
 const StInput = styled.input`
   background-color: transparent;
   border: none;
-  /* border-bottom: 1px solid gray; */
   outline: none;
-  /* Chrome, Safari, Edge, Opera */
   &::-webkit-outer-spin-button,
   &::-webkit-inner-spin-button {
     -webkit-appearance: none;
@@ -266,16 +262,20 @@ const StInput = styled.input`
 `;
 
 const StTitle = styled.h1`
-  width: 100%;
+  width: 80%;
   font-size: 2.4rem;
-  font-weight: bold;
   text-align: center;
-  margin: 6rem 0 2rem;
+  margin: 6rem auto 2rem;
+  background-color: var(--accent);
+  padding: 2rem 0;
+  border-radius: 1rem;
+  color: white;
 `;
 
 const StDetailForm = styled.form`
   width: 100%;
   height: 100%;
+  margin: auto;
   overflow: scroll;
   &::-webkit-scrollbar {
     width: 0.8rem;
@@ -296,12 +296,12 @@ const StDetailUl = styled.ul`
   font-size: 1.6rem;
   display: flex;
   flex-direction: column;
-  row-gap: 4rem;
-  background-color: var(--lightgray);
+  row-gap: 2rem;
   > li {
     background-color: white;
     height: 4.5rem;
     padding: 0 1rem;
+    border-bottom: 1px solid var(--lightgray);
   }
   > li > p {
     height: 100%;
@@ -313,22 +313,28 @@ const StDetailUl = styled.ul`
     padding: 0.5rem 1rem;
     text-align: right;
   }
+  > li > p > span:first-child {
+    color: white;
+    width: 6.5rem;
+    padding: 0.5rem 0;
+    background-color: var(--accent);
+    border-radius: 0.5rem;
+    text-align: center;
+  }
 `;
 const StContentLi = styled.li`
   height: 20rem !important;
-  > textarea {
-    width: 100%;
-    height: 100%;
-    resize: none;
-    border: none;
-    padding: 1rem 0;
-  }
+  border: none !important;
+  padding: unset !important;
 `;
 const StContent = styled.textarea`
+  outline: unset;
   border: none;
   width: 100%;
   height: 100%;
   resize: none;
+  background-color: #f4f4f4;
+  padding: 2rem;
 `;
 const StLabel = styled.label``;
 const StGenderInput = styled.input``;
@@ -352,24 +358,27 @@ const StImgSelectedText = styled.span`
 `;
 
 const StDetailButtonWrapper = styled.div`
-  padding: 0 5rem;
   display: flex;
   justify-content: space-between;
+  margin-top: 2rem;
   > button {
-    width: 25rem;
-    padding: 3rem 0;
-  }
-  > button {
-    background-color: var(--secondary);
+    background-color: var(--accent);
     color: white;
     font-size: 1.6rem;
     font-weight: bold;
+    width: 24.2rem;
+    padding: 2.5rem 0;
+    border-radius: 0.5rem;
+
     &:hover {
-      background-color: var(--accent);
+      background-color: var(--secondary);
     }
   }
   > button:first-child {
-    background-color: var(--primary);
+    background-color: #7cd6bb;
+    &:hover {
+      background-color: var(--secondary);
+    }
   }
 `;
 

@@ -42,3 +42,14 @@ export const genderOptions = [
 export const checkPassword = (prevPassword, newPassword) => {
   return prevPassword === newPassword;
 };
+
+export const getGenderText = (paramGender) => {
+  switch (paramGender) {
+    case 'manOnly':
+      return '남성전용';
+    case 'womanOnly':
+      return '여성전용';
+    default:
+      return '공동';
+  }
+};

@@ -42,9 +42,11 @@ export const updateTogetherToFireBase = async ({ docId, updateTogether }) => {
 // 조회
 export const getLists = async () => {
   const response = await getDocs(COLLECTION_TOGETHERS);
-  return response.docs.map((doc) => {
-    return { ...doc.data(), docId: doc.id };
-  });
+  return response.docs
+    .filter((doc) => !doc.data().isDone)
+    .map((doc) => {
+      return { ...doc.data(), docId: doc.id };
+    });
 };
 
 export const deleteImagesInStorage = async (imgPath) => {
