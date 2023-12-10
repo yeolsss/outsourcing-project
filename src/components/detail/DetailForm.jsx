@@ -14,7 +14,6 @@ import {
   deleteImagesInStorage,
   updateTogetherToFireBase,
 } from '../../api/togethers';
-import { useNavigate } from 'react-router-dom';
 import { setUpdate } from '../../redux/module/detailStatus.slice';
 
 function DetailForm({ docId, together, setIsUpdate }) {
@@ -22,7 +21,6 @@ function DetailForm({ docId, together, setIsUpdate }) {
     mutationFn: updateTogetherToFireBase,
   });
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
 
   const position = useSelector(selectPosition);
   const dispatch = useDispatch();

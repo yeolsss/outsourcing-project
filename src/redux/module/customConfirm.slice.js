@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   isOpen: false,
   title: '',
+  subTitle: '',
   model: { type: '', task: '' },
   checkValue: '',
   result: false,
@@ -16,6 +17,7 @@ const customConfirmSlice = createSlice({
     openConfirm: (state, { payload }) => {
       state.isOpen = true;
       state.title = payload.title;
+      state.subTitle = payload.subTitle;
       state.model.type = 'confirm';
       state.model.task = payload.task;
       state.checkValue = payload.checkValue;

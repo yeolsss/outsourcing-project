@@ -13,11 +13,13 @@ import { setPosition } from '../redux/module/position.slice';
 import {
   selectorDetailStatus,
   setDelete,
+  setDone,
   setUpdate,
 } from '../redux/module/detailStatus.slice';
 import {
   deleteImagesInStorage,
   removeTogetherToFireBase,
+  updateTogetherToFireBase,
 } from '../api/togethers';
 import { useCustomConfirm } from '../hooks/useCustomConfirm';
 
@@ -35,9 +37,14 @@ function Detail() {
     mutationFn: removeTogetherToFireBase,
   });
 
+  const { mutate: doneMutate } = useMutation({
+    mutationFn: updateTogetherToFireBase,
+  });
+
   const { handleOpenAlert } = useCustomConfirm();
 
-  const { isUpdate, isDelete } = useSelector(selectorDetailStatus);
+  const { isUpdate, isDelete, isDone } = useSelector(selectorDetailStatus);
+  console.log(isDone);
   useEffect(() => {
     if (isLoading || isError) return;
 
@@ -54,22 +61,37 @@ function Detail() {
     return () => {
       dispatch(setUpdate(false));
       dispatch(setDelete(false));
+      dispatch(setDone(false));
     };
   }, []);
 
   useEffect(() => {
     if (isDelete) {
-      // 삭제 로직 ㄱㄱ
       deleteMutate(docId, {
         onSuccess: async () => {
           const deleteImgPath = `${data.id}/${data.imgFileName}`;
           await deleteImagesInStorage(deleteImgPath);
           queryClient.invalidateQueries(['togethers']);
-          handleOpenAlert('게더가 삭제되었습니다.', '/');
+          handleOpenAlert('투게더가 삭제되었습니다.', '/');
         },
       });
     }
   }, [isDelete]);
+
+  useEffect(() => {
+    const updateTogether = { isDone: true };
+    if (isDone) {
+      doneMutate(
+        { docId, updateTogether },
+        {
+          onSuccess: () => {
+            queryClient.invalidateQueries(['togethers']);
+            handleOpenAlert('투게더가 마감되었습니다.', '/');
+          },
+        },
+      );
+    }
+  }, [isDone]);
 
   if (isLoading) {
     return <div>Loading...</div>;
