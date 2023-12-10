@@ -256,7 +256,7 @@ const StOuterFrame = styled.div`
   overflow-y: scroll;
   overflow-x: hidden;
   background-color: white;
-  padding-top: 28rem;
+  padding-top: 25rem;
 
   &::-webkit-scrollbar {
     width: 0.8rem;
@@ -290,7 +290,7 @@ const StAddFormContainer = styled.div`
   padding: 40px 25px 50px 25px;
   max-width: 600px;
   /* min-width: 550px; */
-  width: 100%;
+  width: 90%;
   color: var(--darkgreen);
   /* height: 100vh; */
 
