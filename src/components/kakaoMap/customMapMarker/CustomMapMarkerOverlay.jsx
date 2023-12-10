@@ -1,9 +1,17 @@
 import { getAddress } from 'common/mapUtil';
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { selectCurrentMarker } from 'redux/module/currentMarker.slice';
+import { selectTogether } from 'redux/module/together.slice';
 import styled from 'styled-components';
 
 const CustomMapMarkerOverlay = ({ title = '', position }) => {
   const [address, setAddress] = useState();
+  const { selectedMarker } = useSelector(selectCurrentMarker);
+  const { togethers } = useSelector(selectTogether);
+  const together = togethers?.find((together, idx) => {
+    return together.docId === selectedMarker.docId;
+  });
 
   useEffect(() => {
     (async () => {
@@ -16,10 +24,10 @@ const CustomMapMarkerOverlay = ({ title = '', position }) => {
       {title && (
         <>
           <li>
-            <StCost>30만원</StCost>
+            <StCost>{together?.cost}만원</StCost>
           </li>
           <li>
-            <StTitle>모집인원: 3명</StTitle>
+            <StTitle>모집인원 : {together?.togetherNum}명</StTitle>
           </li>
           <li>
             <StTitle>{title}</StTitle>
