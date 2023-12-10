@@ -3,6 +3,7 @@ import {
   collection,
   deleteDoc,
   doc,
+  getDoc,
   getDocs,
   updateDoc,
 } from 'firebase/firestore';
@@ -13,7 +14,6 @@ const FIREBASE_COLLECTION_NAME = 'togethers';
 
 const COLLECTION_TOGETHERS = collection(db, FIREBASE_COLLECTION_NAME);
 
-// firestore 데이터 추가 로직
 export const addTogetherToFireBase = async (newTogether) => {
   try {
     const docRef = await addDoc(COLLECTION_TOGETHERS, newTogether);
@@ -39,7 +39,6 @@ export const updateTogetherToFireBase = async ({ docId, updateTogether }) => {
   }
 };
 
-// 조회
 export const getLists = async () => {
   const response = await getDocs(COLLECTION_TOGETHERS);
   return response.docs
@@ -53,4 +52,10 @@ export const deleteImagesInStorage = async (imgPath) => {
   const storage = getStorage();
   const dirRef = ref(storage, `togetherImages/${imgPath}`);
   await deleteObject(dirRef);
+};
+
+export const fetchTogetherData = async (id) => {
+  const docRef = doc(db, 'togethers', id);
+  const docSnap = await getDoc(docRef);
+  return docSnap.data();
 };

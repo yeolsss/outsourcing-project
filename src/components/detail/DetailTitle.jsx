@@ -13,8 +13,6 @@ const StDetailTitle = styled.div`
   @media (max-width: 650px) {
     width: 60%;
   }
-  /* background-color: var(--accent); */
-  /* color: var(--secondary); */
   border-radius: 1rem;
   > h2 {
     font-size: 1.7rem;

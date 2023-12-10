@@ -46,9 +46,6 @@ const StContentImg = styled.div`
     box-shadow:
       8px 0 12px -5px gray,
       -8px 0 12px -5px gray;
-    /* box-shadow:
-      0 4px 8px 0 rgba(0, 0, 0, 0.2),
-      0 6px 20px 0 rgba(0, 0, 0, 0.19); */
   }
 `;
 
@@ -136,11 +133,6 @@ const StSecondLine = styled.div`
   justify-content: center;
   gap: 0.3rem;
 `;
-
-// const StContent = styled.span`
-//   font-size: 1.4rem;
-//   line-height: 2;
-// `;
 
 const StAddress = styled.p`
   font-size: 1.4rem;

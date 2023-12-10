@@ -35,7 +35,6 @@ function TogetherList() {
 export default TogetherList;
 
 const StLi = styled.li`
-  /* margin: 0.8rem; */
   margin: 1.5rem;
   > a {
     text-decoration: none;
@@ -45,7 +44,6 @@ const StLi = styled.li`
 
 const StUl = styled.ul`
   display: grid;
-  /* grid-template-columns: 1fr 1fr; */
   grid-template-columns: repeat(2, minmax(0, 1fr));
   margin: 2.3rem;
 `;

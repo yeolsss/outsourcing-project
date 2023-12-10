@@ -8,7 +8,6 @@ import locationPin from '../../../../assets/house4.png';
 import CustomMapMarkerOverlay from '../../customMapMarker/CustomMapMarkerOverlay';
 
 const CustomMarker = ({ together }) => {
-  // redux 가져와
   const { isOpen, selectedMarker } = useSelector(selectCurrentMarker);
   const dispatch = useDispatch();
 

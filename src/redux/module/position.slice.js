@@ -10,7 +10,6 @@ const initialState = {
   },
 };
 
-// 이진호 갓진호 신진호 대진호 킹진호 갓신대킹진호
 export const __setAddress = createAsyncThunk(
   'setAddress',
   async (payload, thunkAPI) => {
@@ -19,7 +18,6 @@ export const __setAddress = createAsyncThunk(
   },
 );
 
-// 주소로 검색 할 때
 export const __searchAddress = createAsyncThunk(
   'searchAddress',
   async (payload) => {

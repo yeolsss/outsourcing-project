@@ -5,9 +5,9 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { fetchToGetherData } from '../api/lists';
 import {
   deleteImagesInStorage,
+  fetchTogetherData,
   removeTogetherToFireBase,
   updateTogetherToFireBase,
 } from '../api/togethers';
@@ -29,7 +29,7 @@ function Detail() {
 
   const { isLoading, data, isError, error } = useQuery({
     queryKey: ['together', docId],
-    queryFn: () => fetchToGetherData(docId),
+    queryFn: () => fetchTogetherData(docId),
   });
 
   const { mutate: deleteMutate } = useMutation({
@@ -158,4 +158,3 @@ const StDetailMenuWrapper = styled.aside`
   /* margin: auto 0; */
   margin-top: 6rem;
 `;
-const StDetailContentWrapper = styled.div``;

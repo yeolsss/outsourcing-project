@@ -23,11 +23,11 @@ const DetailData = ({ together }) => {
         <StAddress>
           <span>{address}</span>
         </StAddress>
-        <StGenderAndDate>
+        <StGenderAndDate $gender={gender}>
           <div>
             <span>Together Only</span>
             <span>{togetherNum} 명</span>
-            <span gender={gender}>{getGenderText(gender)}</span>
+            <span>{getGenderText(gender)}</span>
           </div>
           <StDate>Added on / {createdAt}</StDate>
         </StGenderAndDate>
@@ -63,7 +63,6 @@ const StGenderAndDate = styled.li`
   width: 100%;
   div {
     display: flex;
-    flex: row;
     gap: 1rem;
     > span:nth-child(3) {
       font-size: 1.2rem;
@@ -79,9 +78,8 @@ const StGenderAndDate = styled.li`
       border-radius: 8px;
       background-color: var(--primary); /* 기본 색상: primary 색상 사용 예시 */
 
-      ${({ gender }) => {
-        console.log({ gender });
-        switch (gender) {
+      ${({ $gender }) => {
+        switch ($gender) {
           case 'womanOnly':
             return `background-color: #FD5E53;`;
           case 'manOnly':

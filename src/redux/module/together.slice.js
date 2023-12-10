@@ -1,9 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { filterMarkersInBounds } from '../../common/mapUtil';
 
-// togethers : 마커 데이터 리스트
-// originTogethers : 마커 데이터 리스트 초기값
-
 const initialState = {
   togethers: [],
   originTogethers: [],

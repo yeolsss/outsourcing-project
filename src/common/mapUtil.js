@@ -43,7 +43,6 @@ export function findPostsWithinRadius(centerPoint, searchRadius, allPosts) {
   });
 }
 
-// 도움 함수: 두 좌표 사이의 거리를 계산합니다.
 function calculateDistanceInKm(lat1, lon1, lat2, lon2) {
   const earthRadiusKm = 6371; // 지구 반지름 (km)
   const deltaLat = degreesToRadians(lat2 - lat1);

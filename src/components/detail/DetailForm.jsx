@@ -22,7 +22,7 @@ function DetailForm({ docId, together, setIsUpdate }) {
     mutationFn: updateTogetherToFireBase,
   });
   const queryClient = useQueryClient();
-  const { handleOpenModal } = useCustomConfirm();
+  const { handleOpenModal, handleOpenAlert } = useCustomConfirm();
 
   const position = useSelector(selectPosition);
   const dispatch = useDispatch();
@@ -83,7 +83,6 @@ function DetailForm({ docId, together, setIsUpdate }) {
       checkValidation('제목', titleValue, 30) &&
       checkValidation('내용', contentValue, 500)
     ) {
-      // if (window.confirm('투게더를 수정하시겠습니까?')) {
       if (await handleOpenModal('투게더를 수정하시겠습니까?')) {
         let updateTogether = {
           address: addressValue,
@@ -108,7 +107,7 @@ function DetailForm({ docId, together, setIsUpdate }) {
               }
 
               queryClient.invalidateQueries({ queryKey: ['togethers'] });
-              alert('수정이 완료되었습니다.');
+              handleOpenAlert('수정이 완료되었습니다.');
               dispatch(setUpdate(false));
             },
             onError: () => {},
