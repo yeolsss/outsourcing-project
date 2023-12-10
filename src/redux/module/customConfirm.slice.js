@@ -28,6 +28,12 @@ const customConfirmSlice = createSlice({
       state.model.type = 'alert';
       state.targetPage = payload.targetPage;
     },
+    openModal: (state, { payload }) => {
+      state.isOpen = true;
+      state.title = payload.title;
+      state.model.type = 'modal';
+      state.model.task = 'confirm';
+    },
     setResult: (state, { payload }) => {
       state.result = payload;
       state.isOpen = false;
@@ -45,7 +51,7 @@ const customConfirmSlice = createSlice({
   },
 });
 
-export const { closeModel, openConfirm, openAlert, setResult } =
+export const { closeModel, openConfirm, openAlert, setResult, openModal } =
   customConfirmSlice.actions;
 export const selectorConfirm = (state) => state.customConfirm;
 export default customConfirmSlice.reducer;

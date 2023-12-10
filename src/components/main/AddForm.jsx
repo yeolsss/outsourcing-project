@@ -16,8 +16,11 @@ import { selectPosition } from 'redux/module/position.slice';
 import { styled } from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
 import { setTogethers } from '../../redux/module/together.slice';
+import { useCustomConfirm } from '../../hooks/useCustomConfirm';
 
-function AddForm({ setIsAdding }) {
+function AddForm() {
+  const { handleOpenAlert, handleOpenModal } = useCustomConfirm();
+
   const [isImgSelected, setIsImgSelected] = useState(false);
   const [imgInputValue, setImgInputValue] = useState(null);
   const [imgPath, setImgPath] = useState('');
@@ -41,21 +44,19 @@ function AddForm({ setIsAdding }) {
   const selectGenderHandler = (e) => {
     const selectedGender = e.target.value;
     setGender(selectedGender);
-    console.log({ selectedGender });
   };
 
   const Mutation = useMutation({
     mutationFn: addTogetherToFireBase,
     onSuccess: (response) => {
       queryClient.invalidateQueries({ queryKey: ['togethers'] });
-      alert('새 투게더가 등록되었습니다!');
       resetInputValues();
       dispatch(setTogethers());
-      navigate(`/detail/${response}`);
+      handleOpenAlert('새 투게더가 등록되었습니다!', `/detail/${response}`);
     },
     onError: (error) => {
       console.error('새 투게더 데이터 추가 중 에러 발생:', error);
-      alert(
+      handleOpenAlert(
         '알 수 없는 오류가 생겼습니다. 고객센터(02-123-4567)로 문의해주세요.',
       );
     },
@@ -80,7 +81,6 @@ function AddForm({ setIsAdding }) {
       // 선택된 이미지 파일
       const selectedImgFile = e.target.files[0];
       setImgInputValue(selectedImgFile);
-      console.log({ selectedImgFile });
       setImgFileName(selectedImgFile.name);
       // 선택된 이미지파일을 firebase storage에 추가
       const selectedImgFilePath = `togetherImages/${uuid}/${selectedImgFile.name}`;
@@ -88,7 +88,6 @@ function AddForm({ setIsAdding }) {
       await uploadBytes(togetherImageRef, selectedImgFile);
       // firebase storage에 업로드된 사진파일 경로
       const downloadURL = await getDownloadURL(togetherImageRef);
-      console.log({ downloadURL });
       setImgPath(downloadURL);
       setImgInputValue(downloadURL);
       // 이미지 선택 input 초기화
@@ -131,7 +130,7 @@ function AddForm({ setIsAdding }) {
       !title ||
       !content
     ) {
-      return alert('입력하지 않은 곳이 있습니다.');
+      return handleOpenAlert('입력하지 않은 곳이 있습니다.');
     } else if (
       checkValidation('월세', cost, 6) &&
       checkValidation('모집인원 수', togetherNum, 3) &&
@@ -140,7 +139,7 @@ function AddForm({ setIsAdding }) {
       checkValidation('제목', title, 30) &&
       checkValidation('내용', content, 500)
     ) {
-      if (window.confirm('새 투게더를 등록하시겠습니까?')) {
+      if (await handleOpenModal('새 투게더를 등록하시겠습니까?')) {
         Mutation.mutate(newTogether);
       }
     }
@@ -224,8 +223,6 @@ function AddForm({ setIsAdding }) {
           <StButtonContainer>
             <StCancelBtn
               onClick={async () => {
-                console.log(imgFileName);
-                console.log(!imgFileName);
                 if (!!imgFileName) {
                   const deleteImgPath = `${uuid}/${imgFileName}`;
                   await deleteImagesInStorage(deleteImgPath);

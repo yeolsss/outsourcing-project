@@ -132,8 +132,11 @@ const DetailContainer = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
-
   > div {
+    @media (max-width: 650px) {
+      width: 50%;
+    }
+    width: 70%;
     margin: auto;
     display: flex;
     flex-direction: column;

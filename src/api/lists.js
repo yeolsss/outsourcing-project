@@ -10,20 +10,6 @@ const getLists = async () => {
 
 export { getLists };
 
-// getDocs는 axios.get()이당
-// useEffect(() => {
-//   const fechData = async () => {
-//     const querySnapshot = await getDocs(collection(db, 'lists'));
-//     const newArr = [];
-//     querySnapshot.forEach((doc) => {
-//       // console.log(`${doc.id} => ${doc.data()}`);
-//       newArr.push(doc.data());
-//     });
-
-//     setList(newArr);
-//   };
-//   fechData();
-// }, []);
 export const fetchToGetherData = async (id) => {
   const docRef = doc(db, 'togethers', id);
   const docSnap = await getDoc(docRef);
