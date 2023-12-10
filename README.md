@@ -1,4 +1,4 @@
-##distribution
+## distribution
 
 [아웃소싱 프로젝트](outsourcing-project.vercel.app)
 
