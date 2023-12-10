@@ -158,4 +158,3 @@ const DetailContainer = styled.div`
 const StDetailMenuWrapper = styled.aside`
   margin: auto 0;
 `;
-const StDetailContentWrapper = styled.div``;

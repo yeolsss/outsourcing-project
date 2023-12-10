@@ -112,7 +112,6 @@ const StDetailUl = styled.ul`
   > li > div > span:last-child {
     width: 6.5rem;
     ${({ $gender }) => {
-      console.log($gender);
       switch ($gender) {
         case 'womanOnly':
           return `background-color: #FD5E53`; /* 여성전용일 때의 색상으로 변경 */
