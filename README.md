@@ -1,3 +1,7 @@
+##distribution
+
+outsourcing-project.vercel.app
+
 ## Together(Outsourcing Project)
 
 자신의 방 위치를 공유해서 룸메이트를 찾는 웹사이트
