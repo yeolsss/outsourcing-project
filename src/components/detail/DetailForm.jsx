@@ -1,3 +1,4 @@
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import {
   checkEmailValidation,
   checkValidation,
@@ -9,13 +10,12 @@ import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectPosition } from 'redux/module/position.slice';
 import { styled } from 'styled-components';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
 import {
   deleteImagesInStorage,
   updateTogetherToFireBase,
 } from '../../api/togethers';
-import { setUpdate } from '../../redux/module/detailStatus.slice';
 import { useCustomConfirm } from '../../hooks/useCustomConfirm';
+import { setUpdate } from '../../redux/module/detailStatus.slice';
 
 function DetailForm({ docId, together, setIsUpdate }) {
   const { mutate: updateMutate } = useMutation({
@@ -257,6 +257,7 @@ const StInput = styled.input`
   background-color: transparent;
   border: none;
   outline: none;
+  width: 30rem;
   &::-webkit-outer-spin-button,
   &::-webkit-inner-spin-button {
     -webkit-appearance: none;
@@ -351,6 +352,8 @@ const StImgSelectedText = styled.span`
 
 const StDetailButtonWrapper = styled.div`
   display: flex;
+  flex-direction: row;
+  gap: 1.5rem;
   justify-content: space-between;
   margin-top: 2rem;
   > button {
@@ -358,7 +361,7 @@ const StDetailButtonWrapper = styled.div`
     color: white;
     font-size: 1.6rem;
     font-weight: bold;
-    width: 24.2rem;
+    width: 50%;
     padding: 2.5rem 0;
     border-radius: 0.5rem;
 

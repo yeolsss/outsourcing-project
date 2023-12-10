@@ -6,22 +6,21 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { fetchToGetherData } from '../api/lists';
+import {
+  deleteImagesInStorage,
+  removeTogetherToFireBase,
+  updateTogetherToFireBase,
+} from '../api/togethers';
 import DetailImage from '../components/detail/DetailImage';
 import DetailMenu from '../components/detail/DetailMenu';
-import { DetailTitle } from '../components/detail/DetailTitle';
-import { setPosition } from '../redux/module/position.slice';
+import { useCustomConfirm } from '../hooks/useCustomConfirm';
 import {
   selectorDetailStatus,
   setDelete,
   setDone,
   setUpdate,
 } from '../redux/module/detailStatus.slice';
-import {
-  deleteImagesInStorage,
-  removeTogetherToFireBase,
-  updateTogetherToFireBase,
-} from '../api/togethers';
-import { useCustomConfirm } from '../hooks/useCustomConfirm';
+import { setPosition } from '../redux/module/position.slice';
 
 function Detail() {
   const { id: docId } = useParams();
@@ -104,11 +103,10 @@ function Detail() {
 
   return (
     <DetailContainer>
-      {/* !isUpdate ?  밑에꺼보여주고 :  form있는놈 보여주고*/}
+      {/* !isUpdate ?  밑에꺼보여주고 :  form있는 것 보여주기*/}
       {!isUpdate ? (
         <div>
           {/*이미지*/}
-          <DetailTitle title={title} />
           <DetailImage imgPath={imgPath} title={title} />
           <DetailData together={data} />
         </div>
@@ -118,7 +116,7 @@ function Detail() {
       {/*메뉴바*/}
       <StDetailMenuWrapper>
         <DetailMenu
-          together={{ cost, address, imgPath, email, password }}
+          together={{ title, cost, address, imgPath, email, password }}
           isUpdate={isUpdate}
         />
       </StDetailMenuWrapper>
@@ -152,10 +150,12 @@ const DetailContainer = styled.div`
     margin: auto;
     display: flex;
     flex-direction: column;
-    row-gap: 5rem;
+    row-gap: 1rem;
+    padding: 5rem 2rem;
   }
 `;
 const StDetailMenuWrapper = styled.aside`
-  margin: auto 0;
+  /* margin: auto 0; */
+  margin-top: 6rem;
 `;
 const StDetailContentWrapper = styled.div``;

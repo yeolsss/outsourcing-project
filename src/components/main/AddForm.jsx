@@ -15,8 +15,8 @@ import { useNavigate } from 'react-router-dom';
 import { selectPosition } from 'redux/module/position.slice';
 import { styled } from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
-import { setTogethers } from '../../redux/module/together.slice';
 import { useCustomConfirm } from '../../hooks/useCustomConfirm';
+import { setTogethers } from '../../redux/module/together.slice';
 
 function AddForm() {
   const { handleOpenAlert, handleOpenModal } = useCustomConfirm();
@@ -247,13 +247,11 @@ const StOuterFrame = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* justify-content: center; */
   width: 100%;
   height: 100vh;
   overflow-y: scroll;
   overflow-x: hidden;
   background-color: white;
-  /* padding-top: 25rem; */
 
   &::-webkit-scrollbar {
     width: 0.8rem;
