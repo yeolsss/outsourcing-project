@@ -249,14 +249,14 @@ export default AddForm;
 const StOuterFrame = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  /* align-items: center;
+  justify-content: center; */
   width: 100%;
   height: 100vh;
   overflow-y: scroll;
   overflow-x: hidden;
   background-color: white;
-  padding-top: 25rem;
+  /* padding-top: 25rem; */
 
   &::-webkit-scrollbar {
     width: 0.8rem;
