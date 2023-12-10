@@ -1,5 +1,4 @@
 import { useRef, useState } from 'react';
-// import { useMutation, useQueryClient } from 'react-query';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { addTogetherToFireBase, deleteImagesInStorage } from 'api/togethers';
 import {
@@ -86,11 +85,9 @@ function AddForm() {
       const selectedImgFilePath = `togetherImages/${uuid}/${selectedImgFile.name}`;
       const togetherImageRef = ref(storage, selectedImgFilePath);
       await uploadBytes(togetherImageRef, selectedImgFile);
-      // firebase storage에 업로드된 사진파일 경로
       const downloadURL = await getDownloadURL(togetherImageRef);
       setImgPath(downloadURL);
       setImgInputValue(downloadURL);
-      // 이미지 선택 input 초기화
       togetherImgRef.current.value = null;
     } catch (error) {
       console.error('이미지 업로드 에러', error);

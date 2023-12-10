@@ -16,10 +16,9 @@ const AddBtn = styled.img`
 
 const StMainContainer = styled.div`
   width: 100%;
-  //position: relative;
   height: 100vh;
   overflow-y: scroll;
-  overflow-x: hidden; // 테스트코드
+  overflow-x: hidden;
   background-color: #fff;
 
   &::-webkit-scrollbar {

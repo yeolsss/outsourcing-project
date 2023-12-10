@@ -83,7 +83,6 @@ function DetailForm({ docId, together, setIsUpdate }) {
       checkValidation('제목', titleValue, 30) &&
       checkValidation('내용', contentValue, 500)
     ) {
-      // if (window.confirm('투게더를 수정하시겠습니까?')) {
       if (await handleOpenModal('투게더를 수정하시겠습니까?')) {
         let updateTogether = {
           address: addressValue,
