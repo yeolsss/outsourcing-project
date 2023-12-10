@@ -276,7 +276,8 @@ const StDetailForm = styled.form`
   width: 100%;
   height: 100%;
   margin: auto;
-  overflow: scroll;
+  overflow-y: scroll;
+
   &::-webkit-scrollbar {
     width: 0.8rem;
   }

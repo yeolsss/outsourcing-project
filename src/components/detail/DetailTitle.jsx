@@ -10,6 +10,9 @@ export const DetailTitle = ({ title }) => {
 
 const StDetailTitle = styled.div`
   width: 100%;
+  @media (max-width: 650px) {
+    width: 60%;
+  }
   background-color: var(--accent);
   color: white;
   border-radius: 1rem;
