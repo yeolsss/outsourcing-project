@@ -41,12 +41,13 @@ const StHeader = styled.div`
 const StLogoImg = styled.img`
   /* width: 7rem; */
   width: 16rem;
+  margin-left: 0.8rem;
 `;
 
 const AddBtn = styled.img`
   width: 3.5rem;
   height: 3.5rem;
-  margin-right: 0.5rem;
+  margin-right: 1.1rem;
 `;
 
 const StMainContainer = styled.div`
