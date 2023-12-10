@@ -38,8 +38,8 @@ const DetailData = ({ together }) => {
           <p>{content}</p>
         </StContent>
         <StEmail>
-          <span>입주신청을 눌러 미래의 룸메이트에게 메일을 보내보세요!</span>
-          <span>{email}</span>
+          <p>입주신청을 눌러 미래의 룸메이트에게 메일을 보내보세요!</p>
+          <p>posted by {email}</p>
         </StEmail>
       </StDetailUl>
     </StDetailMain>
@@ -154,10 +154,17 @@ const StCost = styled.li`
 
 const StEmail = styled.li`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  gap: 1rem;
   margin: 2rem 0.5rem 2rem 0.5rem;
-  > span {
+  > p {
     font-size: 1.5rem;
+  }
+  > p:nth-child(2) {
+    color: gray;
+    margin-top: 1rem;
+    margin-right: 1rem;
+    font-size: 1.3rem;
   }
 `;
 
@@ -172,5 +179,5 @@ const StDetailUl = styled.ul`
   padding: 1.5rem 0;
   display: flex;
   flex-direction: column;
-  gap: 0.7rem;
+  gap: 0.8rem;
 `;

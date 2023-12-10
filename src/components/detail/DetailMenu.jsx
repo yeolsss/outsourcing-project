@@ -87,9 +87,8 @@ const StDetailMenuContainer = styled.div`
   background-color: white;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0.7rem;
   padding: 1rem;
-  border: 1px solid red;
   z-index: 10;
   border-radius: 0.5rem;
   > div:first-child,
@@ -107,11 +106,13 @@ const StDetailMenuContainer = styled.div`
     width: 12rem;
     height: 6rem;
     border-radius: 0.5rem;
-    background-color: var(--accent);
-    color: white;
+    color: var(--darkgreen);
+    font-weight: 400;
+    box-shadow: 0 0 1.5rem rgba(198, 198, 198, 0.3);
+    background-color: #ffffff;
     transition: background-color 0.2s ease-in;
     &:hover {
-      background-color: var(--primary);
+      background-color: var(--lightgray);
     }
   }
 `;
@@ -121,30 +122,20 @@ const StHomeButton = styled(Link)`
   justify-content: center;
   align-items: center;
   text-decoration: unset;
-
-  font-weight: bold;
   white-space: pre-wrap;
 `;
 
-const StDetailShare = styled.button`
-  font-weight: bold;
-`;
+const StDetailShare = styled.button``;
 const StDetailJoin = styled.a`
   display: flex;
   justify-content: center;
   align-items: center;
   text-decoration: unset;
-
-  font-weight: bold;
 `;
-const StDetailEdit = styled.button`
-  font-weight: bold;
-`;
+const StDetailEdit = styled.button``;
 const StToggleDone = styled.button`
-  font-weight: bold;
   padding: 0 2rem;
 `;
 const StDelButton = styled.button`
-  font-weight: bold;
   padding: 0 1rem;
 `;

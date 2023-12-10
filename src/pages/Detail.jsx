@@ -103,12 +103,11 @@ function Detail() {
 
   return (
     <DetailContainer>
-      {/* !isUpdate ?  밑에꺼보여주고 :  form있는놈 보여주고*/}
+      {/* !isUpdate ?  밑에꺼보여주고 :  form있는 것 보여주기*/}
       {!isUpdate ? (
         <div>
           {/*이미지*/}
           <DetailImage imgPath={imgPath} title={title} />
-          {/* <DetailTitle title={title} /> */}
           <DetailData together={data} />
         </div>
       ) : (
@@ -132,7 +131,6 @@ const DetailContainer = styled.div`
   height: 100%;
   display: flex;
   overflow-y: scroll;
-  border: 1px solid blue;
   &::-webkit-scrollbar {
     width: 0.8rem;
   }
@@ -157,6 +155,7 @@ const DetailContainer = styled.div`
   }
 `;
 const StDetailMenuWrapper = styled.aside`
-  margin: auto 0;
+  /* margin: auto 0; */
+  margin-top: 6rem;
 `;
 const StDetailContentWrapper = styled.div``;

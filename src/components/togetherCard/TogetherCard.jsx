@@ -26,7 +26,6 @@ function TogetherCard({ together }) {
               {together.title}&nbsp;
               {together.content}
             </StTitleAndContent>
-            {/* <StContent></StContent> */}
           </StSecondLine>
         </StContentWrap>
       </Link>
