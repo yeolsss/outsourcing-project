@@ -132,6 +132,18 @@ const DetailContainer = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    width: 0.8rem;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #19685b;
+    border-radius: 0.4rem;
+  }
+  &::-webkit-scrollbar-track {
+    background: #e6e6e6;
+  }
+
   > div {
     @media (max-width: 650px) {
       width: 50%;
