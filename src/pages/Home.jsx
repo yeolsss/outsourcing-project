@@ -1,7 +1,37 @@
-import React from 'react';
+import { styled } from 'styled-components';
+import TogetherList from '../components/togetherList/TogetherList';
 
 function Home() {
-  return <div>Home</div>;
+  return (
+    <StMainContainer>
+      <TogetherList />
+    </StMainContainer>
+  );
 }
+
+const AddBtn = styled.img`
+  width: 4rem;
+  height: 4rem;
+`;
+
+const StMainContainer = styled.div`
+  width: 100%;
+  //position: relative;
+  height: 100vh;
+  overflow-y: scroll;
+  overflow-x: hidden; // 테스트코드
+  background-color: #fff;
+
+  &::-webkit-scrollbar {
+    width: 0.8rem;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #19685b;
+    border-radius: 0.4rem;
+  }
+  &::-webkit-scrollbar-track {
+    background: #e6e6e6;
+  }
+`;
 
 export default Home;
