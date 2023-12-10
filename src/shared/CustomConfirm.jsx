@@ -22,6 +22,8 @@ const CustomConfirm = () => {
 
 const StConfirmWrapper = styled.div`
   position: absolute;
+  opacity: 0;
+  z-index: -2;
   top: 0;
   left: 0;
   background-color: rgba(0, 0, 0, 0.5);
@@ -29,7 +31,7 @@ const StConfirmWrapper = styled.div`
   width: 100vw;
   height: 100vh;
   display: flex;
-  z-index: 1000;
+  transition: top 0.2s ease-in;
 `;
 
 const StConfirm = styled.div`

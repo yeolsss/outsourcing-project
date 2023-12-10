@@ -146,14 +146,15 @@ function AddForm({ setIsAdding }) {
         <h1>🏠 투게더 등록</h1>
         <StAddForm onSubmit={submitNewTogetherHandler}>
           <p>
-            주소 <span>{position.address}</span>
+            <StInputTitle>주소</StInputTitle>
+            <span>{position.address}</span>
           </p>
           <StCost>
-            월세
+            <StInputTitle>월세</StInputTitle>
             <input value={cost} onChange={onChangeCost} type="number" /> 만원
           </StCost>
           <StGender>
-            전용선택
+            <StInputTitle>전용선택</StInputTitle>
             {genderOptions.map((option) => (
               <StLabel key={option.value}>
                 {option.label}
@@ -168,7 +169,7 @@ function AddForm({ setIsAdding }) {
             ))}
           </StGender>
           <StGetherNum>
-            모집인원
+            <StInputTitle>모집인원</StInputTitle>
             <input
               value={togetherNum}
               onChange={onChangeTogetherNum}
@@ -177,10 +178,11 @@ function AddForm({ setIsAdding }) {
             명
           </StGetherNum>
           <StEmail>
-            이메일 <input value={email} onChange={onChangeEmail} type="text" />
+            <StInputTitle>이메일</StInputTitle>
+            <input value={email} onChange={onChangeEmail} type="text" />
           </StEmail>
           <StPassword>
-            비밀번호{' '}
+            <StInputTitle>비밀번호</StInputTitle>{' '}
             <input
               value={password}
               onChange={onChangePassword}
@@ -188,7 +190,7 @@ function AddForm({ setIsAdding }) {
             />
           </StPassword>
           <StImage>
-            사진등록
+            <StInputTitle>사진등록</StInputTitle>
             <label htmlFor="togetherImg">
               {isImgSelected ? (
                 <StImgSlelctedText>사진 1개 선택 완료</StImgSlelctedText>
@@ -205,7 +207,7 @@ function AddForm({ setIsAdding }) {
             />
           </StImage>
           <StTitle>
-            제목
+            <StInputTitle placeholder="제목을 입력해주세요.">제목</StInputTitle>
             <input value={title} onChange={onChangeTitleHandler} />
           </StTitle>
           <StContent
@@ -232,13 +234,38 @@ const StOuterFrame = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  /* height: 100vh; */
-  border: 1px solid red;
-  /* overflow-y: scroll; */
+  width: 100%;
+  height: 100vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  background-color: white;
+  padding-top: 28rem;
+
+  &::-webkit-scrollbar {
+    width: 0.8rem;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #19685b;
+    border-radius: 0.4rem;
+  }
+  &::-webkit-scrollbar-track {
+    background: #e6e6e6;
+  }
+`;
+
+const StInputTitle = styled.span`
+  background-color: var(--accent);
+  color: white;
+  height: 2.5rem;
+  width: 6rem;
+  text-align: center;
+  border-radius: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const StAddFormContainer = styled.div`
-  background-color: #dfdfdf;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -247,12 +274,20 @@ const StAddFormContainer = styled.div`
   max-width: 600px;
   /* min-width: 550px; */
   width: 100%;
+  color: var(--darkgreen);
   /* height: 100vh; */
-  overflow-y: scroll;
+
   h1 {
     text-align: center;
-    margin: 20px 20px 40px 20px;
-    font-size: 2rem;
+    margin: 20px 0 40px 0;
+    font-size: 2.3rem;
+    background-color: var(--accent);
+    color: white;
+    height: 6rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 1rem;
   }
 `;
 
@@ -262,19 +297,18 @@ const StAddForm = styled.form`
   justify-content: center;
   gap: 20px;
   p {
-    background-color: white;
     height: 4.5rem;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     padding: 10px 20px 10px 20px;
-    color: gray;
+    color: var(--darkgreen);
+    border-bottom: solid 0.1rem var(--lightgray);
   }
   p > input {
     background-color: transparent;
     border: none;
-    /* border-bottom: 1px solid gray; */
     outline: none;
     /* Chrome, Safari, Edge, Opera */
     &::-webkit-outer-spin-button,
@@ -285,6 +319,7 @@ const StAddForm = styled.form`
   }
   textarea {
     border: none;
+    background-color: #f4f4f4;
   }
 `;
 
@@ -296,15 +331,31 @@ const StButtonContainer = styled.div`
 `;
 
 const StCancelBtn = styled.button`
-  background-color: #65c5b3;
+  background-color: #7cd6bb;
   height: 70px;
   width: 50%;
+  color: white;
+  font-size: 1.6rem;
+  font-weight: 500;
+  border-radius: 0.5rem;
+  transition: 0.25s ease-in-out;
+  &:hover {
+    background-color: var(--secondary);
+  }
 `;
 
 const StAddBtn = styled.button`
-  background-color: #438984;
+  background-color: var(--accent);
   height: 70px;
   width: 50%;
+  color: white;
+  font-size: 1.6rem;
+  font-weight: 500;
+  border-radius: 0.5rem;
+  transition: 0.25s ease-in-out;
+  &:hover {
+    background-color: var(--secondary);
+  }
 `;
 
 const StCost = styled.p`
@@ -312,10 +363,7 @@ const StCost = styled.p`
     color: red;
     min-width: 80%;
     text-align: right;
-    /* &:-webkit-autofill {
-      -webkit-box-shadow: 0 0 0 1000px #2c2c2c inset;
-      -webkit-text-fill-color: #fff;
-    } */
+    font-weight: 600;
   }
 `;
 
@@ -324,6 +372,7 @@ const StGetherNum = styled.p`
     color: red;
     min-width: 75%;
     text-align: right;
+    font-weight: 600;
   }
 `;
 
