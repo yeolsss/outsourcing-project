@@ -1,35 +1,16 @@
 import { styled } from 'styled-components';
+import { getGenderText } from '../../common/util';
 
 const DetailData = ({ together }) => {
-  const {
-    address,
-    content,
-    coordinates,
-    cost,
-    createdAt,
-    email,
-    gender,
-    id,
-    imgPath,
-    isDone,
-    password,
-    title,
-    togetherNum,
-  } = together;
+  const { address, content, cost, createdAt, email, gender, togetherNum } =
+    together;
 
-  const getGenderText = (paramGender) => {
-    switch (paramGender) {
-      case 'manOnly':
-        return '남자만';
-      case 'womanOnly':
-        return '여자만';
-      default:
-        return '무관';
-    }
-  };
   return (
     <StDetailMain>
       <StDetailUl>
+        <li>
+          <span>{createdAt}</span>
+        </li>
         <li>
           <span>주소</span>
           <span>{address}</span>
@@ -67,18 +48,21 @@ const StDetailMain = styled.div`
 
 const StDetailUl = styled.ul`
   width: 100%;
-  margin: 3rem auto 0;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   row-gap: 2rem;
   padding: 2rem 2.5rem;
   border-radius: 0.5rem;
-  background-color: var(--accent);
-  box-shadow: 0 0 1.5rem rgba(0, 0, 0, 0.3);
+  transition: box-shadow 0.2s ease-in;
+  &:hover {
+    box-shadow: 0 0 1.5rem rgba(0, 0, 0, 0.3);
+  }
+
   > li {
     display: flex;
     column-gap: 2rem;
-    color: #fff;
+    color: #000;
     span:first-child {
       font-weight: bold;
       flex: 1;
@@ -92,5 +76,11 @@ const StDetailUl = styled.ul`
       letter-spacing: 0.03rem;
       line-height: 1.3;
     }
+  }
+  > li:first-child > span {
+    display: block;
+    font-size: 1.5rem;
+    text-align: right;
+    font-weight: bold;
   }
 `;

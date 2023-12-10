@@ -10,8 +10,11 @@ export const DetailTitle = ({ title }) => {
 
 const StDetailTitle = styled.div`
   width: 100%;
+  background-color: var(--accent);
+  color: white;
+  border-radius: 1rem;
   > h2 {
-    font-size: 4.8rem;
+    font-size: 2.4rem;
     font-weight: 700;
     padding: 0;
     text-align: center;

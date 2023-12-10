@@ -44,7 +44,6 @@ function Detail() {
   const { handleOpenAlert } = useCustomConfirm();
 
   const { isUpdate, isDelete, isDone } = useSelector(selectorDetailStatus);
-  console.log(isDone);
   useEffect(() => {
     if (isLoading || isError) return;
 
@@ -105,11 +104,6 @@ function Detail() {
 
   return (
     <DetailContainer>
-      {/*메뉴바*/}
-      <DetailMenu
-        together={{ cost, address, imgPath, email, password }}
-        isUpdate={isUpdate}
-      />
       {/* !isUpdate ?  밑에꺼보여주고 :  form있는놈 보여주고*/}
       {!isUpdate ? (
         <div>
@@ -121,6 +115,13 @@ function Detail() {
       ) : (
         <DetailForm docId={docId} together={data} />
       )}
+      {/*메뉴바*/}
+      <StDetailMenuWrapper>
+        <DetailMenu
+          together={{ cost, address, imgPath, email, password }}
+          isUpdate={isUpdate}
+        />
+      </StDetailMenuWrapper>
     </DetailContainer>
   );
 }
@@ -131,7 +132,15 @@ const DetailContainer = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
+
   > div {
-    margin: 0 auto;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    row-gap: 5rem;
   }
 `;
+const StDetailMenuWrapper = styled.aside`
+  margin: auto 0;
+`;
+const StDetailContentWrapper = styled.div``;

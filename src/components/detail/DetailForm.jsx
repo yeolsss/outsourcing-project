@@ -253,9 +253,7 @@ const Input = ({ inputType, inputValue, inputRef, handle }) => {
 const StInput = styled.input`
   background-color: transparent;
   border: none;
-  /* border-bottom: 1px solid gray; */
   outline: none;
-  /* Chrome, Safari, Edge, Opera */
   &::-webkit-outer-spin-button,
   &::-webkit-inner-spin-button {
     -webkit-appearance: none;
@@ -274,6 +272,7 @@ const StTitle = styled.h1`
 const StDetailForm = styled.form`
   width: 100%;
   height: 100%;
+  margin: auto;
   overflow: scroll;
   &::-webkit-scrollbar {
     width: 0.8rem;
