@@ -10,7 +10,7 @@ const CustomAlert = () => {
   const navigate = useNavigate();
   const { handleCloseCustomConfirm } = useCustomConfirm();
   const handleOnClickConfirm = () => {
-    navigate(targetPage);
+    if (!!targetPage) navigate(targetPage);
     handleCloseCustomConfirm();
   };
   return (
@@ -38,10 +38,10 @@ const StConfirm = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    row-gap: 10rem;
+    row-gap: 4rem;
 
     > h1 {
-      font-size: 4rem;
+      font-size: 3.2rem;
       font-weight: bold;
     }
 
