@@ -216,7 +216,7 @@ function AddForm({ setIsAdding }) {
             placeholder="상세내용"
           />
           <StButtonContainer>
-            <StCancelBtn onClick={() => setIsAdding(false)} type="button">
+            <StCancelBtn onClick={() => navigate('/')} type="button">
               취소
             </StCancelBtn>
             <StAddBtn type="submit">등록</StAddBtn>

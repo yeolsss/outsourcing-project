@@ -6,12 +6,13 @@ import {
 import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
 import { useInput } from 'hooks';
 import { useEffect, useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectPosition } from 'redux/module/position.slice';
 import { styled } from 'styled-components';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { updateTogetherToFireBase } from '../../api/togethers';
 import { useNavigate } from 'react-router-dom';
+import { setUpdate } from '../../redux/module/detailStatus.slice';
 
 function DetailForm({ docId, together, setIsUpdate }) {
   const { mutate } = useMutation({ mutationFn: updateTogetherToFireBase });
@@ -19,6 +20,7 @@ function DetailForm({ docId, together, setIsUpdate }) {
   const navigate = useNavigate();
 
   const position = useSelector(selectPosition);
+  const dispatch = useDispatch();
 
   const [isImgSelected, setIsImgSelected] = useState(false);
   const [imgPath, setImgPath] = useState(together.imgPath);
@@ -93,7 +95,7 @@ function DetailForm({ docId, together, setIsUpdate }) {
             onSuccess: () => {
               queryClient.invalidateQueries({ queryKey: ['togethers'] });
               alert('수정이 완료되었습니다.');
-              setIsUpdate(false);
+              dispatch(setUpdate(false));
             },
             onError: () => {},
           },
@@ -170,7 +172,7 @@ function DetailForm({ docId, together, setIsUpdate }) {
           <p>
             <span>비밀번호</span>
             <Input
-              inputType={'text'}
+              inputType={'password'}
               inputValue={passwordValue}
               inputRef={passwordRef}
               handle={handlePassword}
@@ -216,7 +218,7 @@ function DetailForm({ docId, together, setIsUpdate }) {
           />
         </StContentLi>
         <StDetailButtonWrapper>
-          <button type={'button'} onClick={() => setIsUpdate(false)}>
+          <button type={'button'} onClick={() => dispatch(setUpdate(false))}>
             수정 취소
           </button>
           <button type={'submit'}>수정 완료</button>
@@ -260,7 +262,18 @@ const StTitle = styled.h1`
 
 const StDetailForm = styled.form`
   width: 100%;
-  height: auto;
+  height: 100%;
+  overflow: scroll;
+  &::-webkit-scrollbar {
+    width: 0.8rem;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #19685b;
+    border-radius: 0.4rem;
+  }
+  &::-webkit-scrollbar-track {
+    background: #e6e6e6;
+  }
 `;
 
 const StDetailUl = styled.ul`
