@@ -15,8 +15,8 @@ import { useNavigate } from 'react-router-dom';
 import { selectPosition } from 'redux/module/position.slice';
 import { styled } from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
-import { setTogethers } from '../../redux/module/together.slice';
 import { useCustomConfirm } from '../../hooks/useCustomConfirm';
+import { setTogethers } from '../../redux/module/together.slice';
 
 function AddForm() {
   const { handleOpenAlert, handleOpenModal } = useCustomConfirm();

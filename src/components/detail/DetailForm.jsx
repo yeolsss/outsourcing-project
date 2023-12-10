@@ -257,6 +257,7 @@ const StInput = styled.input`
   background-color: transparent;
   border: none;
   outline: none;
+  width: 30rem;
   &::-webkit-outer-spin-button,
   &::-webkit-inner-spin-button {
     -webkit-appearance: none;
