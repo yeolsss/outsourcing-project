@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import DetailData from 'components/detail/DetailData';
 import DetailForm from 'components/detail/DetailForm';
 import { useEffect } from 'react';
@@ -15,17 +15,29 @@ import {
   setDelete,
   setUpdate,
 } from '../redux/module/detailStatus.slice';
+import {
+  deleteImagesInStorage,
+  removeTogetherToFireBase,
+} from '../api/togethers';
+import { useCustomConfirm } from '../hooks/useCustomConfirm';
 
 function Detail() {
   const { id: docId } = useParams();
   const dispatch = useDispatch();
+  const queryClient = useQueryClient();
+
   const { isLoading, data, isError, error } = useQuery({
     queryKey: ['together', docId],
     queryFn: () => fetchToGetherData(docId),
   });
 
+  const { mutate: deleteMutate } = useMutation({
+    mutationFn: removeTogetherToFireBase,
+  });
+
+  const { handleOpenAlert } = useCustomConfirm();
+
   const { isUpdate, isDelete } = useSelector(selectorDetailStatus);
-  console.log(isUpdate);
   useEffect(() => {
     if (isLoading || isError) return;
 
@@ -44,6 +56,20 @@ function Detail() {
       dispatch(setDelete(false));
     };
   }, []);
+
+  useEffect(() => {
+    if (isDelete) {
+      // 삭제 로직 ㄱㄱ
+      deleteMutate(docId, {
+        onSuccess: async () => {
+          const deleteImgPath = `${data.id}/${data.imgFileName}`;
+          await deleteImagesInStorage(deleteImgPath);
+          queryClient.invalidateQueries(['togethers']);
+          handleOpenAlert('게더가 삭제되었습니다.', '/');
+        },
+      });
+    }
+  }, [isDelete]);
 
   if (isLoading) {
     return <div>Loading...</div>;

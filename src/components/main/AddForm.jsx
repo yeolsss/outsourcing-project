@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 // import { useMutation, useQueryClient } from 'react-query';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { addTogetherToFireBase } from 'api/togethers';
+import { addTogetherToFireBase, deleteImagesInStorage } from 'api/togethers';
 import {
   checkEmailValidation,
   checkValidation,
@@ -21,6 +21,7 @@ function AddForm({ setIsAdding }) {
   const [isImgSelected, setIsImgSelected] = useState(false);
   const [imgInputValue, setImgInputValue] = useState(null);
   const [imgPath, setImgPath] = useState('');
+  const [imgFileName, setImgFileName] = useState('');
   const [title, onChangeTitleHandler] = useInput('');
   const [content, onChangeContentHandler] = useInput('');
   const [cost, onChangeCost] = useInput('');
@@ -34,6 +35,8 @@ function AddForm({ setIsAdding }) {
   const queryClient = useQueryClient();
 
   const navigate = useNavigate();
+
+  const [uuid, setUuid] = useState(uuidv4());
 
   const selectGenderHandler = (e) => {
     const selectedGender = e.target.value;
@@ -78,8 +81,9 @@ function AddForm({ setIsAdding }) {
       const selectedImgFile = e.target.files[0];
       setImgInputValue(selectedImgFile);
       console.log({ selectedImgFile });
+      setImgFileName(selectedImgFile.name);
       // 선택된 이미지파일을 firebase storage에 추가
-      const selectedImgFilePath = `togetherImages/${selectedImgFile.name}`;
+      const selectedImgFilePath = `togetherImages/${uuid}/${selectedImgFile.name}`;
       const togetherImageRef = ref(storage, selectedImgFilePath);
       await uploadBytes(togetherImageRef, selectedImgFile);
       // firebase storage에 업로드된 사진파일 경로
@@ -100,7 +104,7 @@ function AddForm({ setIsAdding }) {
     e.preventDefault();
 
     const newTogether = {
-      id: uuidv4(),
+      id: uuid,
       address: position.address,
       coordinates: { lat: position.lat, lng: position.lng },
       cost,
@@ -113,6 +117,7 @@ function AddForm({ setIsAdding }) {
       password,
       title,
       content,
+      imgFileName,
     };
 
     // 유효성 검사
@@ -140,6 +145,7 @@ function AddForm({ setIsAdding }) {
       }
     }
   };
+
   return (
     <StOuterFrame>
       <StAddFormContainer>
@@ -216,7 +222,18 @@ function AddForm({ setIsAdding }) {
             placeholder="상세내용"
           />
           <StButtonContainer>
-            <StCancelBtn onClick={() => navigate('/')} type="button">
+            <StCancelBtn
+              onClick={async () => {
+                console.log(imgFileName);
+                console.log(!imgFileName);
+                if (!!imgFileName) {
+                  const deleteImgPath = `${uuid}/${imgFileName}`;
+                  await deleteImagesInStorage(deleteImgPath);
+                }
+                navigate('/');
+              }}
+              type="button"
+            >
               취소
             </StCancelBtn>
             <StAddBtn type="submit">등록</StAddBtn>

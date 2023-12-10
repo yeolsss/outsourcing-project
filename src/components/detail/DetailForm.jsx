@@ -10,12 +10,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectPosition } from 'redux/module/position.slice';
 import { styled } from 'styled-components';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { updateTogetherToFireBase } from '../../api/togethers';
+import {
+  deleteImagesInStorage,
+  updateTogetherToFireBase,
+} from '../../api/togethers';
 import { useNavigate } from 'react-router-dom';
 import { setUpdate } from '../../redux/module/detailStatus.slice';
 
 function DetailForm({ docId, together, setIsUpdate }) {
-  const { mutate } = useMutation({ mutationFn: updateTogetherToFireBase });
+  const { mutate: updateMutate } = useMutation({
+    mutationFn: updateTogetherToFireBase,
+  });
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
@@ -24,6 +29,7 @@ function DetailForm({ docId, together, setIsUpdate }) {
 
   const [isImgSelected, setIsImgSelected] = useState(false);
   const [imgPath, setImgPath] = useState(together.imgPath);
+  const [imgFileName, setImgFileName] = useState(together.imgFileName);
   const storage = getStorage();
   const togetherImgRef = useRef();
 
@@ -54,7 +60,8 @@ function DetailForm({ docId, together, setIsUpdate }) {
   const addImgHandler = async (e) => {
     try {
       const selectedImgFile = e.target.files[0];
-      const selectedImgFilePath = `togetherImages/${selectedImgFile.name}`;
+      setImgFileName(selectedImgFile.name);
+      const selectedImgFilePath = `togetherImages/${together.id}/${selectedImgFile.name}`;
       const togetherImageRef = ref(storage, selectedImgFilePath);
       await uploadBytes(togetherImageRef, selectedImgFile);
       const downloadURL = await getDownloadURL(togetherImageRef);
@@ -88,11 +95,17 @@ function DetailForm({ docId, together, setIsUpdate }) {
           gender: gender,
           imgPath,
           coordinates: { lat: position.lat, lng: position.lng },
+          imgFileName,
         };
-        mutate(
+        updateMutate(
           { docId, updateTogether },
           {
-            onSuccess: () => {
+            onSuccess: async () => {
+              if (together.imgFileName !== imgFileName) {
+                const deleteImgPath = `${together.id}/${together.imgFileName}`;
+                await deleteImagesInStorage(deleteImgPath);
+              }
+
               queryClient.invalidateQueries({ queryKey: ['togethers'] });
               alert('수정이 완료되었습니다.');
               dispatch(setUpdate(false));
