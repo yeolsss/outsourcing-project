@@ -1,6 +1,7 @@
 import { useDispatch } from 'react-redux';
 import {
   closeModel,
+  openAlert,
   openConfirm,
   setResult,
 } from '../redux/module/customConfirm.slice';
@@ -14,6 +15,11 @@ export const useCustomConfirm = () => {
     }, {});
     dispatch(openConfirm(newConfirmStatus));
   };
+
+  const handleOpenAlert = (title, targetPage) => {
+    dispatch(openAlert({ title, targetPage }));
+  };
+
   const checkResult = (result) => {
     dispatch(setResult(result));
   };
@@ -26,5 +32,6 @@ export const useCustomConfirm = () => {
     handleOpenConfirm,
     handleCloseCustomConfirm,
     checkResult,
+    handleOpenAlert,
   };
 };

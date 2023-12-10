@@ -2,12 +2,17 @@ import { styled } from 'styled-components';
 import CustomConfirmForm from '../components/customConfirm/CustomConfirmForm';
 import { useSelector } from 'react-redux';
 import { selectorConfirm } from '../redux/module/customConfirm.slice';
+import CustomAlert from '../components/customAlert/CustomAlert';
 
 const CustomConfirm = () => {
   const selectConfirm = useSelector(selectorConfirm);
   return (
     <StConfirmWrapper $isOpen={selectConfirm.isOpen}>
-      {selectConfirm.model === 'confirm' ? <CustomConfirmForm /> : null}
+      {selectConfirm.model.type === 'confirm' ? (
+        <CustomConfirmForm />
+      ) : (
+        <CustomAlert />
+      )}
     </StConfirmWrapper>
   );
 };

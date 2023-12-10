@@ -41,6 +41,7 @@ function DetailMenu({ together, isUpdate }) {
     const newCustomConfirmStatus = {
       title: '비밀번호 확인',
       checkValue: together.password,
+      task: 'update',
     };
     handleOpenConfirm(newCustomConfirmStatus);
   };
@@ -49,6 +50,7 @@ function DetailMenu({ together, isUpdate }) {
     const newCustomConfirmStatus = {
       title: '비밀번호 확인',
       checkValue: together.password,
+      task: 'delete',
     };
     handleOpenConfirm(newCustomConfirmStatus);
   };

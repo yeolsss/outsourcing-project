@@ -4,7 +4,7 @@ import { useInput } from '../../hooks';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectorConfirm } from '../../redux/module/customConfirm.slice';
 import { useCustomConfirm } from '../../hooks/useCustomConfirm';
-import { setUpdate } from '../../redux/module/detailStatus.slice';
+import { setDelete, setUpdate } from '../../redux/module/detailStatus.slice';
 
 const CustomConfirmForm = () => {
   const [password, handlePassword] = useInput();
@@ -17,12 +17,16 @@ const CustomConfirmForm = () => {
   const handleOnSubmitConfirm = (e) => {
     e.preventDefault();
     if (password === selectConfirm.checkValue) {
-      dispatch(setUpdate(true));
+      if (selectConfirm.model.task === 'update') dispatch(setUpdate(true));
+      else if (selectConfirm.model.task === 'delete') dispatch(setDelete(true));
       handleCloseCustomConfirm();
     } else {
       setPasswordError(true);
+      if (selectConfirm.model.task === 'update') dispatch(setUpdate(false));
+      else if (selectConfirm.model.task === 'delete')
+        dispatch(setDelete(false));
+
       passwordRef.current.focus();
-      dispatch(setUpdate(false));
     }
   };
 

@@ -3,9 +3,10 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   isOpen: false,
   title: '',
-  model: null,
+  model: { type: '', task: '' },
   checkValue: '',
   result: false,
+  targetPage: '',
 };
 
 const customConfirmSlice = createSlice({
@@ -15,15 +16,15 @@ const customConfirmSlice = createSlice({
     openConfirm: (state, { payload }) => {
       state.isOpen = true;
       state.title = payload.title;
-      state.model = 'confirm';
+      state.model.type = 'confirm';
+      state.model.task = payload.task;
       state.checkValue = payload.checkValue;
     },
     openAlert: (state, { payload }) => {
       state.isOpen = true;
       state.title = payload.title;
-      state.model = 'alert';
-      state.value = payload.value;
-      state.checkValue = payload.checkValue;
+      state.model.type = 'alert';
+      state.targetPage = payload.targetPage;
     },
     setResult: (state, { payload }) => {
       state.result = payload;
@@ -35,7 +36,7 @@ const customConfirmSlice = createSlice({
     closeModel: (state) => {
       state.isOpen = false;
       state.title = '';
-      state.model = null;
+      state.model = { type: '', task: '' };
       state.checkValue = '';
       state.result = false;
     },
