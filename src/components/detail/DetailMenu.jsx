@@ -95,8 +95,9 @@ const StDetailMenuContainer = styled.div`
   border-radius: 0.5rem;
   > * {
     margin: 0 auto;
-    width: 12rem;
-    height: 11rem;
+    font-size: 1.6rem;
+    width: 10rem;
+    height: 6rem;
     border-radius: 0.5rem;
     background-color: var(--accent);
     color: white;
@@ -112,13 +113,12 @@ const StHomeButton = styled(Link)`
   justify-content: center;
   align-items: center;
   text-decoration: unset;
-  font-size: 2.5rem;
+
   font-weight: bold;
   white-space: pre-wrap;
 `;
 
 const StDetailShare = styled.button`
-  font-size: 2.5rem;
   font-weight: bold;
 `;
 const StDetailJoin = styled.a`
@@ -126,20 +126,17 @@ const StDetailJoin = styled.a`
   justify-content: center;
   align-items: center;
   text-decoration: unset;
-  font-size: 2.5rem;
+
   font-weight: bold;
 `;
 const StDetailEdit = styled.button`
-  font-size: 2.5rem;
   font-weight: bold;
 `;
 const StToggleDone = styled.button`
-  font-size: 2.5rem;
   font-weight: bold;
   padding: 0 2rem;
 `;
 const StDelButton = styled.button`
-  font-size: 2.5rem;
   font-weight: bold;
   padding: 0 1rem;
 `;
