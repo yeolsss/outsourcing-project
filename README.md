@@ -1,6 +1,6 @@
 ##distribution
 
-outsourcing-project.vercel.app
+[아웃소싱 프로젝트](outsourcing-project.vercel.app)
 
 ## Together(Outsourcing Project)
 
