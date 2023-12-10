@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 const { Kakao } = window;
 
-function DetailMenu({ together }) {
+function DetailMenu({ together, handler: handleIsUpdate, isUpdate }) {
   const url = window.location.href;
 
   // JavaScript SDK 초기화 함수
@@ -41,8 +41,18 @@ function DetailMenu({ together }) {
       <StDetailJoin href={`mailto: ${together.email}`} target="_blank">
         입주신청
       </StDetailJoin>
-      <StDetailEdit>수정하기</StDetailEdit>
+      {!isUpdate.isUpdate && (
+        <StDetailEdit
+          onClick={() => {
+            handleIsUpdate(true);
+          }}
+        >
+          수정하기
+        </StDetailEdit>
+      )}
+
       <StToggleDone>투게더 마감</StToggleDone>
+      <StDelButton>삭제하기</StDelButton>
     </StDetailMenuContainer>
   );
 }
@@ -105,6 +115,12 @@ const StDetailEdit = styled.button`
   font-weight: bold;
 `;
 const StToggleDone = styled.button`
+  background-color: #e7e7e7;
+  font-size: 2.5rem;
+  font-weight: bold;
+  padding: 0 2rem;
+`;
+const StDelButton = styled.button`
   background-color: #e7e7e7;
   font-size: 2.5rem;
   font-weight: bold;

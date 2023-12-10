@@ -1,11 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { filterMarkersInBounds } from '../../common/mapUtil';
 
+// togethers : 마커 데이터 리스트
+// originTogethers : 마커 데이터 리스트 초기값
+
 const initialState = {
   togethers: [],
   originTogethers: [],
   mapRef: null,
 };
+
 const togetherSlice = createSlice({
   name: 'together',
   initialState,
@@ -19,7 +23,10 @@ const togetherSlice = createSlice({
           state.originTogethers,
           state.mapRef,
         );
-      } else state.togethers = state.originTogethers;
+        return;
+      }
+
+      state.togethers = state.originTogethers;
     },
     setMapRefCurrent: (state, { payload }) => {
       state.mapRef = payload;
@@ -29,6 +36,6 @@ const togetherSlice = createSlice({
 
 export const { setTogethers, setOriginTogethers, setMapRefCurrent } =
   togetherSlice.actions;
-export const selectorTogether = (state) => state.together;
-export const selectorCurrentMapRef = (state) => state.position.mapRef;
+export const selectTogether = (state) => state.together;
+export const selectCurrentMapRef = (state) => state.position.mapRef;
 export default togetherSlice.reducer;

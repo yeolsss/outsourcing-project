@@ -4,12 +4,12 @@ import {
   handleMarker,
   selectCurrentMarker,
 } from 'redux/module/currentMarker.slice';
-import { selectorTogether } from 'redux/module/together.slice';
+import { selectTogether } from 'redux/module/together.slice';
 import { styled } from 'styled-components';
 
 const MapOverlay = () => {
   const { isOpen, selectedMarker } = useSelector(selectCurrentMarker);
-  const { togethers } = useSelector(selectorTogether);
+  const { togethers } = useSelector(selectTogether);
   const dispatch = useDispatch();
 
   const together = togethers?.find((together, idx) => {

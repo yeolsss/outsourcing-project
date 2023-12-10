@@ -2,7 +2,12 @@ import { useRef, useState } from 'react';
 // import { useMutation, useQueryClient } from 'react-query';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { addTogetherToFireBase } from 'api/togethers';
-import { checkEmailValidation, checkValidation, getDate } from 'common/util';
+import {
+  checkEmailValidation,
+  checkValidation,
+  genderOptions,
+  getDate,
+} from 'common/util';
 import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
 import { useInput } from 'hooks';
 import { useDispatch, useSelector } from 'react-redux';
@@ -25,11 +30,7 @@ function AddForm({ setIsAdding }) {
   const [gender, setGender] = useState('noGenderRequirement');
   const position = useSelector(selectPosition);
   const dispatch = useDispatch();
-  const genderOptions = [
-    { value: 'noGenderRequirement', label: '해당없음' },
-    { value: 'manOnly', label: '남성전용' },
-    { value: 'womanOnly', label: '여성전용' },
-  ];
+
   const queryClient = useQueryClient();
 
   const navigate = useNavigate();

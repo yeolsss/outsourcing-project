@@ -3,6 +3,7 @@ import { Outlet } from 'react-router-dom';
 import Header from '../../components/header/Header';
 import { styled } from 'styled-components';
 import KakaoMap from '../../components/kakaoMap/KakaoMap';
+import CustomConfirm from '../CustomConfirm';
 
 function Layout() {
   return (
@@ -16,6 +17,7 @@ function Layout() {
           <KakaoMap />
         </StKaKaoMapWrapper>
       </StMainContainer>
+      <CustomConfirm />
     </>
   );
 }

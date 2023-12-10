@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { selectorTogether } from 'redux/module/together.slice';
+import { selectTogether } from 'redux/module/together.slice';
 import styled from 'styled-components';
 import SearchBar from '../searchBar/SearchBar';
 import TogetherCard from '../togetherCard/TogetherCard';
 
 function TogetherList() {
-  const selectTogethers = useSelector(selectorTogether);
+  const selectTogethers = useSelector(selectTogether);
   const [searchInput, setSearchInput] = useState('');
   const handleSearch = (e) => {
     setSearchInput(e.target.value);

@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
+
 const styled = { createGlobalStyle };
 export const GlobalStyle = styled.createGlobalStyle`
   // reset Css
@@ -111,7 +112,6 @@ export const GlobalStyle = styled.createGlobalStyle`
   body {
     line-height: 1;
   }
-  ol,
   ul {
     list-style: none;
   }
@@ -130,7 +130,6 @@ export const GlobalStyle = styled.createGlobalStyle`
     border-collapse: collapse;
     border-spacing: 0;
   }
-  div,
   section,
   header,
   footer,
@@ -194,8 +193,6 @@ export const GlobalStyle = styled.createGlobalStyle`
     height: 100vh;
     width: 100vw;
     display: flex;
-  }
-  a {
     text-decoration: none;
   }
   :root {
@@ -204,9 +201,12 @@ export const GlobalStyle = styled.createGlobalStyle`
     --accent: #23917f;
     --darkgreen: #051613;
     --lightgray: #e6e6e6;
+    --error: #ea8685;
+    --errorAccent: #f78fb3;
   }
   #root {
     height: inherit;
     width: inherit;
+    position: relative;
   }
 `;

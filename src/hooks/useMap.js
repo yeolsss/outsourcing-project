@@ -1,10 +1,7 @@
 import { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { __setAddress, selectPosition } from 'redux/module/position.slice';
-import {
-  selectorTogether,
-  setMapRefCurrent,
-} from 'redux/module/together.slice';
+import { selectTogether, setMapRefCurrent } from 'redux/module/together.slice';
 import { getPosition } from '../common/mapUtil';
 import { useInput } from './useInput';
 import { usePosts } from './usePosts';
@@ -13,7 +10,7 @@ import { useZoom } from './useZoom';
 
 export function useMap() {
   const position = useSelector(selectPosition);
-  const selectTogethers = useSelector(selectorTogether);
+  const selectTogethers = useSelector(selectTogether);
   const [isOpen, setIsOpen] = useState(false);
   const [selectedMarker, setSelectedMarker] = useState('');
   const mapRef = useRef(null);
@@ -22,6 +19,7 @@ export function useMap() {
   const [zoomHandler] = useZoom(mapRef);
   const [searchInput, handleOnChangeInput] = useInput();
   const dispatch = useDispatch();
+
   useTogethers();
 
   // 클릭된 좌표 얻기

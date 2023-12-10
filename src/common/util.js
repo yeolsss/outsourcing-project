@@ -32,3 +32,13 @@ export const getDate = (setDate = '') => {
   const seconds = String(today.getSeconds()).padStart(2, '0');
   return `${year}.${month}.${date} ${hours}:${minutes}:${seconds}`;
 };
+
+export const genderOptions = [
+  { value: 'noGenderRequirement', label: '해당없음' },
+  { value: 'manOnly', label: '남성전용' },
+  { value: 'womanOnly', label: '여성전용' },
+];
+
+export const checkPassword = (prevPassword, newPassword) => {
+  return prevPassword === newPassword;
+};

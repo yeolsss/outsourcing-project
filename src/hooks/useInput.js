@@ -7,5 +7,5 @@ export function useInput(initialValue) {
     setState(e.target.value);
   };
 
-  return [state, handleState];
+  return [state, handleState, setState];
 }

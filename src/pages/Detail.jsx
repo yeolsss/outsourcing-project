@@ -1,14 +1,15 @@
 import { useQuery } from '@tanstack/react-query';
-import { useEffect } from 'react';
+import DetailData from 'components/detail/DetailData';
+import DetailForm from 'components/detail/DetailForm';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { fetchToGetherData } from '../api/lists';
 import DetailImage from '../components/detail/DetailImage';
 import DetailMenu from '../components/detail/DetailMenu';
-import { setPosition } from '../redux/module/position.slice';
-import { DetailForm } from '../components/detail/DetailForm';
 import { DetailTitle } from '../components/detail/DetailTitle';
+import { setPosition } from '../redux/module/position.slice';
 
 function Detail() {
   const { id: docId } = useParams();
@@ -17,6 +18,8 @@ function Detail() {
     queryKey: ['together', docId],
     queryFn: () => fetchToGetherData(docId),
   });
+
+  const [isUpdate, setIsUpdate] = useState(false);
 
   useEffect(() => {
     if (isLoading || isError) return;
@@ -54,16 +57,29 @@ function Detail() {
     togetherNum,
   } = data;
 
+  const handleIsUpdate = (type) => {
+    setIsUpdate(type);
+  };
+
   return (
     <DetailContainer>
-      <div>
-        {/*메뉴바*/}
-        <DetailMenu together={{ cost, address, imgPath, email }} />
-        {/*이미지*/}
-        <DetailTitle title={title} />
-        <DetailImage imgPath={imgPath} title={title} />
-        <DetailForm together={data} />
-      </div>
+      {/*메뉴바*/}
+      <DetailMenu
+        together={{ cost, address, imgPath, email }}
+        handler={handleIsUpdate}
+        isUpdate={{ isUpdate, setIsUpdate }}
+      />
+      {/* !isUpdate ?  밑에꺼보여주고 :  form있는놈 보여주고*/}
+      {!isUpdate ? (
+        <div>
+          {/*이미지*/}
+          <DetailTitle title={title} />
+          <DetailImage imgPath={imgPath} title={title} />
+          <DetailData together={data} />
+        </div>
+      ) : (
+        <DetailForm docId={docId} together={data} setIsUpdate={setIsUpdate} />
+      )}
     </DetailContainer>
   );
 }
