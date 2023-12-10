@@ -85,7 +85,6 @@ function DetailMenu({ together, isUpdate }) {
 export default DetailMenu;
 
 const StDetailMenuContainer = styled.div`
-  width: 15rem;
   background-color: white;
   display: flex;
   flex-direction: column;
@@ -93,7 +92,16 @@ const StDetailMenuContainer = styled.div`
   padding: 1rem;
   z-index: 10;
   border-radius: 0.5rem;
+  > div:first-child,
+  form {
+    flex: 2;
+  }
   > * {
+    @media (max-width: 900px) {
+      font-size: 1.2rem;
+      width: 8rem;
+      height: 4rem;
+    }
     margin: 0 auto;
     font-size: 1.6rem;
     width: 12rem;
