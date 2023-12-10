@@ -12,7 +12,7 @@ function DetailMenu({ together, isUpdate }) {
   // JavaScript SDK 초기화 함수
   useEffect(() => {
     Kakao.cleanup();
-    Kakao.init('12145a9d8ac8f055f6cd69e42d9b4ad2');
+    Kakao.init(process.env.REACT_APP_KAKAO_SHARE);
   }, []);
 
   const shareKakao = () => {
@@ -85,7 +85,6 @@ function DetailMenu({ together, isUpdate }) {
 export default DetailMenu;
 
 const StDetailMenuContainer = styled.div`
-  width: 15rem;
   background-color: white;
   display: flex;
   flex-direction: column;
@@ -93,10 +92,19 @@ const StDetailMenuContainer = styled.div`
   padding: 1rem;
   z-index: 10;
   border-radius: 0.5rem;
+  > div:first-child,
+  form {
+    flex: 2;
+  }
   > * {
+    @media (max-width: 900px) {
+      font-size: 1.2rem;
+      width: 8rem;
+      height: 4rem;
+    }
     margin: 0 auto;
     font-size: 1.6rem;
-    width: 10rem;
+    width: 12rem;
     height: 6rem;
     border-radius: 0.5rem;
     background-color: var(--accent);
