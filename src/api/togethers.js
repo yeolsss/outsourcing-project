@@ -6,8 +6,8 @@ import {
   getDocs,
   updateDoc,
 } from 'firebase/firestore';
-import { db } from '../common/firebase';
 import { deleteObject, getStorage, ref } from 'firebase/storage';
+import { db } from '../common/firebase';
 
 const FIREBASE_COLLECTION_NAME = 'togethers';
 
@@ -26,16 +26,16 @@ export const addTogetherToFireBase = async (newTogether) => {
 export const removeTogetherToFireBase = async (docId) => {
   try {
     await deleteDoc(doc(COLLECTION_TOGETHERS, docId));
-  } catch (err) {
-    throw err;
+  } catch (error) {
+    throw error;
   }
 };
 
 export const updateTogetherToFireBase = async ({ docId, updateTogether }) => {
   try {
     await updateDoc(doc(COLLECTION_TOGETHERS, docId), updateTogether);
-  } catch (err) {
-    throw err;
+  } catch (error) {
+    throw error;
   }
 };
 
