@@ -89,6 +89,7 @@ const StDetailMenuContainer = styled.div`
   flex-direction: column;
   gap: 1rem;
   padding: 1rem;
+  border: 1px solid red;
   z-index: 10;
   border-radius: 0.5rem;
   > div:first-child,
