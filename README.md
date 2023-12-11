@@ -1,6 +1,6 @@
 ## Distribution
 
-[아웃소싱 프로젝트](outsourcing-project.vercel.app)
+[아웃소싱 프로젝트](outsourcing-project.vercel.app)
 
 ## Together(Outsourcing Project)
 
@@ -29,7 +29,7 @@
 
 vscode, firebase, react, react-query, redux-toolkit, styled-components, 지도 API (kakao)
 
-## main function
+## Main function
 
 게시판 CRUD 기능: 사용자들은 다양한 룸메를 구할 수 있는 글을 작성하고, 수정하며, 삭제할 수 있습니다.
 
